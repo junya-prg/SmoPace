@@ -1,0 +1,87 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "87708466",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6759396370",
+      "localizations" : [
+        {
+          "description" : "開発者のコーヒー代を支援します",
+          "displayName" : "コーヒー代",
+          "locale" : "ja"
+        }
+      ],
+      "productID" : "tip_coffee",
+      "referenceName" : "コーヒー1杯",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "3.99",
+      "familyShareable" : false,
+      "internalID" : "6759395988",
+      "localizations" : [
+        {
+          "description" : "開発者のタバコ代を支援します",
+          "displayName" : "タバコ代",
+          "locale" : "ja"
+        }
+      ],
+      "productID" : "tip_cigarette",
+      "referenceName" : "タバコ代",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "5.99",
+      "familyShareable" : false,
+      "internalID" : "6759396626",
+      "localizations" : [
+        {
+          "description" : "開発者の開発を支援します",
+          "displayName" : "応援サポート代",
+          "locale" : "ja"
+        }
+      ],
+      "productID" : "tip_support",
+      "referenceName" : "応援サポート",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6759395328",
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_developerTeamID" : "2595AXVHS5",
+    "_disableDialogs" : false,
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 794915906.00371802,
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ],
+    "_timeRate" : 0
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

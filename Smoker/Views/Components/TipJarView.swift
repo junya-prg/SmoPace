@@ -10,7 +10,7 @@ import StoreKit
 
 /// 開発者支援ビュー
 struct TipJarView: View {
-    @State private var tipJarManager = TipJarManager.shared
+    private var tipJarManager = TipJarManager.shared
     @State private var showThankYouAlert = false
     
     var body: some View {
@@ -145,7 +145,7 @@ struct TipProductRow: View {
 
 /// 設定画面用のチップセクション
 struct TipJarSection: View {
-    @State private var showTipJarSheet = false
+    @Binding var showTipJarSheet: Bool
     
     var body: some View {
         Section {
@@ -165,9 +165,6 @@ struct TipJarSection: View {
             Text("サポート")
         } footer: {
             Text("アプリが気に入ったら、開発者を応援してください")
-        }
-        .sheet(isPresented: $showTipJarSheet) {
-            TipJarSheetView()
         }
     }
 }
@@ -220,7 +217,7 @@ struct TipJarSheetView: View {
 #Preview {
     NavigationStack {
         Form {
-            TipJarSection()
+            TipJarSection(showTipJarSheet: .constant(false))
         }
     }
 }

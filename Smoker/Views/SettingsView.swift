@@ -18,6 +18,7 @@ struct SettingsView: View {
     
     @State private var showAddBrandSheet = false
     @State private var showPrivacyPolicy = false
+    @State private var showTipJarSheet = false
     @State private var dailyGoal: String = ""
     
     private var currentSettings: AppSettings? {
@@ -73,7 +74,7 @@ struct SettingsView: View {
                 }
                 
                 // 開発者支援セクション
-                TipJarSection()
+                TipJarSection(showTipJarSheet: $showTipJarSheet)
                 
                 // アプリ情報セクション
                 Section("アプリ情報") {
@@ -111,6 +112,9 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showPrivacyPolicy) {
                 PrivacyPolicyView()
+            }
+            .sheet(isPresented: $showTipJarSheet) {
+                TipJarSheetView()
             }
             .onAppear {
                 loadSettings()

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14BC5C862F3A7A3A008CEA55 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 14BC5C852F3A7A3A008CEA55 /* GoogleMobileAds */; };
+		14C3C15F2F617438003B16DB /* SmokerTip.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 14C3C15E2F617438003B16DB /* SmokerTip.storekit */; };
 		14D675F42F1EB38C0002BA75 /* requirements.md in Resources */ = {isa = PBXBuildFile; fileRef = 14D675F02F1EB38B0002BA75 /* requirements.md */; };
 		14E675002F1FC0000002BA75 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E674FF2F1FC0000002BA75 /* WidgetKit.framework */; };
 		14E675012F1FC0000002BA75 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E675002F1FC0010002BA75 /* SwiftUI.framework */; };
@@ -39,6 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14C3C15E2F617438003B16DB /* SmokerTip.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SmokerTip.storekit; sourceTree = SOURCE_ROOT; };
 		14D675DC2F1EADB90002BA75 /* Smoker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smoker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D675F02F1EB38B0002BA75 /* requirements.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = requirements.md; sourceTree = "<group>"; };
 		14E674FE2F1FC0000002BA75 /* SmokerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmokerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				14D675F02F1EB38B0002BA75 /* requirements.md */,
+				14C3C15E2F617438003B16DB /* SmokerTip.storekit */,
 			);
 			path = docs;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14D675F42F1EB38C0002BA75 /* requirements.md in Resources */,
+				14C3C15F2F617438003B16DB /* SmokerTip.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +387,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smoker/Smoker.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026022801;
+				CURRENT_PROJECT_VERSION = 2026031101;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -422,7 +426,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smoker/Smoker.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026022801;
+				CURRENT_PROJECT_VERSION = 2026031101;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -461,7 +465,7 @@
 				CODE_SIGN_ENTITLEMENTS = SmokerWidget/SmokerWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026022801;
+				CURRENT_PROJECT_VERSION = 2026031101;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SmokerWidgetInfo.plist;
@@ -493,7 +497,7 @@
 				CODE_SIGN_ENTITLEMENTS = SmokerWidget/SmokerWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026022801;
+				CURRENT_PROJECT_VERSION = 2026031101;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SmokerWidgetInfo.plist;

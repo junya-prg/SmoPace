@@ -46,7 +46,7 @@
       shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
@@ -65,7 +65,7 @@
             BlueprintIdentifier = "14E674FD2F1FC0000002BA75"
             BuildableName = "SmokerWidgetExtension.appex"
             BlueprintName = "SmokerWidgetExtension"
-            ReferencedContainer = "container:SmokeCounter.xcodeproj">
+            ReferencedContainer = "container:Smoker.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
       <EnvironmentVariables>
@@ -85,6 +85,9 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
+      <StoreKitConfigurationFileReference
+         identifier = "../../SmokerTip.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
