@@ -2,7 +2,7 @@
 //  ArticleFetchService.swift
 //  SmokeCounter
 //
-//  RSSからタバコ関連記事を取得するサービス
+//  節煙関連記事を取得するサービス
 //
 
 import Foundation
@@ -24,7 +24,7 @@ class ArticleFetchService: ObservableObject {
     private let googleNewsRSSBaseURL = "https://news.google.com/rss/search"
     
     /// 検索キーワード
-    private let searchKeywords = ["タバコ", "喫煙", "加熱式タバコ", "IQOS", "PloomX", "シガー", "葉巻", "タバコ 歴史", "タバコ 文化", "ニコチンフリー", "禁煙", "節煙"]
+    private let searchKeywords = ["節煙", "禁煙", "ニコチンフリー", "加熱式タバコ", "喫煙", "IQOS", "PloomX", "タバコ 歴史", "タバコ 文化", "タバコ"]
     
     /// キャッシュ用のUserDefaultsキー
     private let cacheKey = "cachedArticles"

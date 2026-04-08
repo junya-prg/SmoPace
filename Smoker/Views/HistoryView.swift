@@ -2,7 +2,7 @@
 //  HistoryView.swift
 //  SmokeCounter
 //
-//  履歴画面 - 今日の喫煙時刻一覧
+//  履歴画面 - 今日の記録一覧
 //
 
 import SwiftUI
@@ -33,7 +33,7 @@ struct HistoryView: View {
                     ContentUnavailableView(
                         "記録がありません",
                         systemImage: "list.bullet.clipboard",
-                        description: Text("今日の喫煙記録がまだありません")
+                        description: Text("今日の記録がまだありません")
                     )
                 } else {
                     List {

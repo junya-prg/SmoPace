@@ -12,7 +12,7 @@
 		14D675F42F1EB38C0002BA75 /* requirements.md in Resources */ = {isa = PBXBuildFile; fileRef = 14D675F02F1EB38B0002BA75 /* requirements.md */; };
 		14E675002F1FC0000002BA75 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E674FF2F1FC0000002BA75 /* WidgetKit.framework */; };
 		14E675012F1FC0000002BA75 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E675002F1FC0010002BA75 /* SwiftUI.framework */; };
-		14E675102F1FC0000002BA75 /* SmokerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 14E674FE2F1FC0000002BA75 /* SmokerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		14E675102F1FC0000002BA75 /* SmoPaceWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 14E674FE2F1FC0000002BA75 /* SmoPaceWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +32,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				14E675102F1FC0000002BA75 /* SmokerWidgetExtension.appex in Embed Foundation Extensions */,
+				14E675102F1FC0000002BA75 /* SmoPaceWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,9 +41,9 @@
 
 /* Begin PBXFileReference section */
 		14C3C15E2F617438003B16DB /* SmokerTip.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SmokerTip.storekit; sourceTree = SOURCE_ROOT; };
-		14D675DC2F1EADB90002BA75 /* Smoker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smoker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14D675DC2F1EADB90002BA75 /* SmoPace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmoPace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D675F02F1EB38B0002BA75 /* requirements.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = requirements.md; sourceTree = "<group>"; };
-		14E674FE2F1FC0000002BA75 /* SmokerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmokerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		14E674FE2F1FC0000002BA75 /* SmoPaceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmoPaceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		14E674FF2F1FC0000002BA75 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		14E675002F1FC0010002BA75 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		14E675162F1FC0010002BA75 /* SmokerWidgetInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SmokerWidgetInfo.plist; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 		14D675DD2F1EADB90002BA75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14D675DC2F1EADB90002BA75 /* Smoker.app */,
-				14E674FE2F1FC0000002BA75 /* SmokerWidgetExtension.appex */,
+				14D675DC2F1EADB90002BA75 /* SmoPace.app */,
+				14E674FE2F1FC0000002BA75 /* SmoPaceWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,9 +125,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		14D675DB2F1EADB90002BA75 /* Smoker */ = {
+		14D675DB2F1EADB90002BA75 /* SmoPace */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14D675E72F1EADBB0002BA75 /* Build configuration list for PBXNativeTarget "Smoker" */;
+			buildConfigurationList = 14D675E72F1EADBB0002BA75 /* Build configuration list for PBXNativeTarget "SmoPace" */;
 			buildPhases = (
 				14D675D82F1EADB90002BA75 /* Sources */,
 				14D675D92F1EADB90002BA75 /* Frameworks */,
@@ -142,17 +142,17 @@
 			fileSystemSynchronizedGroups = (
 				14D675DE2F1EADB90002BA75 /* Smoker */,
 			);
-			name = Smoker;
+			name = SmoPace;
 			packageProductDependencies = (
 				14BC5C852F3A7A3A008CEA55 /* GoogleMobileAds */,
 			);
 			productName = Smoker;
-			productReference = 14D675DC2F1EADB90002BA75 /* Smoker.app */;
+			productReference = 14D675DC2F1EADB90002BA75 /* SmoPace.app */;
 			productType = "com.apple.product-type.application";
 		};
-		14E674FD2F1FC0000002BA75 /* SmokerWidgetExtension */ = {
+		14E674FD2F1FC0000002BA75 /* SmoPaceWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14E675132F1FC0000002BA75 /* Build configuration list for PBXNativeTarget "SmokerWidgetExtension" */;
+			buildConfigurationList = 14E675132F1FC0000002BA75 /* Build configuration list for PBXNativeTarget "SmoPaceWidgetExtension" */;
 			buildPhases = (
 				14E674FA2F1FC0000002BA75 /* Sources */,
 				14E674FB2F1FC0000002BA75 /* Frameworks */,
@@ -165,11 +165,11 @@
 			fileSystemSynchronizedGroups = (
 				14E675022F1FC0000002BA75 /* SmokerWidget */,
 			);
-			name = SmokerWidgetExtension;
+			name = SmoPaceWidgetExtension;
 			packageProductDependencies = (
 			);
 			productName = SmokerWidgetExtension;
-			productReference = 14E674FE2F1FC0000002BA75 /* SmokerWidgetExtension.appex */;
+			productReference = 14E674FE2F1FC0000002BA75 /* SmoPaceWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -190,7 +190,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 14D675D72F1EADB90002BA75 /* Build configuration list for PBXProject "Smoker" */;
+			buildConfigurationList = 14D675D72F1EADB90002BA75 /* Build configuration list for PBXProject "SmoPace" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -207,8 +207,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				14D675DB2F1EADB90002BA75 /* Smoker */,
-				14E674FD2F1FC0000002BA75 /* SmokerWidgetExtension */,
+				14D675DB2F1EADB90002BA75 /* SmoPace */,
+				14E674FD2F1FC0000002BA75 /* SmoPaceWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -252,7 +252,7 @@
 /* Begin PBXTargetDependency section */
 		14E6750F2F1FC0000002BA75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 14E674FD2F1FC0000002BA75 /* SmokerWidgetExtension */;
+			target = 14E674FD2F1FC0000002BA75 /* SmoPaceWidgetExtension */;
 			targetProxy = 14E6750E2F1FC0000002BA75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -391,8 +391,8 @@
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SmokerInfo.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Smoker;
+				INFOPLIST_FILE = SmoPaceInfo.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmoPace;
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "パーソナライズされた広告を表示するために、トラッキングの許可をお願いします。許可しない場合でもアプリは通常通りご利用いただけます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -405,7 +405,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.Smoker;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -430,8 +430,8 @@
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SmokerInfo.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Smoker;
+				INFOPLIST_FILE = SmoPaceInfo.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmoPace;
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "パーソナライズされた広告を表示するために、トラッキングの許可をお願いします。許可しない場合でもアプリは通常通りご利用いただけます。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -444,7 +444,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.Smoker;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -476,7 +476,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.Smoker.SmokerWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace.SmoPaceWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -508,7 +508,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.Smoker.SmokerWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace.SmoPaceWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -524,7 +524,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		14D675D72F1EADB90002BA75 /* Build configuration list for PBXProject "Smoker" */ = {
+		14D675D72F1EADB90002BA75 /* Build configuration list for PBXProject "SmoPace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14D675E52F1EADBB0002BA75 /* Debug */,
@@ -533,7 +533,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		14D675E72F1EADBB0002BA75 /* Build configuration list for PBXNativeTarget "Smoker" */ = {
+		14D675E72F1EADBB0002BA75 /* Build configuration list for PBXNativeTarget "SmoPace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14D675E82F1EADBB0002BA75 /* Debug */,
@@ -542,7 +542,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		14E675132F1FC0000002BA75 /* Build configuration list for PBXNativeTarget "SmokerWidgetExtension" */ = {
+		14E675132F1FC0000002BA75 /* Build configuration list for PBXNativeTarget "SmoPaceWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14E675142F1FC0000002BA75 /* Debug */,

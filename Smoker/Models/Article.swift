@@ -2,7 +2,7 @@
 //  Article.swift
 //  SmokeCounter
 //
-//  タバコ関連記事を表すモデル
+//  ニュース記事を表すモデル
 //
 
 import Foundation
@@ -50,7 +50,7 @@ enum ArticleCategory: String, CaseIterable, Codable, Identifiable {
     }
 }
 
-/// タバコ関連記事を表すモデル
+/// ニュース記事を表すモデル
 struct Article: Identifiable, Codable, Hashable {
     /// 一意識別子
     let id: UUID

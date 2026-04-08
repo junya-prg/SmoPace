@@ -22,14 +22,14 @@ struct PrivacyPolicyView: View {
                     
                     // 概要
                     PolicySection(title: "はじめに") {
-                        Text("SmokeCounter（以下「本アプリ」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めています。本プライバシーポリシーでは、本アプリがどのような情報を収集し、どのように使用するかについて説明します。")
+                        Text("SmoPace（以下「本アプリ」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めています。本プライバシーポリシーでは、本アプリがどのような情報を収集し、どのように使用するかについて説明します。")
                     }
                     
                     // 収集する情報
                     PolicySection(title: "収集する情報") {
                         VStack(alignment: .leading, spacing: 12) {
-                            PolicySubSection(title: "1. 喫煙記録データ") {
-                                Text("本アプリは、ユーザーが入力した喫煙本数、時刻、銘柄情報などの記録データを収集します。これらのデータはユーザーのデバイス上およびiCloud（ユーザーが有効にしている場合）に保存されます。")
+                            PolicySubSection(title: "1. 記録データ") {
+                                Text("本アプリは、ユーザーが入力した本数、時刻、銘柄情報などの記録データを収集します。これらのデータはユーザーのデバイス上およびiCloud（ユーザーが有効にしている場合）に保存されます。")
                             }
                             
                             PolicySubSection(title: "2. 広告に関する情報") {
@@ -45,7 +45,7 @@ struct PrivacyPolicyView: View {
                     // 情報の使用目的
                     PolicySection(title: "情報の使用目的") {
                         VStack(alignment: .leading, spacing: 8) {
-                            BulletPoint("喫煙記録の管理と統計表示")
+                            BulletPoint("記録の管理と統計表示")
                             BulletPoint("iCloudを通じたデバイス間のデータ同期")
                             BulletPoint("広告の表示とパーソナライズ")
                             BulletPoint("アプリの改善と機能向上")
@@ -64,7 +64,7 @@ struct PrivacyPolicyView: View {
                     
                     // データの保存
                     PolicySection(title: "データの保存") {
-                        Text("喫煙記録データは、ユーザーのデバイス上のローカルストレージおよびiCloud（有効な場合）に保存されます。ユーザーはいつでもアプリを削除することでローカルデータを削除できます。iCloudに保存されたデータは、iCloudの設定から削除できます。")
+                        Text("記録データは、ユーザーのデバイス上のローカルストレージおよびiCloud（有効な場合）に保存されます。ユーザーはいつでもアプリを削除することでローカルデータを削除できます。iCloudに保存されたデータは、iCloudの設定から削除できます。")
                     }
                     
                     // 広告について

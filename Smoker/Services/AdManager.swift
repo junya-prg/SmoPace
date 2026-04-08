@@ -25,8 +25,9 @@ final class AdManager {
     
     // MARK: - 広告ユニットID
     
-    // テストモード: trueにするとGoogleの公式テスト広告が表示されます
-    // テストデバイス登録済みなので、falseでも安全にテストできます
+    // テストモード: 新しいAdMobアプリ(SmoPace用)が作成されるまでtrueにしておく
+    // AdMob管理画面で新しいアプリを作成後、Info.plistのGADApplicationIdentifierと
+    // 各広告ユニットIDを更新してfalseに戻す
     private let useTestAds = false
     
     /// バナー広告ユニットID
@@ -35,8 +36,8 @@ final class AdManager {
             // Googleの公式テスト広告ID
             return "ca-app-pub-3940256099942544/2934735716"
         } else {
-            // 本番用（Smoker_Banner）
-            return "ca-app-pub-2534039379765102/5008521030"
+            // 本番用（SmoPace_Banner）
+            return "ca-app-pub-2534039379765102/1698542350"
         }
     }
     
@@ -46,8 +47,8 @@ final class AdManager {
             // Googleの公式テスト広告ID
             return "ca-app-pub-3940256099942544/3986624511"
         } else {
-            // 本番用（Smoker_Native）
-            return "ca-app-pub-2534039379765102/1800630116"
+            // 本番用（SmoPace_Native）
+            return "ca-app-pub-2534039379765102/3020835061"
         }
     }
     

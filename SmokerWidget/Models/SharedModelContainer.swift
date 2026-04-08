@@ -55,19 +55,22 @@ enum SharedModelContainer {
     }
     
     /// 共有ModelContainerを作成（ウィジェット用）
+    /// - Note: ウィジェットは短命プロセスのためCloudKit同期は常に無効化する。
+    ///         CloudKitの初期化が完了する前にプロセスが終了し、
+    ///         "store was removed from the coordinator" エラーが発生するため。
+    ///         ウィジェットはデータの読み取り専用なのでCloudKit同期は不要。
     /// - Returns: ModelContainer
     static func createContainer() throws -> ModelContainer {
         guard let url = databaseURL else {
             throw NSError(domain: "SharedModelContainer", code: 1, userInfo: [NSLocalizedDescriptionKey: "App Groupのコンテナにアクセスできません"])
         }
         
-        // iCloud同期設定に応じてCloudKitの有効/無効を切り替え
-        let cloudKitDatabase: ModelConfiguration.CloudKitDatabase = isICloudSyncEnabled ? .automatic : .none
-        
+        // ウィジェットではCloudKit同期を常に無効にする
+        // （短命プロセスではCloudKit初期化が完了できずエラーになるため）
         let modelConfiguration = ModelConfiguration(
             schema: schema,
             url: url,
-            cloudKitDatabase: cloudKitDatabase
+            cloudKitDatabase: .none
         )
         
         return try ModelContainer(for: schema, configurations: [modelConfiguration])

@@ -30,7 +30,16 @@ struct SmokerApp: App {
             
             return container
         } catch {
-            fatalError("ModelContainerの作成に失敗しました: \(error)")
+            print("❌ ModelContainer作成エラー: \(error)")
+            print("❌ エラー詳細: \(error.localizedDescription)")
+            // フォールバック: インメモリのコンテナを使用（データは保存されない）
+            do {
+                let schema = Schema([SmokingRecord.self, CigaretteBrand.self, AppSettings.self])
+                let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
+                return try ModelContainer(for: schema, configurations: [config])
+            } catch {
+                fatalError("フォールバックModelContainerの作成にも失敗しました: \(error)")
+            }
         }
     }()
     

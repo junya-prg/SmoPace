@@ -481,7 +481,7 @@ struct DataManagementView: View {
     private var dataOverviewSection: some View {
         Section("現在のデータ") {
             HStack {
-                Text("喫煙記録")
+                Text("記録")
                 Spacer()
                 Text("\(records.count)件")
                     .foregroundStyle(.secondary)

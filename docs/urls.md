@@ -1,21 +1,21 @@
-# Smoker アプリ 関連ページ URL 一覧
+# SmoPace アプリ 関連ページ URL 一覧
 
-GitHub Pages のベース URL: `https://junya-prg.github.io/Smoker/`
+GitHub Pages のベース URL: `https://junya-prg.github.io/SmoPace/`
 
 ## 公開ページ
 
 | ページ | URL | 用途 |
 |--------|-----|------|
-| トップ（紹介） | https://junya-prg.github.io/Smoker/ | アプリ紹介ページ（App Store マーケティング URL） |
-| サポート | https://junya-prg.github.io/Smoker/support.html | サポート・お問い合わせ（App Store サポート URL） |
-| プライバシーポリシー | https://junya-prg.github.io/Smoker/privacy-policy.html | プライバシーポリシー（App Store プライバシーポリシー URL） |
+| トップ（紹介） | https://junya-prg.github.io/SmoPace/ | アプリ紹介ページ（App Store マーケティング URL） |
+| サポート | https://junya-prg.github.io/SmoPace/support.html | サポート・お問い合わせ（App Store サポート URL） |
+| プライバシーポリシー | https://junya-prg.github.io/SmoPace/privacy-policy.html | プライバシーポリシー（App Store プライバシーポリシー URL） |
 
 ## GitHub リポジトリ
 
 | ページ | URL |
 |--------|-----|
-| リポジトリ | https://github.com/junya-prg/Smoker |
-| Issues（問い合わせ先） | https://github.com/junya-prg/Smoker/issues |
+| リポジトリ | https://github.com/junya-prg/SmoPace |
+| Issues（問い合わせ先） | https://github.com/junya-prg/SmoPace/issues |
 
 ## ローカルファイルパス
 

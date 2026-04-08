@@ -17,9 +17,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14E674FD2F1FC0000002BA75"
-               BuildableName = "SmokerWidgetExtension.appex"
-               BlueprintName = "SmokerWidgetExtension"
-               ReferencedContainer = "container:Smoker.xcodeproj">
+               BuildableName = "SmoPaceWidgetExtension.appex"
+               BlueprintName = "SmoPaceWidgetExtension"
+               ReferencedContainer = "container:SmoPace.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,9 +31,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14D675DB2F1EADB90002BA75"
-               BuildableName = "Smoker.app"
-               BlueprintName = "Smoker"
-               ReferencedContainer = "container:Smoker.xcodeproj">
+               BuildableName = "SmoPace.app"
+               BlueprintName = "SmoPace"
+               ReferencedContainer = "container:SmoPace.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14E674FD2F1FC0000002BA75"
-            BuildableName = "SmokerWidgetExtension.appex"
-            BlueprintName = "SmokerWidgetExtension"
-            ReferencedContainer = "container:Smoker.xcodeproj">
+            BuildableName = "SmoPaceWidgetExtension.appex"
+            BlueprintName = "SmoPaceWidgetExtension"
+            ReferencedContainer = "container:SmoPace.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
       <EnvironmentVariables>

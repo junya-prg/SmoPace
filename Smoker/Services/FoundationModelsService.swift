@@ -10,9 +10,9 @@ import Foundation
 import Combine
 import FoundationModels
 
-/// ユーザーの喫煙データ（おすすめ度計算用）
+/// ユーザーのデータ（おすすめ度計算用）
 struct UserSmokingData {
-    /// 1日の平均喫煙本数
+    /// 1日の平均本数
     let averageDailyCount: Int
     
     /// 目標本数
@@ -101,9 +101,10 @@ class FoundationModelsService: ObservableObject {
         
         let session = LanguageModelSession(instructions: """
             あなたはニュース記事の要約を作成するアシスタントです。
+            このアプリは節煙をサポートするアプリです。
             以下のルールに従って要約してください：
             - 日本語で2-3文で簡潔に要約
-            - 自己管理の観点から重要なポイントを強調
+            - 減らしたい人の観点から重要なポイントを強調
             - 客観的な情報のみを含める
             """)
         
@@ -265,7 +266,7 @@ class FoundationModelsService: ObservableObject {
         }
         
         let session = LanguageModelSession(instructions: """
-            あなたはリラックスしたい人を癒すメッセージを作成するアシスタントです。
+            あなたは吸いたい気持ちを落ち着かせるための癒しメッセージを作成するアシスタントです。
             以下のルールに従ってください：
             - 日本語で短い（10文字以内程度）癒しのフレーズを1つだけ生成
             - 穏やかで詩的な表現
@@ -275,8 +276,8 @@ class FoundationModelsService: ObservableObject {
         
         do {
             let response = try await session.respond(to: """
-                ひと息つきたいときに表示する、短い癒しのフレーズを1つ生成してください。
-                「ゆっくりと...」「この瞬間を味わって」のような感じで。
+                吸いたい気持ちを落ち着かせたいときに表示する、短い癒しのフレーズを1つ生成してください。
+                「深呼吸して...」「この波をやり過ごそう」のような感じで。
                 """)
             let message = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
             // 長すぎる場合はフォールバック
@@ -481,29 +482,28 @@ class FoundationModelsService: ObservableObject {
         var score = 0.5
         let text = (article.title + " " + (article.description ?? "")).lowercased()
         
-        // 関連性の高い情報に加点
-        if text.contains("新商品") || text.contains("新製品") || text.contains("発売") || text.contains("新型") {
+        // 節煙・コントロール関連に最高加点
+        if text.contains("禁煙") || text.contains("節煙") || text.contains("コントロール") || text.contains("管理") || text.contains("減らす") {
             score += 0.3
         }
-        if text.contains("レビュー") || text.contains("比較") || text.contains("おすすめ") {
+        if text.contains("ニコチンフリー") || text.contains("代替") || text.contains("置き換え") {
             score += 0.25
         }
-        if text.contains("iqos") || text.contains("ploom") || text.contains("glo") || text.contains("シガー") || text.contains("葉巻") {
+        // 関連性の高い情報に加点
+        if text.contains("新商品") || text.contains("新製品") || text.contains("発売") || text.contains("新型") {
             score += 0.2
         }
-        if text.contains("文化") || text.contains("楽しみ") || text.contains("嗜好") || text.contains("味わい") || text.contains("フレーバー") {
-            score += 0.2
-        }
-        if text.contains("喫煙所") || text.contains("喫煙スポット") {
+        if text.contains("レビュー") || text.contains("比較") || text.contains("おすすめ") {
             score += 0.15
         }
-        
-        // 節煙・コントロール関連に加点
-        if text.contains("禁煙") || text.contains("節煙") || text.contains("コントロール") || text.contains("管理") {
+        if text.contains("iqos") || text.contains("ploom") || text.contains("glo") {
             score += 0.15
+        }
+        if text.contains("文化") || text.contains("歴史") || text.contains("豆知識") {
+            score += 0.1
         }
         if text.contains("健康被害") || text.contains("リスク") || text.contains("警告") || text.contains("有害") {
-            score -= 0.15
+            score -= 0.1
         }
         
         // 新しい記事に加点

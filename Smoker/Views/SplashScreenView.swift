@@ -42,29 +42,29 @@ struct SplashScreenView: View {
                     .frame(width: 200, height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 44, style: .continuous))
                     .shadow(color: .black.opacity(0.4), radius: 24, x: 0, y: 12)
-                    .shadow(color: Color.orange.opacity(0.25), radius: 40, x: 0, y: 0)
+                    .shadow(color: Color.cyan.opacity(0.3), radius: 40, x: 0, y: 0)
                     .scaleEffect(iconScale)
                     .opacity(iconOpacity)
                     .rotationEffect(.degrees(iconRotation))
                 
                 // アプリ名
                 VStack(spacing: 8) {
-                    Text("Smoker")
+                    Text("SmoPace")
                         .font(.custom("Avenir Next", size: 36).weight(.bold))
                         .tracking(6)
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [
-                                    Color(red: 1.0, green: 0.85, blue: 0.6),
-                                    Color(red: 0.85, green: 0.65, blue: 0.4)
+                                    Color(red: 0.6, green: 0.85, blue: 1.0),
+                                    Color(red: 0.4, green: 0.65, blue: 0.85)
                                 ],
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
                         )
-                        .shadow(color: Color.orange.opacity(0.3), radius: 8, x: 0, y: 2)
+                        .shadow(color: Color.blue.opacity(0.3), radius: 8, x: 0, y: 2)
                     
-                    Text("— あなたのペースを、あなたの手に —")
+                    Text("— 少しずつ、自分のペースで —")
                         .font(.custom("Avenir Next", size: 13).weight(.medium))
                         .tracking(2)
                         .foregroundStyle(Color.white.opacity(0.5))

@@ -187,7 +187,7 @@ struct TipJarSheetView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         
-                        Text("Smokerは個人開発のアプリです。\nアプリが気に入ったら、開発者を応援してください。\nいただいた支援は、アプリの改善に活用させていただきます。")
+                        Text("SmoPaceは個人開発のアプリです。\nアプリが気に入ったら、開発者を応援してください。\nいただいた支援は、アプリの改善に活用させていただきます。")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.center)

@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14D675DB2F1EADB90002BA75"
-               BuildableName = "Smoker.app"
-               BlueprintName = "Smoker"
-               ReferencedContainer = "container:Smoker.xcodeproj">
+               BuildableName = "SmoPace.app"
+               BlueprintName = "SmoPace"
+               ReferencedContainer = "container:SmoPace.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
