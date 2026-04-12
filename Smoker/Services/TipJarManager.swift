@@ -12,11 +12,11 @@ import os
 
 private let logger = Logger(subsystem: "SmokeCounter", category: "TipJarManager")
 
-/// チップ商品の種類
+/// チップ商品の種類（製品IDは開発チーム内で一意になるようバンドルID由来にしている）
 enum TipProduct: String, CaseIterable, Identifiable {
-    case coffee = "tip_coffee"      // コーヒー1杯 120円
-    case cigarette = "tip_cigarette" // タバコ代 600円
-    case support = "tip_support"    // 応援サポート 1,000円
+    case coffee = "jp.junya.SmoPace.tip.coffee"
+    case cigarette = "jp.junya.SmoPace.tip.developer"
+    case support = "jp.junya.SmoPace.tip.cheer"
     
     var id: String { rawValue }
     

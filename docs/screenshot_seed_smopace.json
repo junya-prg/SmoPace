@@ -1,0 +1,3436 @@
+{
+  "version": "1.0",
+  "exportDate": "2026-04-12T06:00:00Z",
+  "appName": "SmoPace",
+  "brands": [
+    {
+      "id": "11111111-1111-4111-8111-111111111101",
+      "name": "Teria",
+      "countPerPack": 20,
+      "pricePerPack": "580",
+      "isActive": true,
+      "createdAt": "2026-01-15T00:00:00Z",
+      "isDefault": true
+    },
+    {
+      "id": "11111111-1111-4111-8111-111111111102",
+      "name": "マイセン",
+      "countPerPack": 20,
+      "pricePerPack": "560",
+      "isActive": true,
+      "createdAt": "2026-01-16T00:00:00Z",
+      "isDefault": false
+    },
+    {
+      "id": "11111111-1111-4111-8111-111111111103",
+      "name": "ラッキー",
+      "countPerPack": 20,
+      "pricePerPack": "500",
+      "isActive": true,
+      "createdAt": "2026-01-17T00:00:00Z",
+      "isDefault": false
+    }
+  ],
+  "records": [
+    {
+      "id": "46815b47-006b-488d-b5df-08def220c5a6",
+      "timestamp": "2026-03-01T09:00:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "0a7da82d-7876-4e39-b8ef-e0f89f7689ff",
+      "timestamp": "2026-03-01T11:07:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "078976a4-e08a-479a-a3c9-c3204a9fef5a",
+      "timestamp": "2026-03-01T13:14:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "9647621f-b092-4460-bfb4-e7f6a0aa4d97",
+      "timestamp": "2026-03-01T15:21:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "39583b3f-ff15-4e15-8538-1b121ff7b1bc",
+      "timestamp": "2026-03-01T17:28:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "9b8763ff-af30-4f22-9e8a-96ae78c9d93f",
+      "timestamp": "2026-03-02T09:03:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "799cb33b-6ef5-45c7-b232-4254ee3d35d4",
+      "timestamp": "2026-03-02T11:10:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "adb22fe8-1ca9-4bf9-97ea-e74a83fa465d",
+      "timestamp": "2026-03-02T13:17:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "3b2bdd54-d279-4717-bb6c-c4bf9be7c875",
+      "timestamp": "2026-03-02T15:24:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "204a3714-0f74-44d9-9c9e-95241d2417a8",
+      "timestamp": "2026-03-02T17:31:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "05d695ec-a1d5-4477-a24f-d2f1aae8c9f5",
+      "timestamp": "2026-03-02T19:38:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "4a88d6ed-2d39-43e8-b951-b0e2e20307eb",
+      "timestamp": "2026-03-02T21:45:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "3aa57cad-3f33-4074-abca-352556ac8a5f",
+      "timestamp": "2026-03-03T09:06:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8235c790-976a-41ab-a68d-fb2e557180f6",
+      "timestamp": "2026-03-03T11:13:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d8f87b5b-9d3a-488a-847f-f9a27a202e06",
+      "timestamp": "2026-03-03T13:20:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "b65cf4bf-15b0-4c43-bc8a-56cb2cab944f",
+      "timestamp": "2026-03-03T15:27:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "f0b4bdf7-0d4a-473c-af14-9473a1c3ea99",
+      "timestamp": "2026-03-03T17:34:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "13b00070-912b-4bda-a102-dc857374b41f",
+      "timestamp": "2026-03-03T19:41:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "b6e0061b-5332-4626-ac8c-87d317e90cba",
+      "timestamp": "2026-03-03T21:48:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "3a047605-c463-45c1-846d-ba64b8608552",
+      "timestamp": "2026-03-03T08:55:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "dd7dc7fa-fe5a-4386-bc7a-dbbecf92e21f",
+      "timestamp": "2026-03-03T12:02:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6a1580c9-436c-48be-ae3e-3aa188ad977d",
+      "timestamp": "2026-03-04T09:09:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6098bb56-5dc6-4f6e-a380-043e29e2fdd8",
+      "timestamp": "2026-03-04T11:16:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "6ed2dcc4-1922-4fed-9c4a-b360ef7b95d9",
+      "timestamp": "2026-03-04T13:23:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "dbc8561c-b316-44b2-be6a-2526df12d5f4",
+      "timestamp": "2026-03-04T15:30:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "231afd95-2795-4b22-bf58-1c1adf837730",
+      "timestamp": "2026-03-04T17:37:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "7e2700c8-6e67-4447-9f16-814f84353271",
+      "timestamp": "2026-03-04T19:44:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "21a9b989-3b30-4e00-aa16-679b2aa4e58d",
+      "timestamp": "2026-03-05T09:12:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "caf566c9-9e4a-4eb2-8650-1c9c34e2dacc",
+      "timestamp": "2026-03-05T11:19:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "f1784dc7-ada4-4642-a789-5238bc93b5b9",
+      "timestamp": "2026-03-05T13:26:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "8a8bf29e-5c40-4d72-a996-1eaca6ea4c1c",
+      "timestamp": "2026-03-05T15:33:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "072f5b70-4134-4960-a66d-8096ffbaedd0",
+      "timestamp": "2026-03-05T17:40:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "3f84b4e8-9026-4151-830a-6029a18e0e60",
+      "timestamp": "2026-03-05T19:47:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "34635f6c-b1c4-4013-92e0-eab0bd951799",
+      "timestamp": "2026-03-05T21:54:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "dcc1b947-a643-4800-bc1c-625332c5085b",
+      "timestamp": "2026-03-05T08:01:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "a74da635-c6d1-4316-b5dd-3e8af0a12376",
+      "timestamp": "2026-03-05T12:08:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "2f3baadd-274d-48a3-b061-13f15100ba92",
+      "timestamp": "2026-03-05T16:15:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "388a8c1c-5885-472e-80de-9ffc8a15d8f9",
+      "timestamp": "2026-03-06T09:15:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "44bfcfd8-3a8e-40f7-ac51-4ff4957c38e9",
+      "timestamp": "2026-03-06T11:22:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8f64213e-f7ba-441a-b789-97fb117ce7ff",
+      "timestamp": "2026-03-06T13:29:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "bd5128b7-8ac5-4287-86f5-108bf0c3c187",
+      "timestamp": "2026-03-06T15:36:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8425167e-9e8a-49b7-a510-3ce881a9e4f7",
+      "timestamp": "2026-03-06T17:43:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8da649ca-f2e5-4294-856b-3945ebc6266c",
+      "timestamp": "2026-03-06T19:50:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "bb97de48-62b5-418b-b49c-c5de61268916",
+      "timestamp": "2026-03-06T21:57:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "606cee77-c906-4d8e-8c8a-78db8e9c7640",
+      "timestamp": "2026-03-06T08:04:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "a05b7163-93d4-4248-9a70-f8609f75d62e",
+      "timestamp": "2026-03-07T09:18:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "7a293678-ceae-444d-951e-93bdd78d3193",
+      "timestamp": "2026-03-07T11:25:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "f05b2ecc-bd4a-4f24-924d-07d084776efb",
+      "timestamp": "2026-03-07T13:32:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "1d28fdfe-bca8-481b-a0c5-c0ef19cf7a6a",
+      "timestamp": "2026-03-07T15:39:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6a2d2d6a-b3a6-4099-b7ce-529bfa06c232",
+      "timestamp": "2026-03-07T17:46:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "c4cec479-04bb-4e35-8dce-27db476181e0",
+      "timestamp": "2026-03-08T09:21:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8cca7446-debb-43b9-b530-d7dd4334136a",
+      "timestamp": "2026-03-08T11:28:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "f416ea9d-0a64-40cd-b7b7-bea483f9a011",
+      "timestamp": "2026-03-08T13:35:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "d92a01c7-ecfe-41a6-af31-220d741920d0",
+      "timestamp": "2026-03-08T15:42:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "cf937b0d-36e7-4184-9c53-2c8285b6db9e",
+      "timestamp": "2026-03-08T17:49:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "aa3efff9-53d6-48da-9933-89f31938eaf4",
+      "timestamp": "2026-03-08T19:56:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "65fce5d9-ca5d-4818-806b-db1d7fa01548",
+      "timestamp": "2026-03-08T21:03:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "6f940a73-93f8-4c20-9300-00719262d73f",
+      "timestamp": "2026-03-08T08:10:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "53ceb5cb-17e9-4d3b-b9a2-8e3d93c0cbb2",
+      "timestamp": "2026-03-09T09:24:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "5d38f6db-6e02-493e-b0b3-7ec910d53c8b",
+      "timestamp": "2026-03-09T11:31:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a3b11db9-1e97-4a76-aecd-fb3ab1a2a2fd",
+      "timestamp": "2026-03-09T13:38:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "bb84ef78-a233-4f47-b9c0-1ede929a6c00",
+      "timestamp": "2026-03-09T15:45:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "54e007ec-8e81-4035-a69a-e1d792835c97",
+      "timestamp": "2026-03-09T17:52:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "af79e625-655e-4b58-99e3-759b843a1d75",
+      "timestamp": "2026-03-09T19:59:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e8a0c355-7df2-41d3-a141-42139a6c0ca9",
+      "timestamp": "2026-03-09T21:06:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4bea48a1-6d39-4212-a78c-1e30b8ec8a45",
+      "timestamp": "2026-03-09T08:13:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "74360e18-4233-4cfe-be09-33d4334477eb",
+      "timestamp": "2026-03-09T12:20:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "60d1b9f0-4bcd-41d9-8570-af6f3db86d51",
+      "timestamp": "2026-03-09T16:27:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "ca32529d-49d8-403f-b33e-6de3648af9c7",
+      "timestamp": "2026-03-09T20:34:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "a30bceb7-f88b-409b-922f-e6a262d06316",
+      "timestamp": "2026-03-09T22:41:23Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "bbb2dea5-1ac4-405d-b7c2-acf9a8279c68",
+      "timestamp": "2026-03-10T09:27:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "7d6a6301-3647-45ff-bf28-a1ea3cd1ebae",
+      "timestamp": "2026-03-10T11:34:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "daeddb9e-b197-40c9-bbc1-80213d5562f0",
+      "timestamp": "2026-03-10T13:41:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "54972b97-6dad-40a1-b84f-3af59bf4be90",
+      "timestamp": "2026-03-10T15:48:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "59e49c08-2373-4c05-8933-c5a4181fc54e",
+      "timestamp": "2026-03-10T17:55:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d6c161ad-17c7-40d5-a51f-dcf99590e1fe",
+      "timestamp": "2026-03-10T19:02:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9c06a0b6-282d-4956-ba47-2efa26eefa25",
+      "timestamp": "2026-03-10T21:09:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "59f592f6-f131-45a7-a903-47e97c1f62b0",
+      "timestamp": "2026-03-11T09:30:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8def8026-1f00-41f0-a8c4-2b5e42bbae70",
+      "timestamp": "2026-03-11T11:37:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "16b523a6-2d8b-41e9-81eb-1684f126d1eb",
+      "timestamp": "2026-03-11T13:44:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "f7b9f027-c66c-4460-a6bf-502c9bf18bb1",
+      "timestamp": "2026-03-11T15:51:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "b2f036ec-49b8-4c0c-935d-20053242b612",
+      "timestamp": "2026-03-11T17:58:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "ed433a7a-beef-4017-a415-fcdb785b5f88",
+      "timestamp": "2026-03-11T19:05:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "b365fb20-5a04-412c-8114-36a3d23dc654",
+      "timestamp": "2026-03-11T21:12:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "e66bbedc-3e71-4005-b42f-66de8908d567",
+      "timestamp": "2026-03-11T08:19:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "6ed60c76-fd0e-4e4e-8d43-626c39cc20f1",
+      "timestamp": "2026-03-11T12:26:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "da6d9a57-84a9-46c8-bbc0-76f7dcf8bf09",
+      "timestamp": "2026-03-12T09:33:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "146c8e1d-bf0e-46cb-9083-f39cb74d86c4",
+      "timestamp": "2026-03-12T11:40:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "de98b595-1974-4d77-81a5-797a15787271",
+      "timestamp": "2026-03-12T13:47:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "bc79bc27-8419-416d-baee-a9344db195c0",
+      "timestamp": "2026-03-12T15:54:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "a217e315-2244-411c-b1f6-5b41f8747b68",
+      "timestamp": "2026-03-12T17:01:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "b8ff462a-d0d6-446e-b4d8-070aed17db9d",
+      "timestamp": "2026-03-12T19:08:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "4670adb5-1da6-4a04-a136-2ddba703e3b4",
+      "timestamp": "2026-03-12T21:15:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "3addfb3e-e09e-40fb-8abe-697c73a0a336",
+      "timestamp": "2026-03-12T08:22:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "f17162bc-3edc-4600-a342-09294f56e10e",
+      "timestamp": "2026-03-12T12:29:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "3089944d-dd0f-4352-b1e3-b04eff6a97aa",
+      "timestamp": "2026-03-12T16:36:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "1f62b68d-8626-447f-bc51-14d9219d6b29",
+      "timestamp": "2026-03-13T09:36:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "a7ac5fee-2448-45a7-953d-998c8a0ab042",
+      "timestamp": "2026-03-13T11:43:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "38476f47-9621-42c4-a70f-da107b0cc2a7",
+      "timestamp": "2026-03-13T13:50:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "be7f8259-1bd7-4c89-bae8-a6fdfa4d6346",
+      "timestamp": "2026-03-13T15:57:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "3719611d-0d59-430e-82d7-1b38b8206fc2",
+      "timestamp": "2026-03-13T17:04:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "15f5108d-4597-4387-bfe7-5850ee91ed43",
+      "timestamp": "2026-03-13T19:11:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "003d0b36-c4f3-4a6f-843c-bc3b6bb0784b",
+      "timestamp": "2026-03-14T09:39:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "50b3c1b0-dc1d-4cdb-8817-79e52341a285",
+      "timestamp": "2026-03-14T11:46:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "6d79acda-1eaa-48f5-bf5f-806f399c6fbc",
+      "timestamp": "2026-03-14T13:53:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "d866cb14-4828-49e8-aaf5-75898c267990",
+      "timestamp": "2026-03-14T15:00:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "16b1a706-e353-49a4-a2b9-8e935dbf369a",
+      "timestamp": "2026-03-14T17:07:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "45af33b2-a8e7-4007-af11-d45084e45cb2",
+      "timestamp": "2026-03-14T19:14:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "ad18e89d-017b-4693-af86-a787c0ff6919",
+      "timestamp": "2026-03-14T21:21:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "340bf120-92df-43a3-b846-eea5611f06d2",
+      "timestamp": "2026-03-14T08:28:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "6be00bc4-2f50-46e1-98b7-4c2da5f17ea5",
+      "timestamp": "2026-03-15T09:42:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "d1f4987a-3881-43b0-a122-4331b12aa1d6",
+      "timestamp": "2026-03-15T11:49:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8b617852-0a9d-4292-af6c-6f4639ad3fd2",
+      "timestamp": "2026-03-15T13:56:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "b95a72ba-1975-45a5-9dbb-b74fd663f5a6",
+      "timestamp": "2026-03-15T15:03:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "a8e68920-13da-4d95-93e6-ff12c8b203b6",
+      "timestamp": "2026-03-15T17:10:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a978d82d-c109-4598-9620-d87772a63b35",
+      "timestamp": "2026-03-15T19:17:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6520a70f-4f37-4a7f-819b-87d74baf826d",
+      "timestamp": "2026-03-15T21:24:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "b4612b71-3b37-4698-bdc1-2a8a0ce51f6f",
+      "timestamp": "2026-03-15T08:31:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "993e9892-75f2-47b3-af28-60dc38ad34d8",
+      "timestamp": "2026-03-15T12:38:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8cd2e552-7a9e-4748-ae7c-94d0fdd407dd",
+      "timestamp": "2026-03-15T16:45:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "2b6ee97a-8216-4919-b278-1847fbbb1ecc",
+      "timestamp": "2026-03-15T20:52:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "4c1cc7a3-a593-4780-9487-3b5ec7e3c9c8",
+      "timestamp": "2026-03-16T09:45:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "c2512d45-0526-4658-b9a4-fbb2e8c7ad10",
+      "timestamp": "2026-03-16T11:52:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "6ee170f9-2291-4e00-94c1-c98b7affd26f",
+      "timestamp": "2026-03-16T13:59:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "2fd32238-7f3f-4fd5-b0b2-b92890200e48",
+      "timestamp": "2026-03-16T15:06:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "d1c9c211-776e-496a-8c5d-f8ad5789f656",
+      "timestamp": "2026-03-16T17:13:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "c234f673-4565-48bc-94b8-ed8bce06b1af",
+      "timestamp": "2026-03-16T19:20:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "f0038bf8-4ad1-4db3-97cd-508db5b3ea92",
+      "timestamp": "2026-03-16T21:27:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "c28d8b20-f612-4503-9dd3-73b9a0f7c3a7",
+      "timestamp": "2026-03-16T08:34:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "5d180480-298b-45c1-8091-67e596f9b2ff",
+      "timestamp": "2026-03-16T12:41:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "05e8d2e6-f4fe-429a-9b88-ddd06ad5263b",
+      "timestamp": "2026-03-17T09:48:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "04183064-771f-4f3f-99f5-5076567467f9",
+      "timestamp": "2026-03-17T11:55:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d0560c90-01d4-4a28-b1c9-0967dd54bf51",
+      "timestamp": "2026-03-17T13:02:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "d85fe003-af57-4834-bdc9-93fff685c316",
+      "timestamp": "2026-03-17T15:09:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "dd9cc32b-e36f-4685-95cf-62a2670bf41c",
+      "timestamp": "2026-03-17T17:16:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "b00a0098-4a06-4b30-b2ce-551ff4b90b59",
+      "timestamp": "2026-03-17T19:23:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "79d35774-df99-47bb-9d71-a0aab8ff6106",
+      "timestamp": "2026-03-17T21:30:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "ddf4c172-7351-44fa-8c40-7efea83f0de1",
+      "timestamp": "2026-03-18T09:51:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "3f409b8e-a183-4ff2-a25b-cb901127fea6",
+      "timestamp": "2026-03-18T11:58:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "46a9ce87-0598-471d-aac7-49cc03bb5f3b",
+      "timestamp": "2026-03-18T13:05:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "f8438387-992b-4bf7-937c-5f8caf4b73e5",
+      "timestamp": "2026-03-18T15:12:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "82ee21f4-2e84-4bcd-aaab-603d490710e8",
+      "timestamp": "2026-03-18T17:19:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "3a733f3b-9212-4b36-830d-858973a7d03f",
+      "timestamp": "2026-03-18T19:26:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e528665a-2d7b-4619-a29b-109bff083c09",
+      "timestamp": "2026-03-18T21:33:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d56edad8-9046-4668-8970-f0516bf4d9a5",
+      "timestamp": "2026-03-18T08:40:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "bf397853-71d2-4e63-a9cb-1ee5cc28671d",
+      "timestamp": "2026-03-18T12:47:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "48ea0450-c873-4edf-8de5-d4ea62ae01c9",
+      "timestamp": "2026-03-18T16:54:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "056e7de5-8245-4382-bd0f-a2b0dec076e7",
+      "timestamp": "2026-03-19T09:54:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "df289c22-5a37-4595-a05a-37b5e005de01",
+      "timestamp": "2026-03-19T11:01:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8cbcfb42-b77f-4e64-b379-eeb88f0119c1",
+      "timestamp": "2026-03-19T13:08:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "08d1f3bd-0919-4be4-8355-f37d8753ff21",
+      "timestamp": "2026-03-19T15:15:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "d158b1ac-8650-4685-80f8-75b97b2255f8",
+      "timestamp": "2026-03-19T17:22:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "25be91c2-58cf-488b-9137-e6851ce05531",
+      "timestamp": "2026-03-19T19:29:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8db881bf-a459-4a70-9592-6471caf385b8",
+      "timestamp": "2026-03-19T21:36:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4a4c33b7-d4dd-497b-88f2-775815961cd6",
+      "timestamp": "2026-03-19T08:43:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "b9db619f-e573-418d-880a-6f0591079037",
+      "timestamp": "2026-03-20T09:57:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "3d869a22-2bf6-4a26-bf65-93c5c3b39a53",
+      "timestamp": "2026-03-20T11:04:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "33ce82a9-8e7a-4550-9497-4da040d2abad",
+      "timestamp": "2026-03-20T13:11:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "d308f10d-044c-4814-acbb-412a3c9c9fd0",
+      "timestamp": "2026-03-20T15:18:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "3bc871f1-bf70-4898-8e79-a9aa4affa3e6",
+      "timestamp": "2026-03-20T17:25:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "e5b452b3-d1c0-4467-9a3e-a55cecc06057",
+      "timestamp": "2026-03-20T19:32:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "348a886b-a69c-4b6b-a11b-d4f082610f84",
+      "timestamp": "2026-03-21T09:00:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "190d6107-2a1e-4ce1-bc09-fc6a22b73488",
+      "timestamp": "2026-03-21T11:07:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "e0deb7bd-e455-4b8a-b6c5-290e25ca4da0",
+      "timestamp": "2026-03-21T13:14:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "4eafc819-8acf-41f5-9048-bc282cf10299",
+      "timestamp": "2026-03-21T15:21:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "78fe2efe-5241-4c55-bb82-67b8c79b4071",
+      "timestamp": "2026-03-21T17:28:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "509e0c00-070e-4c8a-a844-ecc7991bb70b",
+      "timestamp": "2026-03-21T19:35:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "94b20ebd-fee3-4503-9a47-686fa910a275",
+      "timestamp": "2026-03-21T21:42:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "401e3eb4-02e0-4135-93a8-354feca07892",
+      "timestamp": "2026-03-21T08:49:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "1d01d6a4-1b52-4ddd-9be0-74186853be3f",
+      "timestamp": "2026-03-21T12:56:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "aee7c353-a90a-4549-8d76-54f543e68da7",
+      "timestamp": "2026-03-22T09:03:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e0ff53d5-9911-49db-a5f7-4d142c5bc5b4",
+      "timestamp": "2026-03-22T11:10:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "f57757b0-60f4-4849-a72c-8b024acb6b29",
+      "timestamp": "2026-03-22T13:17:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "7ad72ac1-b710-4c26-af8f-f330f36433c2",
+      "timestamp": "2026-03-22T15:24:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "cbd21750-470d-42fe-8a9a-ab1a8d86a98b",
+      "timestamp": "2026-03-22T17:31:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "b6a4e0f2-cbca-4963-9d61-72b21caaba52",
+      "timestamp": "2026-03-22T19:38:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6f98fbbe-1f4b-4ee3-b5bd-198b09482f7c",
+      "timestamp": "2026-03-22T21:45:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d30c979f-1e42-4790-801f-12f3c6ddca83",
+      "timestamp": "2026-03-22T08:52:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "4b974276-4b57-4939-a9f1-66f5afa977a0",
+      "timestamp": "2026-03-22T12:59:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "0f2679f1-1761-41bf-b6a2-4deb361f68f3",
+      "timestamp": "2026-03-22T16:06:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4d81af58-db21-47c7-8ec8-42a622ff02e2",
+      "timestamp": "2026-03-22T20:13:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9fc3cb50-64d4-4ec8-89ed-c196ac3d364f",
+      "timestamp": "2026-03-23T09:06:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "232337bd-5aae-41ed-b4ae-f857bb7f93af",
+      "timestamp": "2026-03-23T11:13:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "1dce075a-39c0-47b5-a74f-ce9abc76bffb",
+      "timestamp": "2026-03-23T13:20:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "2c4c0a49-68fd-4778-81ea-5a070b71e92f",
+      "timestamp": "2026-03-23T15:27:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "b9e62f63-d93c-4996-87c3-46e22b1837ab",
+      "timestamp": "2026-03-23T17:34:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "543553db-7c86-4982-98ae-cd83e64e3393",
+      "timestamp": "2026-03-23T19:41:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "33b60763-e222-4a01-8dbb-ee6c6c5bdc43",
+      "timestamp": "2026-03-23T21:48:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "75497919-2b04-4f85-9010-a625e9cc9959",
+      "timestamp": "2026-03-23T08:55:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "f59f18ad-d2e9-4cdb-9a7f-8a9fa38e1ccd",
+      "timestamp": "2026-03-24T09:09:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "85bf1356-272b-4574-b578-7dbe5614d715",
+      "timestamp": "2026-03-24T11:16:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8f0e826a-1584-4c82-b76d-abfbec099daa",
+      "timestamp": "2026-03-24T13:23:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "436f13b9-df03-4746-99b3-bb9b6dedac15",
+      "timestamp": "2026-03-24T15:30:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8b8f9874-cc06-4410-9781-4acd01337fa0",
+      "timestamp": "2026-03-24T17:37:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "6c950695-d8dd-4a29-8e52-22d1036b140f",
+      "timestamp": "2026-03-24T19:44:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "3fc27caa-d047-4a5b-84f1-fad69f8b87ec",
+      "timestamp": "2026-03-24T21:51:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "13691bed-145f-4841-aec1-673e03366549",
+      "timestamp": "2026-03-24T08:58:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "8b0821f3-ae81-4707-bb90-4c6facbcc80e",
+      "timestamp": "2026-03-24T12:05:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "0fc58334-a015-45ba-acdc-51b8e5e970aa",
+      "timestamp": "2026-03-24T16:12:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "23ca4432-bd85-43e0-9be5-ff0494181bc3",
+      "timestamp": "2026-03-25T09:12:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "d8d18c8f-4a8f-49dd-9f9f-d4cba414d3f8",
+      "timestamp": "2026-03-25T11:19:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "c443a4b2-e49f-4c02-b821-11f2d2050569",
+      "timestamp": "2026-03-25T13:26:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "6b9432fe-0b87-4dc3-a9e7-b4d69694d310",
+      "timestamp": "2026-03-25T15:33:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9e5ca37c-f76c-4e7e-bd66-5a8a2d117404",
+      "timestamp": "2026-03-25T17:40:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "19947f81-ad53-4c45-9320-4785a3ff04d5",
+      "timestamp": "2026-03-25T19:47:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "64d24790-86c9-4aae-bc7c-870a8a12f04f",
+      "timestamp": "2026-03-25T21:54:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "c4f83645-7933-4831-b3dd-7704a6c56bc4",
+      "timestamp": "2026-03-26T09:15:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9c8f8f4c-082a-4794-af46-fbf44e7dee82",
+      "timestamp": "2026-03-26T11:22:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "5bec920b-0238-43bf-9b8c-3dd25ed5735b",
+      "timestamp": "2026-03-26T13:29:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "962e2ba8-0314-4e15-bd9f-a6477388a48e",
+      "timestamp": "2026-03-26T15:36:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "742acbba-2a4b-455f-a14c-87a23c751088",
+      "timestamp": "2026-03-26T17:43:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8e13ceae-8129-42c1-b517-7dfa0e23f011",
+      "timestamp": "2026-03-26T19:50:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "94e8e307-09d4-45b4-899b-9b833b0709da",
+      "timestamp": "2026-03-26T21:57:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "1bbf7609-4a75-4d2c-82f9-73407dd4bf9d",
+      "timestamp": "2026-03-26T08:04:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "ccb30f83-7887-4d5e-b57b-e89ccc59e515",
+      "timestamp": "2026-03-26T12:11:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "369d630c-1fd0-4dfc-b682-76d52762a11a",
+      "timestamp": "2026-03-27T09:18:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "adb28707-8360-4677-b227-aa5ff0a2c9da",
+      "timestamp": "2026-03-27T11:25:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8cf167bf-6de8-484f-afef-5354beb3b315",
+      "timestamp": "2026-03-27T13:32:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "92fca74e-a547-4b9c-8a69-d512b49f491d",
+      "timestamp": "2026-03-27T15:39:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "577297df-f584-4c81-88bf-305eb17e8147",
+      "timestamp": "2026-03-27T17:46:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "94c93d73-f793-40f3-874e-ce7614a5bad7",
+      "timestamp": "2026-03-27T19:53:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "ba9e0c2b-ef90-4a81-b85f-61aa34138fc9",
+      "timestamp": "2026-03-28T09:21:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e00c75a5-8235-4d43-9aae-b973b49b2d11",
+      "timestamp": "2026-03-28T11:28:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "cf7c92ba-49fd-40d9-9469-0b1075fb7e54",
+      "timestamp": "2026-03-28T13:35:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "842787e8-1be1-4956-87e1-ea6aa28ab0a8",
+      "timestamp": "2026-03-28T15:42:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "78505fb5-40e7-4df0-9175-cc0fc0b435d7",
+      "timestamp": "2026-03-28T17:49:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d12e4c77-474b-47bb-80a7-56d178306313",
+      "timestamp": "2026-03-28T19:56:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "466e45a2-58fc-4ef9-b7bb-3bebe2e56b32",
+      "timestamp": "2026-03-28T21:03:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "23904e2a-450e-4056-9497-b3081e52a400",
+      "timestamp": "2026-03-28T08:10:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "0d392599-872d-4e1c-a26e-a9e3594d70c8",
+      "timestamp": "2026-03-29T09:24:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "29ba1315-b732-488a-8129-c2328ce16479",
+      "timestamp": "2026-03-29T11:31:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "5ad61772-7439-451a-a40d-45f789421f87",
+      "timestamp": "2026-03-29T13:38:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "1fb38590-b6f2-44a3-b32f-b3b5bdfb236d",
+      "timestamp": "2026-03-29T15:45:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "fb9ccfc0-44a2-450c-bf3e-145aa4b6c52c",
+      "timestamp": "2026-03-29T17:52:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "63c0bc3c-e89e-4251-a100-0890444d7b1f",
+      "timestamp": "2026-03-29T19:59:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "ad2e10c1-1693-4186-9b8f-ccf79f283417",
+      "timestamp": "2026-03-29T21:06:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "552a7f6a-5b63-4372-89ef-2b3d9db66e76",
+      "timestamp": "2026-03-29T08:13:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "6acd9e3c-c1ac-48a0-9b03-6d4bad3ee4c9",
+      "timestamp": "2026-03-29T12:20:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e6c23ec1-9d89-4f76-8e93-0d408cb1310d",
+      "timestamp": "2026-03-29T16:27:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a874d306-8955-4bab-86ef-9e87fdb98a02",
+      "timestamp": "2026-03-30T09:27:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "88951731-3c50-40e8-85f3-f46f9a3236cc",
+      "timestamp": "2026-03-30T11:34:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "b3df5664-967b-4477-b7e7-4c1eb461708c",
+      "timestamp": "2026-03-30T13:41:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "5eae3f87-9fed-455b-9d14-fb2537cba6e1",
+      "timestamp": "2026-03-30T15:48:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9d05054d-c0b3-4f1c-9601-c3cd5fae4aa3",
+      "timestamp": "2026-03-30T17:55:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "74887265-a1f7-44d6-a7b0-9385ce973ea1",
+      "timestamp": "2026-03-30T19:02:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "1a4674ce-78d2-41d1-b76b-75e175786696",
+      "timestamp": "2026-03-30T21:09:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "736fbb2f-f921-49a7-99db-704efe36a5ac",
+      "timestamp": "2026-03-30T08:16:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "9fc2d6e7-0a70-462b-9ac3-eb3395086642",
+      "timestamp": "2026-03-30T12:23:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "ce8cb15e-665b-48fe-ac0f-9ce5795afed4",
+      "timestamp": "2026-03-30T16:30:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4e261a4d-a76d-4b53-be03-ac15e76a3ecc",
+      "timestamp": "2026-03-30T20:37:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "bd679a39-bfcc-4e40-ba6d-4a0c43691562",
+      "timestamp": "2026-03-30T22:44:23Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "9de8013c-d701-4158-9519-db788733f7a9",
+      "timestamp": "2026-03-31T09:30:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "37374c91-ffc8-4b42-ae5e-31f6b6bb7500",
+      "timestamp": "2026-03-31T11:37:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8e758286-a2cc-41c0-83cd-b059d120713d",
+      "timestamp": "2026-03-31T13:44:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "dc3583d4-1211-4a67-83aa-4817ad81ac22",
+      "timestamp": "2026-03-31T15:51:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "a5d1139f-ee53-4627-aeca-f7f6ee35272d",
+      "timestamp": "2026-03-31T17:58:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a397021a-1a0e-4146-a99f-166af00c6ef8",
+      "timestamp": "2026-03-31T19:05:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8ae91970-53e4-470c-95b5-37da35be8657",
+      "timestamp": "2026-03-31T21:12:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "37852296-1757-4049-82b6-3d704fe1ea6e",
+      "timestamp": "2026-04-01T09:33:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "f983339a-2a8a-4538-933b-fe8390e2b668",
+      "timestamp": "2026-04-01T11:40:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "ede482fa-ddd2-4d44-a1e5-c7015ba76675",
+      "timestamp": "2026-04-01T13:47:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "f4a239e7-22c6-44af-89d3-92d543a8e94c",
+      "timestamp": "2026-04-01T15:54:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "4ac1406e-18ea-4681-b856-874009243007",
+      "timestamp": "2026-04-01T17:01:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "ffe0b661-eaff-417f-97b1-de31ff37b568",
+      "timestamp": "2026-04-01T19:08:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "f0c90202-5606-4692-bf85-dca3789179d1",
+      "timestamp": "2026-04-02T09:36:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "876811e6-64f5-4b3d-9671-4052f25f0dea",
+      "timestamp": "2026-04-02T11:43:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "59c7ac54-5ee7-483d-b10e-1ec51a06ae35",
+      "timestamp": "2026-04-02T13:50:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "a4c3bdbb-c7b2-4135-8e4e-7f61a15e230f",
+      "timestamp": "2026-04-02T15:57:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "122804e6-b0da-4221-a228-3a4c0f028bd7",
+      "timestamp": "2026-04-02T17:04:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "535ce4cb-3163-48b1-b53a-075b25efdfb7",
+      "timestamp": "2026-04-02T19:11:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "da8a5abf-7e73-4022-a1b0-5f17b78e395f",
+      "timestamp": "2026-04-02T21:18:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4979ec2a-95a6-4088-b006-f89ef2e9a555",
+      "timestamp": "2026-04-02T08:25:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "37c0f693-3adf-45c1-9ba9-eb7e04fc3f83",
+      "timestamp": "2026-04-03T09:39:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "57946cfb-dd78-47fd-beae-a1ac9b429694",
+      "timestamp": "2026-04-03T11:46:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "986f5924-c432-45f6-9385-1d3a69649daf",
+      "timestamp": "2026-04-03T13:53:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "a921fd0e-8887-4deb-aa2e-e59360ebaf5a",
+      "timestamp": "2026-04-03T15:00:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "c4831b6e-bfa9-4922-af97-98ec9cddb18a",
+      "timestamp": "2026-04-03T17:07:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "696ab888-2932-449a-9e15-fc7214db3880",
+      "timestamp": "2026-04-03T19:14:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "777499b3-1c6b-48cf-be24-369f46049284",
+      "timestamp": "2026-04-03T21:21:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "9c5e3acb-e7c0-4ca6-9080-6f8713d69489",
+      "timestamp": "2026-04-03T08:28:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "e5004d59-fa3d-4ba8-9897-ba9f4d3c99a8",
+      "timestamp": "2026-04-03T12:35:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "16963df5-0ccb-4baa-be1c-b18a9959d231",
+      "timestamp": "2026-04-03T16:42:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a6e14ece-a4e3-42cf-9243-2c9041466b72",
+      "timestamp": "2026-04-04T09:42:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "0a349674-27c6-465f-91fa-4eab94b45937",
+      "timestamp": "2026-04-04T11:49:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "2e6d51cf-9ec1-400f-b360-3f20668febec",
+      "timestamp": "2026-04-04T13:56:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "a1b8dced-64e9-4a32-ba52-28aa6f88272e",
+      "timestamp": "2026-04-04T15:03:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6246dab1-24c1-4755-9bf0-d1484ee19dbb",
+      "timestamp": "2026-04-04T17:10:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "48abccb4-9d2c-4cf6-827a-fe7659a6a33d",
+      "timestamp": "2026-04-04T19:17:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "f62a6b53-9510-4502-9a8b-3cfa3fb998ac",
+      "timestamp": "2026-04-04T21:24:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "3c35ad3d-4a90-48cb-b972-fd4a9b13ea0a",
+      "timestamp": "2026-04-05T09:45:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "b234db80-3594-4084-b5c3-0f00588a613f",
+      "timestamp": "2026-04-05T11:52:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "44db4f41-4f9e-49b0-a761-782742233a08",
+      "timestamp": "2026-04-05T13:59:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "8e4af5b9-4301-460c-a12d-ebd6e2317ce5",
+      "timestamp": "2026-04-05T15:06:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "abaaa90f-1dfe-4c6e-8eb9-9325d46fcf77",
+      "timestamp": "2026-04-05T17:13:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "7ae76323-4fb6-421a-992f-af3e0acfa026",
+      "timestamp": "2026-04-05T19:20:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e8ce9218-71e1-4f6f-a631-d3f392581b3b",
+      "timestamp": "2026-04-05T21:27:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8d281898-944d-4bb7-ad86-e18cf47e8162",
+      "timestamp": "2026-04-05T08:34:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "c7c88b44-096c-45d2-9bce-2b459dcbb7a7",
+      "timestamp": "2026-04-05T12:41:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6ff2f12e-58fd-4963-8a58-08b61e04620f",
+      "timestamp": "2026-04-05T16:48:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "20b38a74-e201-49ef-83e2-e9b8e7606b63",
+      "timestamp": "2026-04-05T20:55:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "1e2127ef-c684-4193-bc96-3b1b60da4b35",
+      "timestamp": "2026-04-06T09:48:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "34fec585-d837-4eeb-b4cc-a23fb0162183",
+      "timestamp": "2026-04-06T11:55:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "c579cf4b-3969-409a-a9e3-c50646e119ff",
+      "timestamp": "2026-04-06T13:02:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "28d0315a-ea74-4885-8f1a-a933289e6e97",
+      "timestamp": "2026-04-06T15:09:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "d6ec926d-5133-43cd-bafd-b31092e8a4dd",
+      "timestamp": "2026-04-06T17:16:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a00a1a99-1acd-4919-b0b0-07a80f249c54",
+      "timestamp": "2026-04-06T19:23:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "ef39342a-53a6-417b-bc1e-1327275b0d2c",
+      "timestamp": "2026-04-06T21:30:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "fbdd2846-8b48-414a-9819-7060df2d0a4d",
+      "timestamp": "2026-04-06T08:37:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "083e1574-fb47-47e3-bad9-ecec2907f33d",
+      "timestamp": "2026-04-06T12:44:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "0c3be45a-ddfa-4de8-b116-ad3aa58c213a",
+      "timestamp": "2026-04-06T16:51:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "2dd3624f-1d1e-4d32-82b4-6be7c38ecb06",
+      "timestamp": "2026-04-07T09:51:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8bb7d821-21ee-4486-b1d0-e40c0828d303",
+      "timestamp": "2026-04-07T11:58:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "9cb9ca92-b5c9-45d5-95e0-aeea5ac13f9a",
+      "timestamp": "2026-04-07T13:05:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "0b4a7aec-37f3-4979-a0f5-382dab3720ca",
+      "timestamp": "2026-04-07T15:12:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "176566d5-6204-477f-805e-b1f672640ff3",
+      "timestamp": "2026-04-07T17:19:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4a3e4299-108a-458b-b67a-975a82f0e021",
+      "timestamp": "2026-04-07T19:26:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "7ff3e321-3fdd-46bc-bb2b-d841a973019c",
+      "timestamp": "2026-04-08T09:54:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "5a808800-3d67-4ebb-8e9c-8970b13b4cd1",
+      "timestamp": "2026-04-08T11:01:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "293d7bae-901e-4a25-8167-a4942069ee16",
+      "timestamp": "2026-04-08T13:08:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "56792dda-6eec-464c-b6c7-9aa0aac53c2d",
+      "timestamp": "2026-04-08T15:15:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "ff51cb06-2475-4759-ae7e-0c88a4e3410e",
+      "timestamp": "2026-04-08T17:22:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "b7d9c64c-a9e1-443c-9663-9ba96c753ab6",
+      "timestamp": "2026-04-08T19:29:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8ff902c3-b49c-4194-9287-648651c3969c",
+      "timestamp": "2026-04-08T21:36:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d7a730a3-7bff-4c0a-b71d-db8fb44da5df",
+      "timestamp": "2026-04-08T08:43:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "60a257c7-0c69-438d-94be-d281528f1a5f",
+      "timestamp": "2026-04-08T12:50:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "68b70e48-a1e4-4f65-9188-b9193d9b2487",
+      "timestamp": "2026-04-09T09:57:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "ec7cb281-7dd1-4a92-902e-6d3483bf4c7b",
+      "timestamp": "2026-04-09T11:04:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "90d6056e-18b8-48d8-bce1-0125a2c4be50",
+      "timestamp": "2026-04-09T13:11:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "ec133454-7900-4ef1-8ba2-04709cc4e5f4",
+      "timestamp": "2026-04-09T15:18:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "50d6878e-356c-4ea4-b1ba-efbfc92b44a5",
+      "timestamp": "2026-04-09T17:25:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "d2c2d4b6-61cb-4b44-b066-83b94ea9b4ef",
+      "timestamp": "2026-04-09T19:32:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "c9b66414-0394-4905-9fc9-0672b441555b",
+      "timestamp": "2026-04-09T21:39:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "65b85a13-bf48-40f3-b902-0344ce74a8ba",
+      "timestamp": "2026-04-09T08:46:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "df286067-1ab2-4f43-afef-1b248d8fa593",
+      "timestamp": "2026-04-09T12:53:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "a163fb6d-2bf6-44f4-86c6-3dd70bd64082",
+      "timestamp": "2026-04-09T16:00:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "6b40ba58-35a9-4b8d-9d2d-e09eea5d73cf",
+      "timestamp": "2026-04-09T20:07:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "59264afa-d0d3-4219-a066-f5e32a1ef010",
+      "timestamp": "2026-04-09T22:14:23Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "aba32827-b5c2-4de8-bfd4-3f2af2ad2de9",
+      "timestamp": "2026-04-09T10:21:36Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "5519c356-274a-4c12-b15b-29322d709339",
+      "timestamp": "2026-04-10T09:00:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e187c294-eb49-4c79-af99-72783374bdf9",
+      "timestamp": "2026-04-10T11:07:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "ad559c60-93b8-401d-8612-9d5340ab9ff6",
+      "timestamp": "2026-04-10T13:14:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "e4c9840d-7bf0-4f96-ab79-1f0b86f02dfa",
+      "timestamp": "2026-04-10T15:21:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "5dbaca93-029e-4c06-a84f-e0b2d0261b37",
+      "timestamp": "2026-04-10T17:28:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "f2812e50-5636-4467-befb-8c2e70d3b2ab",
+      "timestamp": "2026-04-10T19:35:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "50f6b308-b447-4dd1-8290-96cf0174cd02",
+      "timestamp": "2026-04-10T21:42:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "500bb3e5-4c41-41c4-b95a-2cfcc76500da",
+      "timestamp": "2026-04-10T08:49:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "04810d3b-0eee-4110-a880-8f41a612a598",
+      "timestamp": "2026-04-11T09:03:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "caa30e7e-570e-4e17-b26c-8df3cf623253",
+      "timestamp": "2026-04-11T11:10:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "224d80cb-badd-4e29-b23f-c10e41bab793",
+      "timestamp": "2026-04-11T13:17:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "ff0b62d7-bd57-4f13-9266-d4ab208892d8",
+      "timestamp": "2026-04-11T15:24:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9ef5e7cf-a470-4a7b-8abd-97ed01f38394",
+      "timestamp": "2026-04-11T17:31:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "e7b2b4d4-75ec-4be5-9f85-29b3165e9117",
+      "timestamp": "2026-04-11T19:38:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6992f6ba-cd8c-4eb2-ae35-169d7ac57206",
+      "timestamp": "2026-04-11T21:45:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "e5715c49-6c1f-4059-ad4c-402d9c1cbeb2",
+      "timestamp": "2026-04-11T08:52:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "31880a49-8e87-431b-8bbc-5da46fe1a8e7",
+      "timestamp": "2026-04-11T12:59:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "6341f804-ca5f-462f-990f-9f8180796bd4",
+      "timestamp": "2026-04-11T16:06:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "54e0d43b-a2d8-4396-8d13-e8981ac7045c",
+      "timestamp": "2026-04-12T09:06:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "270461ec-fd9e-4b1f-9511-5ab7e0384127",
+      "timestamp": "2026-04-12T11:13:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "0ef82cd6-bf65-4214-beef-058aa80628ff",
+      "timestamp": "2026-04-12T13:20:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "9e6f43f5-5139-401d-a6db-28af10e3350a",
+      "timestamp": "2026-04-12T15:27:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "2bdf1455-e0d4-4934-8483-7566d0e7dfc5",
+      "timestamp": "2026-04-12T17:34:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "1d94fb40-09f5-4804-a695-fdae7abb1bb4",
+      "timestamp": "2026-04-12T19:41:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e7b838ce-a86e-4a00-bc96-3cbad0243b56",
+      "timestamp": "2026-04-12T21:48:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "0bb24d32-ffe1-4dd9-9c0a-a5ac775b4796",
+      "timestamp": "2026-04-12T08:55:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "f4ad2ee0-a972-411a-b9f1-80b34bf5c922",
+      "timestamp": "2026-04-12T12:02:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9ed3cdca-5e14-4ba4-98bc-ead1debe1c89",
+      "timestamp": "2026-04-12T16:09:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "8ef2642f-2920-47c0-8450-67cc92fba3bb",
+      "timestamp": "2026-04-12T20:16:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "3767ed0e-3f23-4ac8-ad48-b3377cdcd540",
+      "timestamp": "2026-04-13T09:09:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "7cb243bd-2ef3-44b6-bf31-bfba4a07fa36",
+      "timestamp": "2026-04-13T11:16:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "06b07a8a-d817-4b27-bd41-713dbf8cba09",
+      "timestamp": "2026-04-13T13:23:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "92c11328-03b8-4d69-b13c-c2250daca61e",
+      "timestamp": "2026-04-13T15:30:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "0d4cc2e1-3489-42d4-b437-a89f54184662",
+      "timestamp": "2026-04-13T17:37:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "42d2bf98-07fd-4588-a5ae-0473d638de14",
+      "timestamp": "2026-04-13T19:44:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "c68fa934-6b63-4d19-adcd-371713cb718e",
+      "timestamp": "2026-04-13T21:51:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "6769b8ea-0bc0-432a-b534-c81847467129",
+      "timestamp": "2026-04-14T09:12:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "359eb8d5-0d4f-41b7-aacd-b91a24c2588f",
+      "timestamp": "2026-04-14T11:19:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "fd8db725-b8b8-4199-9a76-d7868f1fbdad",
+      "timestamp": "2026-04-14T13:26:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "fa2d84a5-a3d1-4fb1-88f6-2bdc574de93e",
+      "timestamp": "2026-04-14T15:33:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "d2385097-09a4-4521-aada-0d8e299c986d",
+      "timestamp": "2026-04-14T17:40:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a2d296d7-c520-48b6-b74d-c94dcc40a9e4",
+      "timestamp": "2026-04-14T19:47:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9ca1b903-6013-4182-b33b-63bf1448e999",
+      "timestamp": "2026-04-14T21:54:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "c7d19687-61e5-486e-bf63-b4204e4cac0d",
+      "timestamp": "2026-04-14T08:01:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "9ea9940d-44d9-4c75-a81a-f81312e8c686",
+      "timestamp": "2026-04-14T12:08:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "bcdcef37-f997-43ae-9e41-3be676ee32be",
+      "timestamp": "2026-04-15T09:15:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "9eb6e9a9-2618-467b-89c4-6f50eb857ee9",
+      "timestamp": "2026-04-15T11:22:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "7c348284-87a2-485c-8a64-4c32ec7bec1c",
+      "timestamp": "2026-04-15T13:29:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "30789c3d-52eb-484c-a8b7-39d0ae457a36",
+      "timestamp": "2026-04-15T15:36:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "40f5ab29-ed7c-40ec-aa5d-959ecea8ce22",
+      "timestamp": "2026-04-15T17:43:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "840276b1-4dbc-4e08-9ca6-c5e9ae2d5028",
+      "timestamp": "2026-04-15T19:50:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "2598b5be-4ce8-42b4-847e-bbb764eaf2d3",
+      "timestamp": "2026-04-15T21:57:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4c6ffb40-db05-451e-8d1d-7e41160172ae",
+      "timestamp": "2026-04-15T08:04:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "e26d934b-6eb6-48c7-a866-ca8008ad794e",
+      "timestamp": "2026-04-15T12:11:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "a7d304a4-2b98-4e2e-ae8c-0c6fda2e2917",
+      "timestamp": "2026-04-15T16:18:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "4093b60d-cccf-44f3-885f-b7248eee3b2e",
+      "timestamp": "2026-04-15T20:25:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "13499c49-dbf3-41ca-b437-071d41a1f114",
+      "timestamp": "2026-04-15T22:32:23Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "e4e1b7f6-e097-4e28-a89a-072d0aef459b",
+      "timestamp": "2026-04-16T09:18:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "7c2eeb93-4a0a-4634-903e-43f5dbbdfcdf",
+      "timestamp": "2026-04-16T11:25:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a1d5e643-d6fa-4ee6-a008-87a3f238a652",
+      "timestamp": "2026-04-16T13:32:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "203fbf70-438c-4f31-938f-5b9312f4f84f",
+      "timestamp": "2026-04-16T15:39:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "5b20693c-a767-4400-a43a-75850817b782",
+      "timestamp": "2026-04-16T17:46:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "dbd24aee-5d1e-4e23-9685-2accfec97e27",
+      "timestamp": "2026-04-16T19:53:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e2df6d65-d7b9-4718-b329-2682e8f8e7ba",
+      "timestamp": "2026-04-16T21:00:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a5442681-c758-4a07-a6a2-7b0a547cd32c",
+      "timestamp": "2026-04-16T08:07:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "743102a4-80ed-4f71-a3e4-617241c8e968",
+      "timestamp": "2026-04-16T12:14:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "00162074-dcf7-45b6-894a-10d35abfd8a6",
+      "timestamp": "2026-04-16T16:21:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "922fb0a6-87d1-4d51-9838-e3f13cf7500e",
+      "timestamp": "2026-04-17T09:21:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "dd722e86-455d-44a1-a24c-a54f02b2f6b4",
+      "timestamp": "2026-04-17T11:28:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "5b24a0ad-f7e1-4d87-8449-e540d3e64e1b",
+      "timestamp": "2026-04-17T13:35:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "62d79cf4-8c5a-4873-a806-370d9aa9a14a",
+      "timestamp": "2026-04-17T15:42:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "e39eb592-94bd-4b81-bf4d-d55a174d1269",
+      "timestamp": "2026-04-17T17:49:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "abb25c72-e816-4c85-a2ab-559182f660c7",
+      "timestamp": "2026-04-17T19:56:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "7cb5c639-ec60-4dcf-b682-49c890a57e3d",
+      "timestamp": "2026-04-17T21:03:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "9517080f-85fc-4657-9b69-5749b73bd37c",
+      "timestamp": "2026-04-17T08:10:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "18308655-627a-43e2-a831-1f9c882f77db",
+      "timestamp": "2026-04-18T09:24:00Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "caea70c7-24d0-4c43-aa83-06b33cda24b1",
+      "timestamp": "2026-04-18T11:31:13Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "7a18d967-eb6f-4cf9-8536-bd9a15b49539",
+      "timestamp": "2026-04-18T13:38:26Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "13696423-c41d-418e-8723-e9e043b235a8",
+      "timestamp": "2026-04-18T15:45:39Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "8b8364b5-27e8-425e-82d3-d469fb149e20",
+      "timestamp": "2026-04-18T17:52:52Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "84cb7097-00e6-469e-acbf-b69f9e66d6da",
+      "timestamp": "2026-04-18T19:59:05Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "0a5d75e6-a409-4b8b-ac9b-32debe8815b0",
+      "timestamp": "2026-04-18T21:06:18Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a958b2f5-3824-49d4-b6e0-9cb701932e85",
+      "timestamp": "2026-04-18T08:13:31Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111103",
+      "brandName": "ラッキー",
+      "pricePerCigarette": "25"
+    },
+    {
+      "id": "2b3559a9-c11e-4821-b9bf-3c0cc7a9879c",
+      "timestamp": "2026-04-18T12:20:44Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    },
+    {
+      "id": "7f6f26c7-57e4-4bbc-b3e9-1e9a32094fca",
+      "timestamp": "2026-04-18T16:27:57Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111102",
+      "brandName": "マイセン",
+      "pricePerCigarette": "28"
+    },
+    {
+      "id": "a32889e5-2dce-434c-b2a6-56395da68ab8",
+      "timestamp": "2026-04-18T20:34:10Z",
+      "count": 1,
+      "brandId": "11111111-1111-4111-8111-111111111101",
+      "brandName": "Teria",
+      "pricePerCigarette": "29"
+    }
+  ],
+  "settings": {
+    "healthKitEnabled": false,
+    "activeBrandId": "11111111-1111-4111-8111-111111111101",
+    "dailyGoal": 10,
+    "backgroundTypeRawValue": "ランダム",
+    "backgroundOpacity": 0.4,
+    "iCloudSyncEnabled": false
+  }
+}

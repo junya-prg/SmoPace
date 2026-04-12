@@ -53,8 +53,15 @@ struct TipJarView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 8)
             } else {
-                // 実際の商品
+                // 実際の商品（Store が返した分だけ表示。未登録IDはここに出てこない）
                 VStack(spacing: 12) {
+                    if tipJarManager.products.count < TipProduct.allCases.count {
+                        Text("一部のみ表示: Connect 未登録の製品IDは取得されません。3種テストは Scheme の StoreKit Configuration に SmokerTip.storekit を指定するか、Connect で同じ製品IDを登録してください。")
+                            .font(.caption2)
+                            .foregroundStyle(.orange)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                     ForEach(tipJarManager.products, id: \.id) { product in
                         TipProductRow(
                             product: product,

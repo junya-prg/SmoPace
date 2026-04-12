@@ -7,7 +7,6 @@
 
 import WidgetKit
 import AppIntents
-import SwiftData
 
 /// ウィジェットのタイムラインを提供するプロバイダー
 struct SmokeCounterTimelineProvider: AppIntentTimelineProvider {
@@ -44,58 +43,20 @@ struct SmokeCounterTimelineProvider: AppIntentTimelineProvider {
         return Timeline(entries: [currentEntry, midnightEntry], policy: .atEnd)
     }
     
-    /// SwiftDataから直接エントリーを取得
+    /// App Group の UserDefaults からエントリーを取得（メインアプリと SQLite を二重オープンしない）
     @MainActor
     private func getEntry() -> SmokeCounterEntry {
         let now = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        print("🟢 Timeline: エントリー取得開始 - \(formatter.string(from: now))")
+        print("🟢 Timeline: エントリー取得（UserDefaults）- \(formatter.string(from: now))")
         
-        // SwiftDataから今日のカウントを取得
-        var todayCount = 0
-        var lastSmokeTime: Date? = nil
-        var dailyGoal: Int? = nil
+        let shared = SharedDataManager.shared
+        let todayCount = shared.todayCount
+        let dailyGoal = shared.dailyGoal
+        let lastSmokeTime = shared.lastSmokeTime
         
-        do {
-            // App GroupのURLを確認
-            if let url = SharedModelContainer.databaseURL {
-                print("🟢 データベースURL: \(url.path)")
-                print("🟢 ファイル存在: \(FileManager.default.fileExists(atPath: url.path))")
-            }
-            
-            let container = try SharedModelContainer.createContainer()
-            let context = ModelContext(container)
-            
-            let calendar = Calendar.current
-            let startOfToday = calendar.startOfDay(for: now)
-            let endOfToday = calendar.date(byAdding: .day, value: 1, to: startOfToday) ?? now
-            
-            print("🟢 検索範囲: \(formatter.string(from: startOfToday)) 〜 \(formatter.string(from: endOfToday))")
-            
-            let predicate = #Predicate<SmokingRecord> { record in
-                record.timestamp >= startOfToday && record.timestamp < endOfToday
-            }
-            
-            let descriptor = FetchDescriptor<SmokingRecord>(
-                predicate: predicate,
-                sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
-            )
-            
-            let records = try context.fetch(descriptor)
-            todayCount = records.reduce(0) { $0 + $1.count }
-            lastSmokeTime = records.first?.timestamp
-            
-            // 目標も取得
-            let settingsDescriptor = FetchDescriptor<AppSettings>()
-            if let settings = try context.fetch(settingsDescriptor).first {
-                dailyGoal = settings.dailyGoal
-            }
-            
-            print("🟢 取得成功: カウント=\(todayCount), 目標=\(dailyGoal ?? -1), レコード数=\(records.count)")
-        } catch {
-            print("🔴 SwiftDataからの取得に失敗: \(error)")
-        }
+        print("🟢 取得成功: カウント=\(todayCount), 目標=\(dailyGoal ?? -1)")
         
         var timeSinceLastSmoke: TimeInterval? = nil
         if let lastSmoke = lastSmokeTime {

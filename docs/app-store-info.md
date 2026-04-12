@@ -41,6 +41,18 @@
 - **配信する国/地域**: 日本（または全世界）
 - **App内課金**: あり（開発者支援チップ）
 
+### 開発者支援（消耗型）の製品ID
+
+旧アプリ Smoker と ID が衝突しないよう、SmoPace 専用の ID にしている。App Store Connect の「アプリ内課金」では次の **製品IDをそのまま** 登録する（いずれも消耗型）。
+
+| 参照・用途 | 製品ID |
+|------------|--------|
+| コーヒー1杯相当 | `jp.junya.SmoPace.tip.coffee` |
+| 開発サポート | `jp.junya.SmoPace.tip.developer` |
+| 応援サポート | `jp.junya.SmoPace.tip.cheer` |
+
+ローカル／シミュレータで表示確認する場合は、Xcode の Scheme → Run → Options → **StoreKit Configuration** に `SmokerTip.storekit` を指定する。
+
 ---
 
 ## バージョン 1.0 情報

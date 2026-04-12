@@ -41,6 +41,8 @@ class BackupManager {
                 brandName: brandName,
                 pricePerCigarette: price
             )
+            // バックアップ時の記録IDを維持（重複インポート時の識別用）
+            record.id = id
             return record
         }
     }
@@ -74,6 +76,9 @@ class BackupManager {
                 isActive: isActive,
                 isDefault: isDefault ?? false
             )
+            // インポート後も銘柄IDを維持（記録の brandId と一致させる）
+            brand.id = id
+            brand.createdAt = createdAt
             return brand
         }
     }
@@ -236,6 +241,8 @@ class BackupManager {
         // 既存データの削除
         if clearExisting {
             try clearAllData(in: modelContext)
+            // 大量削除と挿入を同一トランザクションにするとシミュレータ等でストアオープンに失敗することがあるため、一度コミットする
+            try modelContext.save()
         }
         
         // 銘柄のインポート（記録より先にインポートする必要がある）
@@ -244,20 +251,29 @@ class BackupManager {
             modelContext.insert(brand)
         }
         
-        // 喫煙記録のインポート
-        for recordDTO in backupData.records {
-            let record = recordDTO.toModel()
-            modelContext.insert(record)
-        }
-        
-        // 設定のインポート（既存の設定を更新）
+        // 設定のインポート（記録より先：activeBrandId が銘柄を参照する）
         if let settingsDTO = backupData.settings {
             let settings = settingsDTO.toModel()
             modelContext.insert(settings)
         }
         
-        // 保存
         try modelContext.save()
+        
+        // 記録は件数が多い場合があるためバッチで保存（SwiftData の単一 save で失敗する端末への対策）
+        let batchSize = 80
+        var batchCount = 0
+        for recordDTO in backupData.records {
+            let record = recordDTO.toModel()
+            modelContext.insert(record)
+            batchCount += 1
+            if batchCount >= batchSize {
+                try modelContext.save()
+                batchCount = 0
+            }
+        }
+        if batchCount > 0 {
+            try modelContext.save()
+        }
         
         print("✅ インポート完了: \(backupData.records.count)件の記録, \(backupData.brands.count)件の銘柄")
     }

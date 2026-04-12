@@ -579,6 +579,8 @@ struct DataManagementView: View {
         do {
             let backupData = try BackupManager.shared.parseBackupData(from: data)
             try BackupManager.shared.importData(backupData, to: modelContext, clearExisting: true)
+            // ウィジェットは SQLite を開かないため、インポート直後に UserDefaults を同期する
+            SharedDataManager.shared.refreshWidgetCacheFromSwiftData(modelContext: modelContext)
             showImportSuccessAlert = true
         } catch {
             importErrorMessage = "インポートに失敗しました: \(error.localizedDescription)"

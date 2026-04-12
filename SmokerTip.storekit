@@ -15,7 +15,7 @@
   ],
   "products" : [
     {
-      "displayPrice" : "0.99",
+      "displayPrice" : "¥200",
       "familyShareable" : false,
       "internalID" : "6759396370",
       "localizations" : [
@@ -25,12 +25,12 @@
           "locale" : "ja"
         }
       ],
-      "productID" : "tip_coffee",
+      "productID" : "jp.junya.SmoPace.tip.coffee",
       "referenceName" : "コーヒー1杯",
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "3.99",
+      "displayPrice" : "¥600",
       "familyShareable" : false,
       "internalID" : "6759395988",
       "localizations" : [
@@ -40,12 +40,12 @@
           "locale" : "ja"
         }
       ],
-      "productID" : "tip_cigarette",
+      "productID" : "jp.junya.SmoPace.tip.developer",
       "referenceName" : "開発サポート",
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "5.99",
+      "displayPrice" : "¥1,200",
       "familyShareable" : false,
       "internalID" : "6759396626",
       "localizations" : [
@@ -55,7 +55,7 @@
           "locale" : "ja"
         }
       ],
-      "productID" : "tip_support",
+      "productID" : "jp.junya.SmoPace.tip.cheer",
       "referenceName" : "応援サポート",
       "type" : "Consumable"
     }
@@ -69,9 +69,9 @@
     "_disableDialogs" : false,
     "_failTransactionsEnabled" : false,
     "_lastSynchronizedDate" : 794915906.00371802,
-    "_locale" : "en_US",
+    "_locale" : "ja_JP",
     "_renewalBillingIssuesEnabled" : false,
-    "_storefront" : "USA",
+    "_storefront" : "JPN",
     "_storeKitErrors" : [
 
     ],
