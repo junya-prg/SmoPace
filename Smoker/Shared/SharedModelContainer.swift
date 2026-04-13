@@ -70,10 +70,7 @@ enum SharedModelContainer {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         }
         
-        // iCloud同期は新しいiCloudコンテナ(iCloud.jp.junya.SmoPace)がCloudKit Dashboardに
-        // 登録されるまで無効化。登録後に .automatic に戻す。
-        // let cloudKitDatabase: ModelConfiguration.CloudKitDatabase = isICloudSyncEnabled ? .automatic : .none
-        let cloudKitDatabase: ModelConfiguration.CloudKitDatabase = .none
+        let cloudKitDatabase: ModelConfiguration.CloudKitDatabase = isICloudSyncEnabled ? .automatic : .none
         
         print("✅ App Groupデータベースを使用: \(url.path)")
         print("☁️ iCloud同期: \(isICloudSyncEnabled ? "有効" : "無効")")
