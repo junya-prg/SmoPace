@@ -59,25 +59,28 @@ struct IncrementCountIntent: AppIntent {
             try context.save()
             print("🔵 保存成功")
             
-            // 保存後に今日のカウントを確認
+            // タイムラインは UserDefaults のキャッシュのみ参照するため、SwiftData の集計を App Group に反映する（メインアプリの refreshWidgetCacheFromSwiftData と同じ）
             let calendar = Calendar.current
             let startOfToday = calendar.startOfDay(for: now)
-            let endOfToday = calendar.date(byAdding: .day, value: 1, to: startOfToday) ?? now
-            
+            let endExclusive = calendar.date(byAdding: .day, value: 1, to: startOfToday) ?? now
             let predicate = #Predicate<SmokingRecord> { r in
-                r.timestamp >= startOfToday && r.timestamp < endOfToday
+                r.timestamp >= startOfToday && r.timestamp < endExclusive
             }
-            let descriptor = FetchDescriptor<SmokingRecord>(predicate: predicate)
+            let descriptor = FetchDescriptor<SmokingRecord>(
+                predicate: predicate,
+                sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+            )
             let todayRecords = try context.fetch(descriptor)
-            print("🔵 今日のレコード数: \(todayRecords.count)")
+            let aggregatedCount = todayRecords.reduce(0) { $0 + $1.count }
+            let lastSmoke = todayRecords.first?.timestamp
+            let settingsDescriptor = FetchDescriptor<AppSettings>()
+            let goal = try context.fetch(settingsDescriptor).first?.dailyGoal
+            SharedDataManager.shared.updateSharedData(count: aggregatedCount, goal: goal, lastSmoke: lastSmoke)
+            print("🔵 ウィジェット用キャッシュ更新完了: 本数=\(aggregatedCount), レコード件数=\(todayRecords.count), 目標=\(goal.map(String.init) ?? "なし")")
             
         } catch {
             print("🔴 ウィジェットからの記録保存に失敗: \(error)")
         }
-        
-        // ウィジェットのタイムラインを更新
-        WidgetCenter.shared.reloadAllTimelines()
-        print("🔵 タイムライン更新リクエスト完了")
         
         return .result()
     }
