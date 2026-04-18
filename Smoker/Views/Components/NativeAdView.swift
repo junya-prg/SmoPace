@@ -38,7 +38,8 @@ struct NativeAdView: View {
                         Spacer()
                     }
                     
-                    NativeAdContentView(nativeAd: nativeAd)
+                    NativeAdContentRepresentable(nativeAd: nativeAd)
+                        .frame(minHeight: 80)
                 }
                 .padding()
                 .background(Color(.systemBackground))
@@ -72,59 +73,126 @@ struct NativeAdView: View {
     }
 }
 
-// MARK: - ネイティブ広告コンテンツビュー
+// MARK: - GADNativeAdView を使った UIViewRepresentable
 
-/// 実際のネイティブ広告を表示するビュー
-struct NativeAdContentView: View {
+/// AdMob の GADNativeAdView を使ってネイティブ広告を表示する UIViewRepresentable
+/// GADNativeAdView を使用することで、広告のタップ（クリック）が正しく機能する
+struct NativeAdContentRepresentable: UIViewRepresentable {
     let nativeAd: NativeAd
     
-    var body: some View {
-        HStack(spacing: 12) {
-            // 広告アイコン
-            if let icon = nativeAd.icon?.image {
-                Image(uiImage: icon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.blue.opacity(0.1))
-                    .frame(width: 60, height: 60)
-                    .overlay {
-                        Image(systemName: "megaphone.fill")
-                            .font(.title2)
-                            .foregroundStyle(.blue.opacity(0.5))
-                    }
-            }
-            
-            // 広告テキスト
-            VStack(alignment: .leading, spacing: 4) {
-                if let headline = nativeAd.headline {
-                    Text(headline)
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-                        .lineLimit(1)
-                }
-                
-                if let body = nativeAd.body {
-                    Text(body)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(2)
-                }
-                
-                if let callToAction = nativeAd.callToAction {
-                    Text(callToAction)
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.blue)
-                }
-            }
-        }
-        .contentShape(Rectangle())
+    func makeUIView(context: Context) -> NativeAdView_UIKit {
+        // xib を使わず、コードで GADNativeAdView を構築
+        let nativeAdView = NativeAdView_UIKit(frame: .zero)
+        nativeAdView.translatesAutoresizingMaskIntoConstraints = false
+        return nativeAdView
+    }
+    
+    func updateUIView(_ nativeAdView: NativeAdView_UIKit, context: Context) {
+        nativeAdView.configure(with: nativeAd)
     }
 }
+
+/// GADNativeAdView をコードで構築する UIKit ビュー
+class NativeAdView_UIKit: GoogleMobileAds.NativeAdView {
+    
+    // サブビュー
+    private let iconImageView = UIImageView()
+    private let headlineLabel = UILabel()
+    private let bodyLabel = UILabel()
+    private let callToActionLabel = UILabel()
+    private let containerStack = UIStackView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupViews()
+    }
+    
+    private func setupViews() {
+        // アイコン画像の設定
+        iconImageView.contentMode = .scaleAspectFill
+        iconImageView.clipsToBounds = true
+        iconImageView.layer.cornerRadius = 8
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            iconImageView.widthAnchor.constraint(equalToConstant: 60),
+            iconImageView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        // ヘッドラインラベルの設定
+        headlineLabel.font = .preferredFont(forTextStyle: .headline)
+        headlineLabel.numberOfLines = 1
+        headlineLabel.textColor = .label
+        
+        // ボディラベルの設定
+        bodyLabel.font = .preferredFont(forTextStyle: .subheadline)
+        bodyLabel.numberOfLines = 2
+        bodyLabel.textColor = .secondaryLabel
+        
+        // CTA ラベルの設定
+        callToActionLabel.font = .preferredFont(forTextStyle: .caption1)
+        callToActionLabel.textColor = .systemBlue
+        callToActionLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        
+        // テキスト部分を縦に並べる
+        let textStack = UIStackView(arrangedSubviews: [headlineLabel, bodyLabel, callToActionLabel])
+        textStack.axis = .vertical
+        textStack.spacing = 4
+        textStack.alignment = .leading
+        
+        // アイコン + テキストを横に並べる
+        containerStack.addArrangedSubview(iconImageView)
+        containerStack.addArrangedSubview(textStack)
+        containerStack.axis = .horizontal
+        containerStack.spacing = 12
+        containerStack.alignment = .center
+        containerStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(containerStack)
+        
+        NSLayoutConstraint.activate([
+            containerStack.topAnchor.constraint(equalTo: topAnchor),
+            containerStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerStack.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerStack.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        // GADNativeAdView のプロパティに各ビューを登録
+        // これにより AdMob SDK がタップイベントを正しくハンドリングする
+        self.headlineView = headlineLabel
+        self.bodyView = bodyLabel
+        self.iconView = iconImageView
+        self.callToActionView = callToActionLabel
+    }
+    
+    /// NativeAd のデータをビューに反映する
+    func configure(with nativeAd: NativeAd) {
+        self.nativeAd = nativeAd
+        
+        headlineLabel.text = nativeAd.headline
+        bodyLabel.text = nativeAd.body
+        callToActionLabel.text = nativeAd.callToAction
+        callToActionLabel.isHidden = (nativeAd.callToAction == nil)
+        
+        if let icon = nativeAd.icon?.image {
+            iconImageView.image = icon
+            iconImageView.isHidden = false
+            iconImageView.backgroundColor = .clear
+        } else {
+            iconImageView.image = UIImage(systemName: "megaphone.fill")
+            iconImageView.tintColor = .systemBlue.withAlphaComponent(0.5)
+            iconImageView.contentMode = .center
+            iconImageView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
+            iconImageView.isHidden = false
+        }
+    }
+}
+
+// MARK: - ネイティブ広告コンテンツビュー（後方互換用・未使用）
 
 /// ネイティブ広告プレースホルダー（読み込み中用）
 struct NativeAdPlaceholder: View {

@@ -97,9 +97,14 @@ struct StatisticsView: View {
                     .padding(.horizontal)
                     .animation(.easeInOut(duration: 0.3), value: chartData.map { $0.count })
                     
-                    Spacer(minLength: 50)
+                    Spacer(minLength: 20)
                 }
                 .padding(.top, 8)
+            }
+            .safeAreaInset(edge: .bottom) {
+                if AdConfiguration.showBannerInStatistics {
+                    BannerAdView()
+                }
             }
             .navigationTitle("統計")
             .onAppear {
