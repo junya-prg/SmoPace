@@ -59,6 +59,7 @@ final class AdManager {
     func initialize() {
         guard !isInitialized else { return }
         
+        #if DEBUG
         // テストデバイスの設定（実機でテスト広告を表示するため）
         // シミュレーターは自動的にテストデバイスとして扱われます
         // 実機のデバイスIDはコンソールに出力されるので、それを追加してください
@@ -67,13 +68,13 @@ final class AdManager {
             // 実機のデバイスIDをここに追加（コンソールで確認）
             // 例: "abc123def456..."
         ]
+        #endif
         
         // Google Mobile Ads SDKの初期化
-        MobileAds.shared.start { _ in
+        Task {
+            await MobileAds.shared.start()
             logger.info("✅ AdMob初期化完了")
-            Task { @MainActor in
-                self.isInitialized = true
-            }
+            self.isInitialized = true
         }
     }
 }

@@ -25,26 +25,11 @@ struct NativeAdView: View {
                 EmptyView()
             } else if let nativeAd = adLoader.nativeAd {
                 // 広告が読み込まれた場合
-                VStack(alignment: .leading, spacing: 12) {
-                    // ヘッダー（広告ラベル）
-                    HStack {
-                        Text("広告")
-                            .font(.caption2)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.gray.opacity(0.2))
-                            .clipShape(Capsule())
-                        
-                        Spacer()
-                    }
-                    
-                    NativeAdContentRepresentable(nativeAd: nativeAd)
-                        .frame(minHeight: 80)
-                }
-                .padding()
-                .background(Color(.systemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+                // ※「広告」バッジはGADNativeAdView内部に含まれている（AdMobポリシー準拠）
+                NativeAdContentRepresentable(nativeAd: nativeAd)
+                    .frame(minHeight: 280)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
             } else {
                 // 読み込み中
                 VStack(alignment: .leading, spacing: 12) {
@@ -83,24 +68,41 @@ struct NativeAdContentRepresentable: UIViewRepresentable {
     func makeUIView(context: Context) -> NativeAdView_UIKit {
         // xib を使わず、コードで GADNativeAdView を構築
         let nativeAdView = NativeAdView_UIKit(frame: .zero)
-        nativeAdView.translatesAutoresizingMaskIntoConstraints = false
+        // ※ translatesAutoresizingMaskIntoConstraints は設定しない
+        // SwiftUI が UIView のサイズを自動管理する
         return nativeAdView
     }
     
     func updateUIView(_ nativeAdView: NativeAdView_UIKit, context: Context) {
         nativeAdView.configure(with: nativeAd)
     }
+    
+    /// SwiftUI にビューの適切なサイズを伝える
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView: NativeAdView_UIKit, context: Context) -> CGSize? {
+        let width = proposal.width ?? UIScreen.main.bounds.width
+        let fittingSize = uiView.systemLayoutSizeFitting(
+            CGSize(width: width, height: UIView.layoutFittingCompressedSize.height),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        return fittingSize
+    }
 }
 
 /// GADNativeAdView をコードで構築する UIKit ビュー
+/// AdMobポリシー準拠：MediaView使用 + 全アセットがビュー境界内に配置
 class NativeAdView_UIKit: GoogleMobileAds.NativeAdView {
     
     // サブビュー
-    private let iconImageView = UIImageView()
-    private let headlineLabel = UILabel()
-    private let bodyLabel = UILabel()
-    private let callToActionLabel = UILabel()
-    private let containerStack = UIStackView()
+    private let adBadgeLabel = UILabel()           // 「広告」バッジ（ビュー内部に配置）
+    private let iconImageView = UIImageView()      // アプリ/広告主アイコン
+    private let headlineLabel = UILabel()           // ヘッドライン
+    private let bodyLabel = UILabel()               // ボディテキスト
+    private let nativeMediaView = MediaView()       // ★ メイン画像/動画（AdMob必須）
+    private let advertiserLabel = UILabel()         // 広告主名
+    private let callToActionLabel = UILabel()       // CTAラベル
+    
+    private var mediaHeightConstraint: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -113,60 +115,124 @@ class NativeAdView_UIKit: GoogleMobileAds.NativeAdView {
     }
     
     private func setupViews() {
+        // ビュー境界内にすべてのアセットを収める
+        clipsToBounds = true
+        backgroundColor = .systemBackground
+        layer.cornerRadius = 12
+        
+        // 広告バッジの設定（GADNativeAdView内部に配置 - ポリシー準拠）
+        adBadgeLabel.text = "広告"
+        adBadgeLabel.font = .systemFont(ofSize: 9, weight: .medium)
+        adBadgeLabel.textColor = .secondaryLabel
+        adBadgeLabel.textAlignment = .center
+        adBadgeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         // アイコン画像の設定
         iconImageView.contentMode = .scaleAspectFill
         iconImageView.clipsToBounds = true
-        iconImageView.layer.cornerRadius = 8
+        iconImageView.layer.cornerRadius = 6
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            iconImageView.widthAnchor.constraint(equalToConstant: 60),
-            iconImageView.heightAnchor.constraint(equalToConstant: 60)
-        ])
         
         // ヘッドラインラベルの設定
-        headlineLabel.font = .preferredFont(forTextStyle: .headline)
-        headlineLabel.numberOfLines = 1
+        headlineLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+        headlineLabel.numberOfLines = 2
         headlineLabel.textColor = .label
+        headlineLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // ボディラベルの設定
-        bodyLabel.font = .preferredFont(forTextStyle: .subheadline)
+        bodyLabel.font = .systemFont(ofSize: 13)
         bodyLabel.numberOfLines = 2
         bodyLabel.textColor = .secondaryLabel
+        bodyLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // CTA ラベルの設定
-        callToActionLabel.font = .preferredFont(forTextStyle: .caption1)
+        // ★ メディアビューの設定（AdMob必須 - メイン画像/動画表示用）
+        // バリデーターエラー「MediaView not used」の修正
+        nativeMediaView.contentMode = .scaleAspectFill
+        nativeMediaView.clipsToBounds = true
+        nativeMediaView.layer.cornerRadius = 8
+        nativeMediaView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 広告主ラベルの設定
+        advertiserLabel.font = .systemFont(ofSize: 11)
+        advertiserLabel.textColor = .tertiaryLabel
+        advertiserLabel.numberOfLines = 1
+        advertiserLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // CTAラベルの設定
+        callToActionLabel.font = .systemFont(ofSize: 12, weight: .semibold)
         callToActionLabel.textColor = .systemBlue
-        callToActionLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        callToActionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // テキスト部分を縦に並べる
-        let textStack = UIStackView(arrangedSubviews: [headlineLabel, bodyLabel, callToActionLabel])
-        textStack.axis = .vertical
-        textStack.spacing = 4
-        textStack.alignment = .leading
+        // --- レイアウト構築 ---
+        // UIStackViewを使用してすべてのアセットをGADNativeAdView内部に配置
         
-        // アイコン + テキストを横に並べる
-        containerStack.addArrangedSubview(iconImageView)
-        containerStack.addArrangedSubview(textStack)
-        containerStack.axis = .horizontal
-        containerStack.spacing = 12
-        containerStack.alignment = .center
-        containerStack.translatesAutoresizingMaskIntoConstraints = false
+        // バッジ行（左寄せ）
+        let badgeRow = UIStackView(arrangedSubviews: [adBadgeLabel, UIView()])
+        badgeRow.axis = .horizontal
         
-        addSubview(containerStack)
+        // テキスト列（ヘッドライン + ボディ）
+        let textColumn = UIStackView(arrangedSubviews: [headlineLabel, bodyLabel])
+        textColumn.axis = .vertical
+        textColumn.spacing = 2
+        
+        // ヘッダー行（アイコン + テキスト列）
+        let headerRow = UIStackView(arrangedSubviews: [iconImageView, textColumn])
+        headerRow.axis = .horizontal
+        headerRow.spacing = 8
+        headerRow.alignment = .center
+        
+        // フッター行（広告主名 ... CTAラベル）
+        let footerRow = UIStackView(arrangedSubviews: [advertiserLabel, UIView(), callToActionLabel])
+        footerRow.axis = .horizontal
+        
+        // メインスタック（バッジ → ヘッダー → メディア → フッター）
+        let mainStack = UIStackView(arrangedSubviews: [badgeRow, headerRow, nativeMediaView, footerRow])
+        mainStack.axis = .vertical
+        mainStack.spacing = 8
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(mainStack)
+        
+        // メディアビューの高さ制約
+        // AdMob要件：動画表示時は最低120x120ポイント必要
+        let mediaMinHeight = nativeMediaView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
+        let mediaHeight = nativeMediaView.heightAnchor.constraint(equalToConstant: 150)
+        mediaHeight.priority = .defaultHigh
+        mediaHeightConstraint = mediaHeight
+        
+        // メインスタックの下端制約
+        // lessThanOrEqualTo を使用して、アセットがビュー外にはみ出さないことを保証
+        let bottomConstraint = mainStack.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -12)
+        
+        // できるだけ下端に詰めるための制約（低優先度）
+        let bottomFillConstraint = mainStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
+        bottomFillConstraint.priority = .defaultLow
         
         NSLayoutConstraint.activate([
-            containerStack.topAnchor.constraint(equalTo: topAnchor),
-            containerStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            containerStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            containerStack.bottomAnchor.constraint(equalTo: bottomAnchor)
+            // メインスタックをビュー内に配置（内部パディング付き）
+            mainStack.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            mainStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            bottomConstraint,
+            bottomFillConstraint,
+            
+            // アイコンサイズ
+            iconImageView.widthAnchor.constraint(equalToConstant: 40),
+            iconImageView.heightAnchor.constraint(equalToConstant: 40),
+            
+            // メディアビュー高さ（最小120pt + 希望150pt）
+            mediaMinHeight,
+            mediaHeight,
         ])
         
-        // GADNativeAdView のプロパティに各ビューを登録
+        // ★ GADNativeAdView のプロパティに各ビューを登録
         // これにより AdMob SDK がタップイベントを正しくハンドリングする
         self.headlineView = headlineLabel
         self.bodyView = bodyLabel
         self.iconView = iconImageView
         self.callToActionView = callToActionLabel
+        self.mediaView = nativeMediaView       // ★ 必須：MediaViewを登録
+        self.advertiserView = advertiserLabel   // ★ 広告主ビューを登録
     }
     
     /// NativeAd のデータをビューに反映する
@@ -178,17 +244,37 @@ class NativeAdView_UIKit: GoogleMobileAds.NativeAdView {
         callToActionLabel.text = nativeAd.callToAction
         callToActionLabel.isHidden = (nativeAd.callToAction == nil)
         
+        // 広告主名の表示
+        advertiserLabel.text = nativeAd.advertiser
+        advertiserLabel.isHidden = (nativeAd.advertiser == nil)
+        
+        // アイコンの表示
         if let icon = nativeAd.icon?.image {
             iconImageView.image = icon
-            iconImageView.isHidden = false
+            iconImageView.contentMode = .scaleAspectFill
             iconImageView.backgroundColor = .clear
         } else {
             iconImageView.image = UIImage(systemName: "megaphone.fill")
             iconImageView.tintColor = .systemBlue.withAlphaComponent(0.5)
             iconImageView.contentMode = .center
             iconImageView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
-            iconImageView.isHidden = false
         }
+        iconImageView.isHidden = false
+        
+        // ★ MediaView はSDKが自動的にメディアコンテンツを表示する
+        // nativeAd プロパティが設定されると自動でメイン画像/動画が表示される
+        // メディアコンテンツがない場合のみ非表示にする
+        if nativeAd.mediaContent.hasVideoContent || nativeAd.images?.isEmpty == false {
+            nativeMediaView.isHidden = false
+            mediaHeightConstraint?.constant = 150
+        } else {
+            // メディアがない場合でもMediaViewは表示（SDKが管理）
+            nativeMediaView.isHidden = false
+            mediaHeightConstraint?.constant = 100
+        }
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
 }
 

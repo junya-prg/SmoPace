@@ -27,6 +27,12 @@ struct HomeView: View {
     /// AIで生成した癒しメッセージ
     @State private var relaxMessage = "ゆっくりと..."
     
+    /// ランダム位置に表示するAIの独り言
+    @State private var floatingComment: String? = nil
+    
+    /// ランダムコメントの表示位置（X, Yの割合 0.0〜1.0）
+    @State private var floatingCommentPosition: CGPoint = CGPoint(x: 0.5, y: 0.4)
+    
     /// AI処理サービス
     @State private var aiService = FoundationModelsService()
     
@@ -117,32 +123,53 @@ struct HomeView: View {
             
             // リラックスモード時のオーバーレイ
             if isRelaxMode {
-                // タップ検出用
-                Color.clear
-                    .contentShape(Rectangle())
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        exitRelaxMode()
-                    }
-                
-                // 案内表示（下部）
-                VStack {
-                    Spacer()
-                    
-                    if showRelaxHint {
-                        VStack(spacing: 8) {
-                            // 癒しメッセージ
-                            Text(relaxMessage)
-                                .font(.subheadline)
-                                .foregroundStyle(.white.opacity(0.9))
-                            
-                            // 操作説明
-                            Text("タップで戻る")
-                                .font(.caption2)
-                                .foregroundStyle(.white.opacity(0.5))
+                GeometryReader { geometry in
+                    ZStack {
+                        // タップ検出用
+                        Color.clear
+                            .contentShape(Rectangle())
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                exitRelaxMode()
+                            }
+                        
+                        // ランダムな位置に表示されるAIの独り言
+                        if let comment = floatingComment {
+                            Text(comment)
+                                .font(.callout)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 12)
+                                .background(.ultraThinMaterial)
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .foregroundStyle(.white.opacity(0.95))
+                                .shadow(color: .black.opacity(0.2), radius: 10)
+                                .position(
+                                    x: geometry.size.width * floatingCommentPosition.x,
+                                    y: geometry.size.height * floatingCommentPosition.y
+                                )
+                                .transition(.opacity.combined(with: .scale(scale: 0.95)))
                         }
-                        .padding(.bottom, 60)
-                        .transition(.opacity)
+                        
+                        // 案内表示（下部）
+                        VStack {
+                            Spacer()
+                            
+                            if showRelaxHint {
+                                VStack(spacing: 8) {
+                                    // 癒しメッセージ
+                                    Text(relaxMessage)
+                                        .font(.subheadline)
+                                        .foregroundStyle(.white.opacity(0.9))
+                                    
+                                    // 操作説明
+                                    Text("タップで戻る")
+                                        .font(.caption2)
+                                        .foregroundStyle(.white.opacity(0.5))
+                                }
+                                .padding(.bottom, 60)
+                                .transition(.opacity)
+                            }
+                        }
                     }
                 }
             }
@@ -177,6 +204,44 @@ struct HomeView: View {
         Task {
             await aiService.ensureAIReady()
             relaxMessage = await aiService.generateRelaxMessage()
+            
+            // ランダムコメントの生成と表示準備
+            let userData = UserSmokingData(
+                averageDailyCount: viewModel.todayCount,
+                dailyGoal: viewModel.dailyGoal,
+                isDecreasing: false
+            )
+            let comment = await aiService.generateRandomComment(userData: userData)
+            
+            // X: 0.2 ~ 0.8, Y: 0.2 ~ 0.6 の範囲で表示（下部のshowRelaxHintを避けるため）
+            let randomX = CGFloat.random(in: 0.2...0.8)
+            let randomY = CGFloat.random(in: 0.2...0.6)
+            
+            await MainActor.run {
+                floatingCommentPosition = CGPoint(x: randomX, y: randomY)
+            }
+            
+            // 出現タイミングを少し遅らせる（2.5秒）
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            
+            // すでにリラックスモードを抜けていたら表示しない
+            let stillInRelaxMode = await MainActor.run { isRelaxMode }
+            guard stillInRelaxMode else { return }
+            
+            await MainActor.run {
+                withAnimation(.easeOut(duration: 1.5)) {
+                    floatingComment = comment
+                }
+            }
+            
+            // 5秒表示してから消す
+            try? await Task.sleep(nanoseconds: 5_000_000_000)
+            
+            await MainActor.run {
+                withAnimation(.easeIn(duration: 1.5)) {
+                    floatingComment = nil
+                }
+            }
         }
         
         withAnimation(.easeInOut(duration: 0.4)) {
@@ -202,6 +267,7 @@ struct HomeView: View {
     private func exitRelaxMode() {
         withAnimation(.easeOut(duration: 0.3)) {
             showRelaxHint = false
+            floatingComment = nil
         }
         withAnimation(.easeInOut(duration: 0.4)) {
             isRelaxMode = false

@@ -291,6 +291,70 @@ class FoundationModelsService: ObservableObject {
         }
     }
     
+    // MARK: - ランダムコメント生成
+    
+    /// ユーザーの状況を踏まえた何気ないポジティブなコメントを生成
+    /// - Parameter userData: ユーザーの喫煙データ
+    /// - Returns: ふわっと表示するコメント
+    func generateRandomComment(userData: UserSmokingData?) async -> String {
+        let fallbackComments = [
+            "今日はいい天気ですね",
+            "マイペースでいきましょう",
+            "あなたのペースで大丈夫です",
+            "少し肩の力を抜いて",
+            "リラックスできていますか？",
+            "穏やかな時間ですね",
+            "無理せずいきましょう",
+            "ゆったり過ごしましょう",
+            "今日も一日お疲れ様です",
+            "ひと休み、ひと休み"
+        ]
+        
+        guard _isAvailableCache == true else {
+            return fallbackComments.randomElement() ?? "マイペースでいきましょう"
+        }
+        
+        // ユーザーの状態に応じた少しのコンテキスト
+        var userContext = ""
+        if let data = userData {
+            userContext = "ユーザーは今日\(data.averageDailyCount)本吸っています。"
+            if let goal = data.dailyGoal {
+                if data.averageDailyCount < goal {
+                    userContext += "目標（\(goal)本）より少ないペースで順調です。"
+                } else if data.averageDailyCount == goal {
+                    userContext += "目標（\(goal)本）に達しています。"
+                }
+            }
+        }
+        
+        let session = LanguageModelSession(instructions: """
+            あなたはユーザーに寄り添うAIアシスタントです。
+            以下のルールに従って、20文字程度の短くて心が和む独り言やコメントを1つ生成してください：
+            - ポジティブな表現のみを使用する
+            - ユーザーに何かを催促したり、説教したりしない
+            - 「今日はいい天気ですね」といった一般的な何気ない挨拶でも良い
+            - 日本語で回答する
+            """)
+        
+        do {
+            let response = try await session.respond(to: """
+                ユーザー向けの何気ないポジティブな短いメッセージを1つ生成してください。
+                \(userContext)
+                状況を少しだけ加味しつつも、温かい言葉をかけてください。
+                """)
+            let message = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            // あまりに長い場合はフォールバック
+            if message.count <= 40 {
+                return message
+            }
+            return fallbackComments.randomElement() ?? "マイペースでいきましょう"
+        } catch {
+            print("ランダムコメント生成エラー: \(error)")
+            return fallbackComments.randomElement() ?? "マイペースでいきましょう"
+        }
+    }
+    
     // MARK: - 一括処理
     
     /// 複数の記事を一括処理
