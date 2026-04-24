@@ -17,7 +17,8 @@ import Combine
 /// 記事カードと同じスタイルで表示される広告
 struct NativeAdView: View {
     @StateObject private var adLoader = NativeAdLoader()
-    
+    private let adManager = AdManager.shared
+
     var body: some View {
         Group {
             // 広告の読み込みに失敗した場合は非表示
@@ -40,10 +41,10 @@ struct NativeAdView: View {
                             .padding(.vertical, 2)
                             .background(Color.gray.opacity(0.2))
                             .clipShape(Capsule())
-                        
+
                         Spacer()
                     }
-                    
+
                     NativeAdPlaceholder()
                 }
                 .padding()
@@ -53,8 +54,17 @@ struct NativeAdView: View {
             }
         }
         .onAppear {
-            adLoader.loadAd(adUnitId: AdManager.shared.nativeAdUnitId)
+            loadIfReady()
         }
+        .onChange(of: adManager.canLoadAds) { _, _ in
+            loadIfReady()
+        }
+    }
+
+    /// SDK初期化 & ATT確定が揃った段階で広告をロードする
+    private func loadIfReady() {
+        guard adManager.canLoadAds else { return }
+        adLoader.loadAd(adUnitId: adManager.nativeAdUnitId)
     }
 }
 
@@ -66,8 +76,8 @@ struct NativeAdContentRepresentable: UIViewRepresentable {
     let nativeAd: NativeAd
     
     func makeUIView(context: Context) -> NativeAdView_UIKit {
-        // xib を使わず、コードで GADNativeAdView を構築
-        let nativeAdView = NativeAdView_UIKit(frame: .zero)
+        // 初期サイズを0にすると制約クラッシュの恐れがあるため適当なサイズを設定
+        let nativeAdView = NativeAdView_UIKit(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
         // ※ translatesAutoresizingMaskIntoConstraints は設定しない
         // SwiftUI が UIView のサイズを自動管理する
         return nativeAdView
@@ -79,7 +89,7 @@ struct NativeAdContentRepresentable: UIViewRepresentable {
     
     /// SwiftUI にビューの適切なサイズを伝える
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: NativeAdView_UIKit, context: Context) -> CGSize? {
-        let width = proposal.width ?? UIScreen.main.bounds.width
+        let width = max(proposal.width ?? UIScreen.main.bounds.width, 320)
         let fittingSize = uiView.systemLayoutSizeFitting(
             CGSize(width: width, height: UIView.layoutFittingCompressedSize.height),
             withHorizontalFittingPriority: .required,
@@ -204,7 +214,7 @@ class NativeAdView_UIKit: GoogleMobileAds.NativeAdView {
         // lessThanOrEqualTo を使用して、アセットがビュー外にはみ出さないことを保証
         let bottomConstraint = mainStack.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -12)
         
-        // できるだけ下端に詰めるための制約（低優先度）
+        // できるだけ下端に詰めるための制約
         let bottomFillConstraint = mainStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         bottomFillConstraint.priority = .defaultLow
         
@@ -356,6 +366,9 @@ class NativeAdLoader: NSObject, ObservableObject, AdLoaderDelegate, NativeAdLoad
     
     func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
         timeoutTimer?.invalidate()
+        let nsError = error as NSError
+        print("❌ [Native Ad] Load Failed: \(nsError.localizedDescription)")
+        print("❌ [Native Ad] Error Code: \(nsError.code), Domain: \(nsError.domain)")
         DispatchQueue.main.async {
             self.loadFailed = true
         }
@@ -365,6 +378,7 @@ class NativeAdLoader: NSObject, ObservableObject, AdLoaderDelegate, NativeAdLoad
     
     func adLoader(_ adLoader: AdLoader, didReceive nativeAd: NativeAd) {
         timeoutTimer?.invalidate()
+        print("✅ [Native Ad] Loaded Successfully")
         DispatchQueue.main.async {
             self.nativeAd = nativeAd
         }

@@ -27,6 +27,9 @@ class HomeViewModel {
     /// 今日の喫煙本数（全体）
     var todayCount: Int = 0
     
+    /// 全期間の総喫煙本数
+    var totalRecordsCount: Int = 0
+    
     /// 1日の目標本数
     var dailyGoal: Int? = nil
     
@@ -142,6 +145,11 @@ class HomeViewModel {
             
             let records = try context.fetch(descriptor)
             todayCount = records.reduce(0) { $0 + $1.count }
+            
+            // 全期間の総記録数を取得
+            let allRecordsDescriptor = FetchDescriptor<SmokingRecord>()
+            let allRecords = try context.fetch(allRecordsDescriptor)
+            totalRecordsCount = allRecords.reduce(0) { $0 + $1.count }
             
             // 記録時の価格を使用して金額を計算
             todayAmount = records.reduce(Decimal(0)) { $0 + $1.amount }

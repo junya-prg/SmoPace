@@ -20,6 +20,9 @@ struct UserSmokingData {
     
     /// 節煙傾向（減少中かどうか）
     let isDecreasing: Bool
+    
+    /// 今までの総本数
+    let totalRecordsCount: Int?
 }
 
 // MARK: - エラー定義
@@ -280,8 +283,9 @@ class FoundationModelsService: ObservableObject {
                 「深呼吸して...」「この波をやり過ごそう」のような感じで。
                 """)
             let message = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
-            // 長すぎる場合はフォールバック
-            if message.count <= 20 {
+            print("🤖 生成されたリラックスメッセージ: \(message) (長さ: \(message.count))")
+            // 長すぎる場合はフォールバック（英語の接頭辞等も考慮して緩和）
+            if message.count <= 60 {
                 return message
             }
             return fallbackMessages.randomElement() ?? "ゆっくりと..."
@@ -316,23 +320,38 @@ class FoundationModelsService: ObservableObject {
         
         // ユーザーの状態に応じた少しのコンテキスト
         var userContext = ""
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateFormat = "M月d日(E) H時m分"
+        let nowString = formatter.string(from: Date())
+        userContext += "現在の日時: \(nowString)\n"
+        
         if let data = userData {
-            userContext = "ユーザーは今日\(data.averageDailyCount)本吸っています。"
+            userContext += "ユーザーは今日\(data.averageDailyCount)本吸っています。"
+            if let total = data.totalRecordsCount {
+                userContext += "これまでの総喫煙記録数は\(total)本です。"
+            }
             if let goal = data.dailyGoal {
+                userContext += "ユーザーの1日の上限目標は\(goal)本です（目標値に達することが目的ではなく、それ以内に抑えるための上限値です）。"
                 if data.averageDailyCount < goal {
-                    userContext += "目標（\(goal)本）より少ないペースで順調です。"
-                } else if data.averageDailyCount == goal {
-                    userContext += "目標（\(goal)本）に達しています。"
+                    let remaining = goal - data.averageDailyCount
+                    userContext += "上限まであと\(remaining)本の余裕があります。"
+                } else {
+                    userContext += "すでに上限の\(goal)本に達しているか、超えています。"
                 }
             }
         }
         
         let session = LanguageModelSession(instructions: """
             あなたはユーザーに寄り添うAIアシスタントです。
-            以下のルールに従って、20文字程度の短くて心が和む独り言やコメントを1つ生成してください：
+            以下のルールに従って、全体で10〜20文字程度の非常に短い独り言やコメントを1つだけ生成してください：
+            - 文字数はなるべく20文字以内に収めること（簡潔に）
             - ポジティブな表現のみを使用する
             - ユーザーに何かを催促したり、説教したりしない
-            - 「今日はいい天気ですね」といった一般的な何気ない挨拶でも良い
+            - 「目標」は到達すべきノルマではなく、「これ以上は吸わない」という上限を意味します。「目標まであと〇本」という表現はノルマのように聞こえるため避け、「上限まであと〇本」や「良いペースですね」といった表現にしてください
+            - コンテキストに渡された「現在の日時」を正しく読み取り、朝・昼・夜や実際の曜日に合った挨拶をすること（過去の例文などをそのまま使わないでください）
+            - たまに短い俳句を生成しても良いですが、その場合も解説は不要です
+            - 喫煙総本数が50本、100本、500本などのキリの良い数字の時は、短くお祝いする
             - 日本語で回答する
             """)
         
@@ -344,8 +363,9 @@ class FoundationModelsService: ObservableObject {
                 """)
             let message = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            // あまりに長い場合はフォールバック
-            if message.count <= 40 {
+            print("🤖 生成されたランダムコメント: \(message) (長さ: \(message.count))")
+            // あまりに長い場合はフォールバック（俳句やポエム、英語の接頭辞等も考慮して大幅に緩和）
+            if message.count <= 120 {
                 return message
             }
             return fallbackComments.randomElement() ?? "マイペースでいきましょう"

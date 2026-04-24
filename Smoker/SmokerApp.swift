@@ -91,13 +91,19 @@ struct RootView: View {
     
     /// トラッキング許可をリクエスト
     private func requestTrackingPermission() {
-        // すでに許可状態が決定している場合はスキップ
         let status = ATTrackingManager.trackingAuthorizationStatus
-        guard status == .notDetermined else { return }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            ATTrackingManager.requestTrackingAuthorization { _ in
-                // 許可結果は特に処理しない（広告SDKが自動で対応）
+
+        // すでに許可状態が決定している場合はダイアログを出さず、AdManagerにATT確定を通知
+        guard status == .notDetermined else {
+            AdManager.shared.markATTResolved()
+            return
+        }
+
+        // Splash終了直後に即時リクエスト
+        // （遅延を入れると ATT未決定のまま広告リクエストが送られ、非個人化広告の在庫枯渇でインプレッション0になる）
+        ATTrackingManager.requestTrackingAuthorization { _ in
+            DispatchQueue.main.async {
+                AdManager.shared.markATTResolved()
             }
         }
     }

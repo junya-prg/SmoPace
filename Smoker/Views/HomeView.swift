@@ -39,6 +39,9 @@ struct HomeView: View {
     /// ハプティクスサービス
     @State private var hapticService = HapticService()
     
+    /// リラックスモードの非同期タスク
+    @State private var relaxTask: Task<Void, Never>? = nil
+    
     var body: some View {
         ZStack {
             // 背景エフェクト（常に表示）
@@ -118,6 +121,15 @@ struct HomeView: View {
                         enterRelaxMode()
                     }
                     .navigationTitle("今日の記録")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NavigationLink {
+                                CalendarHeatmapView()
+                            } label: {
+                                Image(systemName: "calendar")
+                            }
+                        }
+                    }
                 }
             }
             
@@ -139,10 +151,10 @@ struct HomeView: View {
                                 .font(.callout)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 12)
-                                .background(.ultraThinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
                                 .foregroundStyle(.white.opacity(0.95))
-                                .shadow(color: .black.opacity(0.2), radius: 10)
+                                .shadow(color: .black.opacity(0.6), radius: 4, x: 0, y: 1)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: geometry.size.width - 40)
                                 .position(
                                     x: geometry.size.width * floatingCommentPosition.x,
                                     y: geometry.size.height * floatingCommentPosition.y
@@ -200,21 +212,33 @@ struct HomeView: View {
         // ハプティクスフィードバックで「呼吸」パターンを再生
         hapticService.playRelaxPattern()
         
+        // 既存のタスクをキャンセル
+        relaxTask?.cancel()
+        
         // AIで癒しメッセージを生成
-        Task {
+        relaxTask = Task {
             await aiService.ensureAIReady()
-            relaxMessage = await aiService.generateRelaxMessage()
+            if Task.isCancelled { return }
+            
+            let newRelaxMessage = await aiService.generateRelaxMessage()
+            if Task.isCancelled { return }
+            
+            await MainActor.run {
+                relaxMessage = newRelaxMessage
+            }
             
             // ランダムコメントの生成と表示準備
             let userData = UserSmokingData(
                 averageDailyCount: viewModel.todayCount,
                 dailyGoal: viewModel.dailyGoal,
-                isDecreasing: false
+                isDecreasing: false,
+                totalRecordsCount: viewModel.totalRecordsCount
             )
             let comment = await aiService.generateRandomComment(userData: userData)
+            if Task.isCancelled { return }
             
-            // X: 0.2 ~ 0.8, Y: 0.2 ~ 0.6 の範囲で表示（下部のshowRelaxHintを避けるため）
-            let randomX = CGFloat.random(in: 0.2...0.8)
+            // X: 画面外にはみ出さないように0.4 ~ 0.6、Y: 0.2 ~ 0.6 の範囲で表示
+            let randomX = CGFloat.random(in: 0.4...0.6)
             let randomY = CGFloat.random(in: 0.2...0.6)
             
             await MainActor.run {
@@ -223,6 +247,7 @@ struct HomeView: View {
             
             // 出現タイミングを少し遅らせる（2.5秒）
             try? await Task.sleep(nanoseconds: 2_500_000_000)
+            if Task.isCancelled { return }
             
             // すでにリラックスモードを抜けていたら表示しない
             let stillInRelaxMode = await MainActor.run { isRelaxMode }
@@ -236,6 +261,7 @@ struct HomeView: View {
             
             // 5秒表示してから消す
             try? await Task.sleep(nanoseconds: 5_000_000_000)
+            if Task.isCancelled { return }
             
             await MainActor.run {
                 withAnimation(.easeIn(duration: 1.5)) {
@@ -265,6 +291,10 @@ struct HomeView: View {
     
     /// リラックスモードから戻る
     private func exitRelaxMode() {
+        // タスクをキャンセル
+        relaxTask?.cancel()
+        relaxTask = nil
+        
         withAnimation(.easeOut(duration: 0.3)) {
             showRelaxHint = false
             floatingComment = nil

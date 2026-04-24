@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14D675DB2F1EADB90002BA75"
-            BuildableName = "Smoker.app"
-            BlueprintName = "Smoker"
-            ReferencedContainer = "container:SmokeCounter.xcodeproj">
+            BuildableName = "SmoPace.app"
+            BlueprintName = "SmoPace"
+            ReferencedContainer = "container:SmoPace.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
@@ -65,20 +65,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14D675DB2F1EADB90002BA75"
-            BuildableName = "Smoker.app"
-            BlueprintName = "Smoker"
-            ReferencedContainer = "container:SmokeCounter.xcodeproj">
+            BuildableName = "SmoPace.app"
+            BlueprintName = "SmoPace"
+            ReferencedContainer = "container:SmoPace.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14D675DB2F1EADB90002BA75"
-            BuildableName = "Smoker.app"
-            BlueprintName = "Smoker"
-            ReferencedContainer = "container:SmokeCounter.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

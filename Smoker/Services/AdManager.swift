@@ -20,9 +20,16 @@ final class AdManager {
     /// シングルトンインスタンス
     static let shared = AdManager()
     
-    /// 広告の初期化完了フラグ
+    /// 広告の初期化完了フラグ（MobileAds SDK の start() 完了）
     private(set) var isInitialized = false
-    
+
+    /// ATT（App Tracking Transparency）の許可状態が確定したか
+    /// .notDetermined → ダイアログ応答後 true、既に .authorized/.denied/.restricted なら初期化時に true
+    var attResolved = false
+
+    /// 広告をロードしてよい状態か（SDK初期化完了 かつ ATT確定済み）
+    var canLoadAds: Bool { isInitialized && attResolved }
+
     // MARK: - 広告ユニットID
     
     // テストモード: 新しいAdMobアプリ(SmoPace用)が作成されるまでtrueにしておく
@@ -60,22 +67,25 @@ final class AdManager {
         guard !isInitialized else { return }
         
         #if DEBUG
-        // テストデバイスの設定（実機でテスト広告を表示するため）
-        // シミュレーターは自動的にテストデバイスとして扱われます
-        // 実機のデバイスIDはコンソールに出力されるので、それを追加してください
-        MobileAds.shared.requestConfiguration.testDeviceIdentifiers = [
-            "GADSimulatorID"  // シミュレーター用（自動）
-            // 実機のデバイスIDをここに追加（コンソールで確認）
-            // 例: "abc123def456..."
-        ]
+        // --- 一時的にコメントアウトして、テスト機でも本番広告をリクエストさせる ---
+        // MobileAds.shared.requestConfiguration.testDeviceIdentifiers = [
+        //     "GADSimulatorID"
+        // ]
         #endif
         
         // Google Mobile Ads SDKの初期化
-        Task {
+        Task { @MainActor in
             await MobileAds.shared.start()
-            logger.info("✅ AdMob初期化完了")
             self.isInitialized = true
+            logger.info("✅ AdMob初期化完了")
         }
+    }
+
+    /// ATT許可状態が確定したことを通知する
+    /// ユーザーがダイアログに応答した直後、または初期化時に .notDetermined 以外だった場合に呼ぶ
+    func markATTResolved() {
+        attResolved = true
+        logger.info("✅ ATT状態確定")
     }
 }
 

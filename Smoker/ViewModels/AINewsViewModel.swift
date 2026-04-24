@@ -180,7 +180,8 @@ class AINewsViewModel {
         return UserSmokingData(
             averageDailyCount: averageCount,
             dailyGoal: settings.dailyGoal,
-            isDecreasing: isDecreasing
+            isDecreasing: isDecreasing,
+            totalRecordsCount: nil
         )
     }
     

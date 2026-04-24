@@ -14,6 +14,8 @@ import GoogleMobileAds
 /// バナー広告ビュー
 /// 統計画面の下部に表示される控えめな広告
 struct BannerAdView: View {
+    private let adManager = AdManager.shared
+
     var body: some View {
         VStack(spacing: 0) {
             // 広告ラベル
@@ -25,12 +27,19 @@ struct BannerAdView: View {
             }
             .padding(.horizontal, 8)
             .padding(.top, 4)
-            
-            // AdMobバナー広告
-            BannerAdViewRepresentable(adUnitId: AdManager.shared.bannerAdUnitId)
-                .frame(height: 50)
-                .padding(.horizontal, 8)
-                .padding(.bottom, 8)
+
+            // AdMobバナー広告 (320x50の固定サイズ)
+            // SDK初期化 & ATT確定後にのみ広告をロードする
+            Group {
+                if adManager.canLoadAds {
+                    BannerAdViewRepresentable(adUnitId: adManager.bannerAdUnitId)
+                } else {
+                    Color.clear
+                }
+            }
+            .frame(width: 320, height: 50)
+            .padding(.horizontal, 8)
+            .padding(.bottom, 8)
         }
         .background(Color(.systemGray6))
     }
@@ -42,9 +51,14 @@ struct BannerAdView: View {
 struct BannerAdViewRepresentable: UIViewRepresentable {
     let adUnitId: String
     
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
     func makeUIView(context: Context) -> BannerView {
         let bannerView = BannerView(adSize: AdSizeBanner)
         bannerView.adUnitID = adUnitId
+        bannerView.delegate = context.coordinator
         
         // ルートViewControllerを取得
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -60,6 +74,18 @@ struct BannerAdViewRepresentable: UIViewRepresentable {
     
     func updateUIView(_ uiView: BannerView, context: Context) {
         // 更新時は何もしない
+    }
+    
+    class Coordinator: NSObject, BannerViewDelegate {
+        func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
+            let nsError = error as NSError
+            print("❌ [Banner Ad] Load Failed: \(nsError.localizedDescription)")
+            print("❌ [Banner Ad] Error Code: \(nsError.code), Domain: \(nsError.domain)")
+        }
+        
+        func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+            print("✅ [Banner Ad] Loaded Successfully")
+        }
     }
 }
 
