@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(xcodebuild -project SmoPace.xcodeproj -scheme Smoker -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -configuration Debug build)"
+      "Bash(xcodebuild -project SmoPace.xcodeproj -scheme Smoker -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -configuration Debug build)",
+      "WebFetch(domain:junya-prg.github.io)"
     ]
   }
 }

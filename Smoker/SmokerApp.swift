@@ -81,14 +81,28 @@ struct RootView: View {
             if showSplash {
                 SplashScreenView {
                     showSplash = false
-                    // スプラッシュ終了後にトラッキング許可をリクエスト
-                    requestTrackingPermission()
+                    // スプラッシュ終了後 → UMP同意 → ATT の順でリクエスト
+                    Task { @MainActor in
+                        await runConsentAndTrackingFlow()
+                    }
                 }
                 .transition(.opacity)
             }
         }
     }
-    
+
+    /// UMP同意フロー → ATTリクエストの順に実行する
+    /// AdMob は UMP 同意取得後に ATT を呼ぶことを推奨している
+    @MainActor
+    private func runConsentAndTrackingFlow() async {
+        await withCheckedContinuation { continuation in
+            ConsentManager.shared.gatherConsent {
+                continuation.resume()
+            }
+        }
+        requestTrackingPermission()
+    }
+
     /// トラッキング許可をリクエスト
     private func requestTrackingPermission() {
         let status = ATTrackingManager.trackingAuthorizationStatus
@@ -99,8 +113,6 @@ struct RootView: View {
             return
         }
 
-        // Splash終了直後に即時リクエスト
-        // （遅延を入れると ATT未決定のまま広告リクエストが送られ、非個人化広告の在庫枯渇でインプレッション0になる）
         ATTrackingManager.requestTrackingAuthorization { _ in
             DispatchQueue.main.async {
                 AdManager.shared.markATTResolved()

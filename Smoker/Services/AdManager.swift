@@ -27,8 +27,12 @@ final class AdManager {
     /// .notDetermined → ダイアログ応答後 true、既に .authorized/.denied/.restricted なら初期化時に true
     var attResolved = false
 
-    /// 広告をロードしてよい状態か（SDK初期化完了 かつ ATT確定済み）
-    var canLoadAds: Bool { isInitialized && attResolved }
+    /// UMP（User Messaging Platform）同意フローが完了したか
+    /// 同意フォーム表示が不要な地域でも、ConsentInfo の更新完了で true になる
+    var consentResolved = false
+
+    /// 広告をロードしてよい状態か（SDK初期化完了 かつ 同意確定 かつ ATT確定）
+    var canLoadAds: Bool { isInitialized && consentResolved && attResolved }
 
     // MARK: - 広告ユニットID
     
@@ -86,6 +90,12 @@ final class AdManager {
     func markATTResolved() {
         attResolved = true
         logger.info("✅ ATT状態確定")
+    }
+
+    /// UMP 同意フローが完了したことを通知する
+    func markConsentResolved() {
+        consentResolved = true
+        logger.info("✅ UMP同意フロー完了")
     }
 }
 

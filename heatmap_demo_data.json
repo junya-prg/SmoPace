@@ -1,0 +1,1530 @@
+{
+  "version": "1.0",
+  "exportDate": "2026-04-24T05:01:32Z",
+  "appName": "SmokeCounter",
+  "records": [
+    {
+      "id": "69b02ff3-571a-414d-8511-2487caead151",
+      "timestamp": "2026-04-01T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9cdedbc4-a5cf-498c-a457-42a2698fab3f",
+      "timestamp": "2026-04-01T14:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "149424d6-4a77-49c7-b931-b93d44f41cbe",
+      "timestamp": "2026-04-02T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "5011acc6-2481-4564-98eb-ada11d6c32b3",
+      "timestamp": "2026-04-02T11:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "8ae8e24a-1599-489d-9de1-4e9a1fffb247",
+      "timestamp": "2026-04-02T14:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b7383e52-2217-4f71-a1ed-7b1b5d565f6f",
+      "timestamp": "2026-04-02T17:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "eb46074e-6856-4d5d-b69f-406bd752f0c5",
+      "timestamp": "2026-04-03T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b160ad44-c9a2-4eaa-a4c7-1128affabf7f",
+      "timestamp": "2026-04-03T10:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "4735aa5a-e32c-488b-8ceb-abb5696b36d3",
+      "timestamp": "2026-04-03T12:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "fc494ed1-4a80-44b8-98bd-e40aeac97b5d",
+      "timestamp": "2026-04-03T14:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7083bf00-2388-4800-ae21-28ed7a3d36d7",
+      "timestamp": "2026-04-03T16:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "1399d413-078d-4492-ada8-57e18c688383",
+      "timestamp": "2026-04-03T18:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f2c438ba-6b59-4c52-8ad3-cbbb3525377a",
+      "timestamp": "2026-04-04T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "8102f5e7-181a-486f-9737-cf14904e7180",
+      "timestamp": "2026-04-04T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "71c5dfbd-5e62-4fc0-a28d-5e38f26db2c2",
+      "timestamp": "2026-04-04T11:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9e17afe2-9e47-446b-886a-66ab1b3e23fe",
+      "timestamp": "2026-04-04T12:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "c9844380-a24d-4f10-add4-c48b807f7315",
+      "timestamp": "2026-04-04T14:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b1ca4598-1ae3-4568-908e-912aa8c7fbe9",
+      "timestamp": "2026-04-04T15:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "47379d44-30f9-41c6-b07b-c0b88d9ef09d",
+      "timestamp": "2026-04-04T17:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "875eb460-8b90-450c-af05-380e452963b5",
+      "timestamp": "2026-04-04T18:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "3e367f20-7f56-4515-af19-ac4024fd054a",
+      "timestamp": "2026-04-05T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7b96e3fe-d700-4d4b-9492-d5eb04ff546d",
+      "timestamp": "2026-04-05T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "0f9adeae-fda6-4d5b-bb38-d35fcc06c82f",
+      "timestamp": "2026-04-05T10:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "96c7e0dd-b9f2-4b7d-8e6f-5fec3bd0e995",
+      "timestamp": "2026-04-05T11:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "df7edbac-06b1-4862-9ae7-fe499371cd7d",
+      "timestamp": "2026-04-05T12:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "c053c401-92ca-459f-a6a1-5fec55249eae",
+      "timestamp": "2026-04-05T14:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9d697343-0717-40ab-986a-1f732ba77d0a",
+      "timestamp": "2026-04-05T15:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "d31463d9-b36e-4d7c-a946-1e8930914702",
+      "timestamp": "2026-04-05T16:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f679cbbd-0cdd-477f-8d9d-c7afa72dd8d6",
+      "timestamp": "2026-04-05T17:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2aafaeda-42c7-4acf-a1cf-919673463ff0",
+      "timestamp": "2026-04-05T18:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "d877acf1-ca0e-440c-afb3-764ada5e7b13",
+      "timestamp": "2026-04-06T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2d1c09f7-dba2-4876-b6f9-1c0f3acb33cd",
+      "timestamp": "2026-04-06T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "c320e030-0203-4bf9-adac-d3bf004f3a4d",
+      "timestamp": "2026-04-06T10:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "c0ab3eff-46a1-4a6d-96d1-c64b83c764c4",
+      "timestamp": "2026-04-06T11:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "6b89fe4c-c6c8-4b59-9cc1-e2ea49ed1295",
+      "timestamp": "2026-04-06T12:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9c33c910-04ee-481c-a1ef-215d88d718d7",
+      "timestamp": "2026-04-06T13:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "8905b1f9-b307-4ce9-af9f-fab4ef6a8c41",
+      "timestamp": "2026-04-06T14:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9ec8cb78-6e28-4c17-a14a-1548de52a075",
+      "timestamp": "2026-04-06T15:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "43b711fb-52cd-4035-83ee-b015844dab28",
+      "timestamp": "2026-04-06T16:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "33cf9d13-8de3-43e8-a2e6-e4bdf523ffc7",
+      "timestamp": "2026-04-06T17:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "eb9bb8f4-0be2-4bed-8871-1254679a2f64",
+      "timestamp": "2026-04-06T18:10:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9c5e972b-1017-4fcc-8246-dba232d8af49",
+      "timestamp": "2026-04-06T19:47:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e1f0743e-8efb-4ff2-948c-50cc7e8e2f30",
+      "timestamp": "2026-04-07T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f076086e-300b-4e89-b051-88e4c9c69491",
+      "timestamp": "2026-04-07T08:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "13875a91-21bd-4cc9-b1b4-fc9c59f72d35",
+      "timestamp": "2026-04-07T09:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "27f0b820-5090-4f56-9467-c1095accc6a2",
+      "timestamp": "2026-04-07T10:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "21ac8223-7220-4086-af95-718360d3d84e",
+      "timestamp": "2026-04-07T11:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "1a63fee8-2c2f-478e-87df-a0071e71ac89",
+      "timestamp": "2026-04-07T12:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "8f18b6a7-d5b8-4597-9b44-f99de06c8f4e",
+      "timestamp": "2026-04-07T12:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "bd407470-6e47-4488-a618-070fd84f1955",
+      "timestamp": "2026-04-07T13:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "18e15384-7982-4918-911d-8b623ee981a5",
+      "timestamp": "2026-04-07T14:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "321e5793-6286-4596-a76a-8e2cf672dd72",
+      "timestamp": "2026-04-07T15:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "42cf92b4-ac1a-4324-8749-0bcb0405511d",
+      "timestamp": "2026-04-07T16:10:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a35fd2bc-a8b4-4d19-80f8-fe4d1653f6b3",
+      "timestamp": "2026-04-07T16:47:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "cf0aa61f-8378-4a6b-bd56-492edc48d33b",
+      "timestamp": "2026-04-07T17:24:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a47b0b32-dc30-4c6d-862c-ea65f7e48ffa",
+      "timestamp": "2026-04-07T18:01:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a2ebfc63-bd6b-4af1-963a-687868056e42",
+      "timestamp": "2026-04-07T19:38:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9f4eaf15-4124-46b7-98bd-1d93f1590f88",
+      "timestamp": "2026-04-08T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "d857b7f4-5597-4acd-8c6f-2b22e6f5b5a8",
+      "timestamp": "2026-04-08T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a776bdd3-a88f-4350-95f1-0dc732b92d83",
+      "timestamp": "2026-04-08T10:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f8d25962-ad33-4726-af7c-8a29f34f2322",
+      "timestamp": "2026-04-08T11:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a0afccc4-fa5e-41c1-843f-52786afd80fd",
+      "timestamp": "2026-04-08T12:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "bdeaaf66-47b9-4c4d-9aee-07f51afd1b64",
+      "timestamp": "2026-04-08T13:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "bb1d48da-1800-4f0a-a237-a8da19d210ee",
+      "timestamp": "2026-04-08T14:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "81be97db-eead-4f7d-98a7-d21e57f435c1",
+      "timestamp": "2026-04-08T15:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "c1e6aa56-4d51-4a8a-8051-cc0fa4137ddb",
+      "timestamp": "2026-04-08T16:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2492152f-f2a3-46be-a32e-81996e7fcbdd",
+      "timestamp": "2026-04-08T17:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "5fbca393-3ed0-44c8-9450-c08ebe599ed7",
+      "timestamp": "2026-04-08T18:10:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "de172d8f-0702-4531-9c98-ea713c3392ee",
+      "timestamp": "2026-04-08T19:47:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2565bebe-1ee5-4959-900e-06706aa41b88",
+      "timestamp": "2026-04-09T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "deede6d9-4cd1-47b2-bcd7-943262f5ca83",
+      "timestamp": "2026-04-09T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "798d9869-6434-43a3-bb19-03d8b8917a02",
+      "timestamp": "2026-04-09T11:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "1d9b5e58-a4ca-441b-9df4-b1b40fbbbcaa",
+      "timestamp": "2026-04-09T12:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "85bc8d71-4bc9-4caa-9463-7f93f897d969",
+      "timestamp": "2026-04-09T14:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f80bde12-c9a1-4d05-9a80-fc8013bf925c",
+      "timestamp": "2026-04-09T15:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "61e2abdc-03df-4294-90a0-7a585dd1307a",
+      "timestamp": "2026-04-09T17:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "d9b44d83-7826-451c-b36c-faf4089599c1",
+      "timestamp": "2026-04-09T18:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "94ab38e2-4c9b-437a-a4ce-e9c02e2c22ae",
+      "timestamp": "2026-04-10T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b4170e17-5f5d-4733-97a8-db4e3885320c",
+      "timestamp": "2026-04-10T11:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9110a15d-a641-4cab-b018-a36098b13305",
+      "timestamp": "2026-04-10T14:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "60d6e713-253a-4b8f-8c0f-825755065819",
+      "timestamp": "2026-04-10T17:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "d82a82a5-0ff8-4d9d-a4c0-202caa59c6d6",
+      "timestamp": "2026-04-11T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "d8b83834-d817-417c-bb46-846717ab139d",
+      "timestamp": "2026-04-11T14:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "0b508080-e154-45d7-8314-1cb2cd440d76",
+      "timestamp": "2026-04-13T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7bc5f2d2-5fc4-489b-a876-3de645d515d9",
+      "timestamp": "2026-04-13T14:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "020726cb-e3d9-4a0d-a01f-97db0af935b6",
+      "timestamp": "2026-04-14T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "4fbff8e9-3b00-4aa6-ab9e-38a45e1e1a99",
+      "timestamp": "2026-04-14T10:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "db548ab9-74c2-43dc-831a-98d9c0b44a2d",
+      "timestamp": "2026-04-14T12:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "fb5c5956-4540-4896-852c-4ffaf8365249",
+      "timestamp": "2026-04-14T15:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "1a174160-ac67-45de-822b-899fbac2490f",
+      "timestamp": "2026-04-14T17:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "76733897-1b2b-46fb-a443-52b4e64c8098",
+      "timestamp": "2026-04-15T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e742a971-cdd5-411b-8392-cb8f5a94b3d2",
+      "timestamp": "2026-04-15T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9dd7d0c1-0d1e-47ce-9733-12b89d6f07c9",
+      "timestamp": "2026-04-15T11:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "3c894da3-27d8-411e-8ffb-a9aad6ac1474",
+      "timestamp": "2026-04-15T13:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "4a277cb0-eea1-486c-a461-cb432c93ff9c",
+      "timestamp": "2026-04-15T14:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "6e810398-6bc2-4d12-97e5-d0ee01ccceda",
+      "timestamp": "2026-04-15T16:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "779092b1-95ce-43c1-b07e-f2c9c037c1a4",
+      "timestamp": "2026-04-15T18:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "1483ab55-40b7-4a68-8322-c6da0a9916f3",
+      "timestamp": "2026-04-16T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a70e4fa5-4aea-4a41-8d0e-4aff84df80b7",
+      "timestamp": "2026-04-16T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "ea6ad3d4-dcb5-42dc-897d-413d11c0f1f9",
+      "timestamp": "2026-04-16T10:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2d2bbd4b-693d-4a91-a76d-f56d751775e9",
+      "timestamp": "2026-04-16T11:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "761d0f14-fcbf-46e0-ac3b-158ef1a26068",
+      "timestamp": "2026-04-16T12:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "3dd728e3-8f1b-4628-bf45-4eb8b53b3f5b",
+      "timestamp": "2026-04-16T14:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "fd987d01-caa6-42b3-adfd-5c7522febf72",
+      "timestamp": "2026-04-16T15:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2d03104c-5251-4982-99d9-94d9a209bf80",
+      "timestamp": "2026-04-16T16:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2f384db7-fae7-4694-8e92-e8814cfdc3ac",
+      "timestamp": "2026-04-16T17:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f75e740e-1dda-4f56-83cf-7128a7303f6d",
+      "timestamp": "2026-04-16T18:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9c6d87df-5e6a-429c-ac40-802f0a56070f",
+      "timestamp": "2026-04-17T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "347803c7-51c9-4d7d-8661-0aeee8f77b01",
+      "timestamp": "2026-04-17T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7b2ca2a9-eb7f-426b-b5d4-4318aff9791e",
+      "timestamp": "2026-04-17T10:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "704a063d-2447-426b-ad6c-2f6814718075",
+      "timestamp": "2026-04-17T11:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "977eceb8-d146-4ea0-bd84-3c381e35217b",
+      "timestamp": "2026-04-17T12:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7bb8ecfe-749f-4b18-b75f-b628176d2ce1",
+      "timestamp": "2026-04-17T13:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "d12367e8-9b33-4f73-a554-01c6196ea293",
+      "timestamp": "2026-04-17T14:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "6eabb0a8-e877-43a9-a4eb-944ccc97008a",
+      "timestamp": "2026-04-17T15:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e00de79c-a9f6-48c1-aa39-0d8b4e42d8aa",
+      "timestamp": "2026-04-17T16:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "c59caf56-1253-4201-8a79-12b414420c13",
+      "timestamp": "2026-04-17T17:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "141de609-07fe-4014-b314-209f64a6919d",
+      "timestamp": "2026-04-17T18:10:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "4ea93237-3578-4c5f-8f30-25f212c32c16",
+      "timestamp": "2026-04-17T19:47:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "3e68bdaa-d673-46dd-a9d9-7caae8bd51f6",
+      "timestamp": "2026-04-18T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e7003650-c731-40bf-ad6e-1b171c76af14",
+      "timestamp": "2026-04-18T08:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e16c7d50-a7e3-4da6-a3c1-27099b5953f8",
+      "timestamp": "2026-04-18T09:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "3a118bd1-29f0-4133-95ce-77db364a97bc",
+      "timestamp": "2026-04-18T10:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "ff55c9af-6f89-4c84-bd56-2aa9d5ebfbbb",
+      "timestamp": "2026-04-18T11:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "31706bc5-0cac-4d09-9104-4226ebf9c86c",
+      "timestamp": "2026-04-18T12:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "df30bebd-c986-495e-b33b-76f2501cd3b2",
+      "timestamp": "2026-04-18T12:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a974238c-0ec7-4747-a075-edba327acbea",
+      "timestamp": "2026-04-18T13:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "3f631946-920b-49f1-8a5a-ecc2cd777e18",
+      "timestamp": "2026-04-18T14:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "ebf9b295-7602-4778-a244-81edf53129d3",
+      "timestamp": "2026-04-18T15:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "bcecddcf-3b90-4968-bf32-3d0f55f28d87",
+      "timestamp": "2026-04-18T16:10:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e1710b58-267a-4a35-a111-d1c657a0c737",
+      "timestamp": "2026-04-18T16:47:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "5edf4a1a-e252-4218-8520-9d272d1a121b",
+      "timestamp": "2026-04-18T17:24:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "cc1a20c5-a81a-4ba8-a31c-e42b0945c674",
+      "timestamp": "2026-04-18T18:01:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7532f492-2343-4f70-880b-d35731d7a82d",
+      "timestamp": "2026-04-18T19:38:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "6fbe83a8-8a77-474b-a8f7-64bd6e3c98d2",
+      "timestamp": "2026-04-19T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a07ffa43-760b-4ec1-8425-1deab9af96f2",
+      "timestamp": "2026-04-19T08:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "80829a2c-0e4e-4f5c-92e8-f3a5f359de22",
+      "timestamp": "2026-04-19T09:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7e2f4550-ca21-4f9c-bd85-c6e569aa45dc",
+      "timestamp": "2026-04-19T10:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "22953a56-c761-4857-8cf0-13929bdc90c9",
+      "timestamp": "2026-04-19T11:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "542bfbc9-e477-4203-a1ac-1686c8382b6a",
+      "timestamp": "2026-04-19T11:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "c1f25a39-b60f-4c50-b2cf-854ae985c3d5",
+      "timestamp": "2026-04-19T12:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "16724347-5bc4-4457-95b3-38c49582ed45",
+      "timestamp": "2026-04-19T13:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "11152fa9-2945-42a9-b3d0-7d493a796846",
+      "timestamp": "2026-04-19T14:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "5a9ac97a-1c33-4e3a-a839-999050f4e080",
+      "timestamp": "2026-04-19T14:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "552b2f4a-d8a7-4f01-a0ea-e689fdfdbf30",
+      "timestamp": "2026-04-19T15:10:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "be7ac129-d297-4a33-8856-0e83ca5fc86e",
+      "timestamp": "2026-04-19T16:47:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "06c517c0-7dc5-4191-a858-1ec7774f9bf4",
+      "timestamp": "2026-04-19T17:24:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "03e33f96-651e-40ef-8577-f41fc8e94201",
+      "timestamp": "2026-04-19T17:01:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f01148a8-3670-4f60-9d49-b75ba2e1c475",
+      "timestamp": "2026-04-19T18:38:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "77a854b9-a2ee-4b17-844a-1c9f98441d7c",
+      "timestamp": "2026-04-19T19:15:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "df50f511-ba27-464f-913a-d177bec02f74",
+      "timestamp": "2026-04-20T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e189e613-4797-44f0-baec-e90669b3809e",
+      "timestamp": "2026-04-20T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "8d3aa22c-ccde-4e4c-8ec8-7ae46c300b82",
+      "timestamp": "2026-04-20T10:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "5388762a-5c4b-474f-be24-f5e49d3174c2",
+      "timestamp": "2026-04-20T11:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b67a11bf-e367-448b-bba0-4f206d8f4a7b",
+      "timestamp": "2026-04-20T12:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f35e2327-7f5b-47e1-b904-f286f1d5a52a",
+      "timestamp": "2026-04-20T14:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "1c5c75c6-bc61-4f3b-a187-a093d800d963",
+      "timestamp": "2026-04-20T15:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "0ec17d05-fb7d-4666-a16e-2a629495806f",
+      "timestamp": "2026-04-20T16:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "12188a3e-b20a-413f-a552-81a73deeaaed",
+      "timestamp": "2026-04-20T17:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "3d4296e5-5aa3-4539-8082-129467af6356",
+      "timestamp": "2026-04-20T18:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "8e85c22f-a3ac-49b6-ae4b-717e3200a6a4",
+      "timestamp": "2026-04-21T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f6303e2e-0b21-4822-9c05-04b17e80074a",
+      "timestamp": "2026-04-21T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "2dc4560b-beb9-45c1-bfb6-7a5caa298a7a",
+      "timestamp": "2026-04-21T11:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "16855606-88c2-41b9-b77b-f0fe6dd8029b",
+      "timestamp": "2026-04-21T12:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "a5c7a8b4-79fd-44fd-88c9-33e4424816f5",
+      "timestamp": "2026-04-21T14:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9859d22e-60a1-43b9-8066-7fe3d10a6b61",
+      "timestamp": "2026-04-21T15:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b42c312b-9725-441e-8d7f-5085ed0e782b",
+      "timestamp": "2026-04-21T17:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "bdc906cd-a076-4821-bdf0-ca0e4130a1d1",
+      "timestamp": "2026-04-21T18:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "ae3d227c-a9d0-4df9-8cc2-d69455355bf7",
+      "timestamp": "2026-04-22T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "44d313f8-162b-422e-a084-182984bb4aa7",
+      "timestamp": "2026-04-22T10:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b4da7353-472f-47b0-ac17-ca51a0194d70",
+      "timestamp": "2026-04-22T12:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "4a2a9536-7bbf-4909-9913-bbe72e2805dd",
+      "timestamp": "2026-04-22T15:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "88a7fefd-a4f5-4fed-ae57-142f6f851b4c",
+      "timestamp": "2026-04-22T17:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "9f70e828-5082-4f75-b60a-d031c66bc473",
+      "timestamp": "2026-04-23T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "be4ae5f1-a44f-4838-b176-231035ee78c8",
+      "timestamp": "2026-04-23T12:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "fa124bc4-c4aa-4dfa-8357-dbb0083c748e",
+      "timestamp": "2026-04-23T16:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f8ab927b-a048-4f7e-abe4-af018657b6f5",
+      "timestamp": "2026-04-24T08:00:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "f3ec2a55-a24a-48c8-85f6-17760bd1d6b6",
+      "timestamp": "2026-04-24T09:37:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "712ee28c-f1a7-4186-bf95-2d6119b9f975",
+      "timestamp": "2026-04-24T10:14:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "7c806c21-90b0-49e3-b3ff-6db03c6a79ab",
+      "timestamp": "2026-04-24T11:51:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "94fc703b-b897-448a-a21e-05e2029c5508",
+      "timestamp": "2026-04-24T12:28:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "46c5bf4d-c4e0-400b-aa28-eb049ac0ec45",
+      "timestamp": "2026-04-24T13:05:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "df1e74a0-aad8-422e-a95a-2cf1f1e4a0e4",
+      "timestamp": "2026-04-24T14:42:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "4f8614ef-caa9-4417-b72e-3b0f890fc1c0",
+      "timestamp": "2026-04-24T15:19:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "e27f6979-be99-4e65-b3e9-554e47ddc4d6",
+      "timestamp": "2026-04-24T16:56:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "b6aed112-5037-4bb3-ace4-ed96f8fc4218",
+      "timestamp": "2026-04-24T17:33:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "1475d443-f890-4c30-8727-e596890b09bd",
+      "timestamp": "2026-04-24T18:10:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    },
+    {
+      "id": "86edca8d-ca1a-4ed3-9c2c-b70cf9ded533",
+      "timestamp": "2026-04-24T19:47:00Z",
+      "count": 1,
+      "brandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "brandName": "Marlboro",
+      "pricePerCigarette": "30"
+    }
+  ],
+  "brands": [
+    {
+      "id": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+      "name": "Marlboro",
+      "countPerPack": 20,
+      "pricePerPack": "600",
+      "isActive": true,
+      "createdAt": "2026-01-01T00:00:00Z",
+      "isDefault": true
+    }
+  ],
+  "settings": {
+    "healthKitEnabled": false,
+    "activeBrandId": "af00ca1a-48e9-4975-b0bc-2e71f4cb4254",
+    "dailyGoal": 10,
+    "backgroundTypeRawValue": "none",
+    "backgroundOpacity": 0.5,
+    "iCloudSyncEnabled": false
+  }
+}
