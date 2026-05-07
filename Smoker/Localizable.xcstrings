@@ -1,7 +1,23 @@
 {
   "sourceLanguage" : "ja",
-  "version" : "1.0",
   "strings" : {
+    "" : {
+
+    },
+    "— 少しずつ、自分のペースで —" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "— A little at a time, at your own pace —"
+          }
+        }
+      }
+    },
+    "・" : {
+
+    },
     "%.1f本" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9,6 +25,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%.1f cigs"
+          }
+        }
+      }
+    },
+    "%@\n\n%@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@\n\n%2$@"
           }
         }
       }
@@ -37,6 +63,9 @@
     },
     "%lld" : {
       "shouldTranslate" : false
+    },
+    "%lld%%" : {
+
     },
     "%lld件" : {
       "extractionState" : "manual",
@@ -82,18 +111,6 @@
         }
       }
     },
-    "H時台" : {
-      "comment" : "Date format string used at runtime; localize the format itself",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "h a"
-          }
-        }
-      }
-    },
     "%lld時間%lld分" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -101,6 +118,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$lldh %2$lldm"
+          }
+        }
+      }
+    },
+    "%lld月" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
           }
         }
       }
@@ -116,6 +144,9 @@
         }
       }
     },
+    "%lld本に達しました" : {
+      "extractionState" : "manual"
+    },
     "%lld本超過" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -127,16 +158,8 @@
         }
       }
     },
-    "%lld月" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld"
-          }
-        }
-      }
+    "•" : {
+
     },
     "+%lld分" : {
       "extractionState" : "manual",
@@ -160,6 +183,56 @@
         }
       }
     },
+    "★マークの銘柄がウィジェットからのカウントアップ時に使用されます" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The brand marked with ★ is used when counting up from the widget."
+          }
+        }
+      }
+    },
+    "1.0.0" : {
+      "shouldTranslate" : false
+    },
+    "1日の目標本数" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily limit"
+          }
+        }
+      }
+    },
+    "1箱あたりの価格" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price per pack"
+          }
+        }
+      }
+    },
+    "1箱あたりの本数" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cigarettes per pack"
+          }
+        }
+      }
+    },
+    "20" : {
+      "shouldTranslate" : false
+    },
     "AI" : {
       "shouldTranslate" : false
     },
@@ -170,6 +243,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "AI is analyzing articles..."
+          }
+        }
+      }
+    },
+    "AIセッションが利用できません" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI session is not available"
           }
         }
       }
@@ -196,17 +280,6 @@
         }
       }
     },
-    "AIセッションが利用できません" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "AI session is not available"
-          }
-        }
-      }
-    },
     "Apple Intelligenceが利用できません。デバイスの設定を確認してください。" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -214,6 +287,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apple Intelligence is not available. Please check your device settings."
+          }
+        }
+      }
+    },
+    "Google AdMobのプライバシーポリシーについては、以下をご参照ください：" : {
+
+    },
+    "Google プライバシーポリシー" : {
+
+    },
+    "H時台" : {
+      "comment" : "Date format string used at runtime; localize the format itself",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "h a"
           }
         }
       }
@@ -268,6 +359,9 @@
     "SmoPace" : {
       "shouldTranslate" : false
     },
+    "SmoPace（以下「本アプリ」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めています。本プライバシーポリシーでは、本アプリがどのような情報を収集し、どのように使用するかについて説明します。" : {
+
+    },
     "SmoPaceは個人開発のアプリです。\nアプリが気に入ったら、開発者を応援してください。\nいただいた支援は、アプリの改善に活用させていただきます。" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -282,22 +376,22 @@
     "US Dollar ($)" : {
       "shouldTranslate" : false
     },
-    "「了解」と返答してください。" : {
-      "shouldTranslate" : false
+    "あなたに関連性が高いです" : {
+      "extractionState" : "manual"
     },
-    "★マークの銘柄がウィジェットからのカウントアップ時に使用されます" : {
+    "あなたのペースで大丈夫です" : {
+      "extractionState" : "manual"
+    },
+    "アプリが気に入ったら、開発者を応援してください" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The brand marked with ★ is used when counting up from the widget."
+            "value" : "If you enjoy this app, consider supporting the developer"
           }
         }
       }
-    },
-    "あなたに関連性が高いです" : {
-      "extractionState" : "manual"
     },
     "アプリの再起動が必要です" : {
       "extractionState" : "manual",
@@ -321,13 +415,13 @@
         }
       }
     },
-    "アプリが気に入ったら、開発者を応援してください" : {
+    "アプリ開発を応援する" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "If you enjoy this app, consider supporting the developer"
+            "value" : "Cheer on app development"
           }
         }
       }
@@ -365,17 +459,6 @@
         }
       }
     },
-    "インポート完了" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Import complete"
-          }
-        }
-      }
-    },
     "インポートに失敗しました: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -383,6 +466,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import failed: %@"
+          }
+        }
+      }
+    },
+    "インポート完了" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import complete"
           }
         }
       }
@@ -453,13 +547,71 @@
         }
       }
     },
-    "ゆっくりと..." : {
+    "コーヒー1杯" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Take it slow..."
+            "value" : "A cup of coffee"
+          }
+        }
+      }
+    },
+    "このアプリが気に入ったら、開発者を支援してください" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you enjoy this app, please support the developer"
+          }
+        }
+      }
+    },
+    "この瞬間を味わって" : {
+      "extractionState" : "manual"
+    },
+    "この記事はあなたとの関連性が低めです" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limited relevance to you"
+          }
+        }
+      }
+    },
+    "この記事はあなたに関連性が高いです" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quite relevant to you"
+          }
+        }
+      }
+    },
+    "この記事はあなたに非常におすすめです" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Highly recommended for you"
+          }
+        }
+      }
+    },
+    "この記事は参考になるかもしれません" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Might be helpful"
           }
         }
       }
@@ -485,6 +637,9 @@
           }
         }
       }
+    },
+    "しばらくお待ちください" : {
+
     },
     "すべて" : {
       "extractionState" : "manual",
@@ -515,28 +670,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tap to return"
-          }
-        }
-      }
-    },
-    "デフォルト" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Default"
-          }
-        }
-      }
-    },
-    "データはこのデバイスにのみ保存されます" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Data is stored only on this device"
           }
         }
       }
@@ -585,6 +718,17 @@
         }
       }
     },
+    "データはこのデバイスにのみ保存されます" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data is stored only on this device"
+          }
+        }
+      }
+    },
     "データをインポート" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -629,6 +773,20 @@
         }
       }
     },
+    "デフォルト" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default"
+          }
+        }
+      }
+    },
+    "トラッキングを許可した場合、パーソナライズされた広告が表示されます。トラッキングを拒否した場合でも、コンテキストに基づいた広告が表示されます。" : {
+
+    },
     "バージョン" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -636,6 +794,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
+          }
+        }
+      }
+    },
+    "ひと休み、ひと休み" : {
+      "extractionState" : "manual"
+    },
+    "ひと息つきましょう" : {
+      "extractionState" : "manual"
+    },
+    "ファイルの書き込みに失敗しました" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to write file"
           }
         }
       }
@@ -658,17 +833,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed to read file: %@"
-          }
-        }
-      }
-    },
-    "ファイルの書き込みに失敗しました" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to write file"
           }
         }
       }
@@ -731,6 +895,29 @@
     "マイペースでいきましょう" : {
       "extractionState" : "manual"
     },
+    "ゆっくりと..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take it slow..."
+          }
+        }
+      }
+    },
+    "ゆっくりと深呼吸..." : {
+      "extractionState" : "manual"
+    },
+    "ゆったり過ごしましょう" : {
+      "extractionState" : "manual"
+    },
+    "リラックス..." : {
+      "extractionState" : "manual"
+    },
+    "リラックスできていますか？" : {
+      "extractionState" : "manual"
+    },
     "一部のみ表示: Connect 未登録の製品IDは取得されません。3種テストは Scheme の StoreKit Configuration に SmokerTip.storekit を指定するか、Connect で同じ製品IDを登録してください。" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -742,56 +929,30 @@
         }
       }
     },
-    "1日の目標本数" : {
+    "不明" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daily limit"
+            "value" : "Unknown"
           }
         }
       }
-    },
-    "1箱あたりの価格" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Price per pack"
-          }
-        }
-      }
-    },
-    "1箱あたりの本数" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cigarettes per pack"
-          }
-        }
-      }
-    },
-    "20" : {
-      "shouldTranslate" : false
-    },
-    "600" : {
-      "shouldTranslate" : false
-    },
-    "10.00" : {
-      "shouldTranslate" : false
-    },
-    "1.0.0" : {
-      "shouldTranslate" : false
-    },
-    "ひと休み、ひと休み" : {
-      "extractionState" : "manual"
     },
     "今この瞬間に集中" : {
       "extractionState" : "manual"
+    },
+    "今日の履歴" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today's log"
+          }
+        }
+      }
     },
     "今日の記録" : {
       "extractionState" : "manual",
@@ -826,17 +987,6 @@
         }
       }
     },
-    "今日の履歴" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today's log"
-          }
-        }
-      }
-    },
     "今日の金額: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -844,6 +994,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Today's spend: %@"
+          }
+        }
+      }
+    },
+    "今日はいい天気ですね" : {
+      "extractionState" : "manual"
+    },
+    "今日も一日お疲れ様です" : {
+      "extractionState" : "manual"
+    },
+    "今月に戻る" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back to this month"
           }
         }
       }
@@ -870,13 +1037,13 @@
         }
       }
     },
-    "今月に戻る" : {
+    "件" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Back to this month"
+            "value" : ""
           }
         }
       }
@@ -917,6 +1084,20 @@
         }
       }
     },
+    "最大" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Max"
+          }
+        }
+      }
+    },
+    "最終更新日: 2026年2月2日" : {
+      "shouldTranslate" : false
+    },
     "前回から: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -924,17 +1105,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Since last: %@"
-          }
-        }
-      }
-    },
-    "合計: %lld本" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Total: %lld"
           }
         }
       }
@@ -950,6 +1120,17 @@
         }
       }
     },
+    "合計: %lld本" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total: %lld"
+          }
+        }
+      }
+    },
     "同期が有効です" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -957,6 +1138,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sync is on"
+          }
+        }
+      }
+    },
+    "商品情報を読み込めませんでした" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't load product information"
           }
         }
       }
@@ -975,6 +1167,9 @@
     "対象期間" : {
       "extractionState" : "manual"
     },
+    "少し肩の力を抜いて" : {
+      "extractionState" : "manual"
+    },
     "平均" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -982,6 +1177,51 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Average"
+          }
+        }
+      }
+    },
+    "年" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Y"
+          }
+        }
+      }
+    },
+    "広告" : {
+
+    },
+    "広告を読み込み中..." : {
+
+    },
+    "心を落ち着けて..." : {
+      "extractionState" : "manual"
+    },
+    "心を解き放って" : {
+      "extractionState" : "manual"
+    },
+    "応援サポート" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cheer support"
+          }
+        }
+      }
+    },
+    "手動バックアップ" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manual backup"
           }
         }
       }
@@ -996,6 +1236,67 @@
           }
         }
       }
+    },
+    "既存のデータは上書きされます。" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Existing data will be overwritten."
+          }
+        }
+      }
+    },
+    "既存のデータは上書きされます。\n\nバックアップ日時: %@\n記録数: %lld件\n銘柄数: %lld件" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Existing data will be overwritten.\n\nBackup time: %1$@\nRecords: %2$lld\nBrands: %3$lld"
+          }
+        }
+      }
+    },
+    "日" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D"
+          }
+        }
+      }
+    },
+    "日付をタップして詳細を表示" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a date to see details"
+          }
+        }
+      }
+    },
+    "日本円 (¥)" : {
+      "shouldTranslate" : false
+    },
+    "月" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M"
+          }
+        }
+      }
+    },
+    "期間" : {
+
     },
     "未分類" : {
       "extractionState" : "manual",
@@ -1029,6 +1330,24 @@
           }
         }
       }
+    },
+    "本アプリは、ユーザーが入力した本数、時刻、銘柄情報などの記録データを収集します。これらのデータはユーザーのデバイス上およびiCloud（ユーザーが有効にしている場合）に保存されます。" : {
+
+    },
+    "本アプリは、以下の場合を除き、ユーザーの個人情報を第三者に提供しません：" : {
+
+    },
+    "本アプリはGoogle AdMobを使用して広告を表示します。" : {
+
+    },
+    "本アプリはGoogle AdMobを使用して広告を表示します。AdMobは、パーソナライズされた広告を表示するために、デバイス識別子（IDFA）やIPアドレスなどの情報を収集する場合があります。ユーザーはiOSの設定からトラッキングを拒否することができます。" : {
+
+    },
+    "本プライバシーポリシーに関するご質問やお問い合わせは、App Storeのアプリページからお願いいたします。" : {
+
+    },
+    "本プライバシーポリシーは、必要に応じて変更されることがあります。重要な変更がある場合は、アプリ内でお知らせします。" : {
+
     },
     "本日の進捗" : {
       "extractionState" : "manual",
@@ -1077,8 +1396,8 @@
     "求人や生活に関する記事は除外" : {
       "extractionState" : "manual"
     },
-    "減少傾向" : {
-      "shouldTranslate" : false
+    "無理せずいきましょう" : {
+      "extractionState" : "manual"
     },
     "現在のデータ" : {
       "extractionState" : "manual",
@@ -1087,6 +1406,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your data"
+          }
+        }
+      }
+    },
+    "登録済みの銘柄の価格は数値のまま維持されます。新しい通貨に合った金額で再入力することをおすすめします。" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Existing brand prices are kept as the same numbers. We recommend re-entering them at sensible amounts for the new currency."
+          }
+        }
+      }
+    },
+    "登録銘柄" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brands"
           }
         }
       }
@@ -1102,17 +1443,6 @@
         }
       }
     },
-    "目標/月" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Limit/mo"
-          }
-        }
-      }
-    },
     "目標: %lld本" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1124,8 +1454,16 @@
         }
       }
     },
-    "目標未設定" : {
-      "shouldTranslate" : false
+    "目標/月" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit/mo"
+          }
+        }
+      }
     },
     "目標設定" : {
       "extractionState" : "manual",
@@ -1137,6 +1475,12 @@
           }
         }
       }
+    },
+    "穏やかなひとときを" : {
+      "extractionState" : "manual"
+    },
+    "穏やかな時間ですね" : {
+      "extractionState" : "manual"
     },
     "節煙" : {
       "extractionState" : "manual",
@@ -1171,38 +1515,187 @@
         }
       }
     },
-    "閉じる" : {
+    "要約の生成に失敗しました: %@" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Close"
+            "value" : "Failed to generate summary: %@"
           }
         }
       }
     },
-    "開発者を応援する" : {
+    "要約を生成できません" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Support the developer"
+            "value" : "Cannot generate summary"
           }
         }
       }
     },
-    "開発者への応援、心より感謝いたします。\nこれからもアプリの改善に努めます！" : {
+    "要約を生成できませんでした" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thank you so much for your support.\nI'll keep improving the app!"
+            "value" : "Couldn't generate a summary"
           }
         }
       }
+    },
+    "URLの生成に失敗しました" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to construct URL"
+          }
+        }
+      }
+    },
+    "サーバーからのレスポンスが不正です" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid server response"
+          }
+        }
+      }
+    },
+    "記事の取得に失敗しました: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch articles: %@"
+          }
+        }
+      }
+    },
+    "記事がありません" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No articles"
+          }
+        }
+      }
+    },
+    "記事の概要" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Article summary"
+          }
+        }
+      }
+    },
+    "記事を共有" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share article"
+          }
+        }
+      }
+    },
+    "記事を取得中..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fetching articles..."
+          }
+        }
+      }
+    },
+    "記事詳細" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Article"
+          }
+        }
+      }
+    },
+    "記録" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Records"
+          }
+        }
+      }
+    },
+    "記録がありません" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No records"
+          }
+        }
+      }
+    },
+    "記録データは、ユーザーのデバイス上のローカルストレージおよびiCloud（有効な場合）に保存されます。ユーザーはいつでもアプリを削除することでローカルデータを削除できます。iCloudに保存されたデータは、iCloudの設定から削除できます。" : {
+
+    },
+    "記録なし" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No records"
+          }
+        }
+      }
+    },
+    "設定" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "該当する記事がありません" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No matching articles"
+          }
+        }
+      }
+    },
+    "詳細を表示するには日付をタップ" : {
+      "extractionState" : "manual"
     },
     "豆知識" : {
       "extractionState" : "manual",
@@ -1226,6 +1719,17 @@
         }
       }
     },
+    "追加" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
     "通貨" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1233,17 +1737,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Currency"
-          }
-        }
-      }
-    },
-    "通貨を変更しますか？" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change currency?"
           }
         }
       }
@@ -1259,13 +1752,13 @@
         }
       }
     },
-    "登録済みの銘柄の価格は数値のまま維持されます。新しい通貨に合った金額で再入力することをおすすめします。" : {
+    "通貨を変更しますか？" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Existing brand prices are kept as the same numbers. We recommend re-entering them at sensible amounts for the new currency."
+            "value" : "Change currency?"
           }
         }
       }
@@ -1299,6 +1792,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Currency"
+          }
+        }
+      }
+    },
+    "週" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "W"
+          }
+        }
+      }
+    },
+    "達成日" : {
+      "extractionState" : "manual"
+    },
+    "選択中の銘柄を変更" : {
+      "extractionState" : "manual"
+    },
+    "金額" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amount"
           }
         }
       }
@@ -1358,247 +1879,19 @@
         }
       }
     },
-    "金額" : {
+    "閉じる" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Amount"
+            "value" : "Close"
           }
         }
       }
-    },
-    "今日はいい天気ですね" : {
-      "extractionState" : "manual"
-    },
-    "あなたのペースで大丈夫です" : {
-      "extractionState" : "manual"
-    },
-    "少し肩の力を抜いて" : {
-      "extractionState" : "manual"
-    },
-    "リラックスできていますか？" : {
-      "extractionState" : "manual"
-    },
-    "穏やかな時間ですね" : {
-      "extractionState" : "manual"
-    },
-    "無理せずいきましょう" : {
-      "extractionState" : "manual"
-    },
-    "ゆったり過ごしましょう" : {
-      "extractionState" : "manual"
-    },
-    "今日も一日お疲れ様です" : {
-      "extractionState" : "manual"
-    },
-    "ゆっくりと深呼吸..." : {
-      "extractionState" : "manual"
-    },
-    "この瞬間を味わって" : {
-      "extractionState" : "manual"
-    },
-    "心を落ち着けて..." : {
-      "extractionState" : "manual"
-    },
-    "ひと息つきましょう" : {
-      "extractionState" : "manual"
-    },
-    "静かな時間を..." : {
-      "extractionState" : "manual"
-    },
-    "穏やかなひとときを" : {
-      "extractionState" : "manual"
-    },
-    "リラックス..." : {
-      "extractionState" : "manual"
-    },
-    "心を解き放って" : {
-      "extractionState" : "manual"
-    },
-    "件" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        }
-      }
-    },
-    "今日 / 今週 / 今月" : {
-      "shouldTranslate" : false
-    },
-    "%lld本に達しました" : {
-      "extractionState" : "manual"
-    },
-    "登録銘柄" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Brands"
-          }
-        }
-      }
-    },
-    "記事の概要" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Article summary"
-          }
-        }
-      }
-    },
-    "記事を共有" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Share article"
-          }
-        }
-      }
-    },
-    "記事がありません" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No articles"
-          }
-        }
-      }
-    },
-    "記事を取得中..." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fetching articles..."
-          }
-        }
-      }
-    },
-    "記事詳細" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Article"
-          }
-        }
-      }
-    },
-    "記録" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Records"
-          }
-        }
-      }
-    },
-    "記録なし" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No records"
-          }
-        }
-      }
-    },
-    "記録がありません" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No records"
-          }
-        }
-      }
-    },
-    "設定" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings"
-          }
-        }
-      }
-    },
-    "該当する記事がありません" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No matching articles"
-          }
-        }
-      }
-    },
-    "詳細を表示するには日付をタップ" : {
-      "extractionState" : "manual"
-    },
-    "日付をタップして詳細を表示" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap a date to see details"
-          }
-        }
-      }
-    },
-    "追加" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add"
-          }
-        }
-      }
-    },
-    "達成日" : {
-      "extractionState" : "manual"
-    },
-    "選択中の銘柄を変更" : {
-      "extractionState" : "manual"
     },
     "閉店" : {
       "extractionState" : "manual"
-    },
-    "開発者にコーヒーを奢る" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buy the developer a coffee"
-          }
-        }
-      }
     },
     "開発サポート" : {
       "extractionState" : "manual",
@@ -1611,253 +1904,45 @@
         }
       }
     },
-    "応援サポート" : {
+    "開発者にコーヒーを奢る" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cheer support"
+            "value" : "Buy the developer a coffee"
           }
         }
       }
     },
-    "コーヒー1杯" : {
+    "開発者への応援、心より感謝いたします。\nこれからもアプリの改善に努めます！" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A cup of coffee"
+            "value" : "Thank you so much for your support.\nI'll keep improving the app!"
           }
         }
       }
     },
-    "アプリ開発を応援する" : {
+    "開発者を応援する" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cheer on app development"
+            "value" : "Support the developer"
           }
         }
       }
     },
-    "このアプリが気に入ったら、開発者を支援してください" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you enjoy this app, please support the developer"
-          }
-        }
-      }
+    "開発者支援（チップ）機能を利用した場合、Apple App Storeを通じて購入処理が行われます。本アプリは購入履歴を直接収集・保存しません。" : {
+
     },
-    "商品情報を読み込めませんでした" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Couldn't load product information"
-          }
-        }
-      }
-    },
-    "この記事はあなたに非常におすすめです" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Highly recommended for you"
-          }
-        }
-      }
-    },
-    "この記事はあなたに関連性が高いです" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quite relevant to you"
-          }
-        }
-      }
-    },
-    "この記事は参考になるかもしれません" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Might be helpful"
-          }
-        }
-      }
-    },
-    "この記事はあなたとの関連性が低めです" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Limited relevance to you"
-          }
-        }
-      }
-    },
-    "— 少しずつ、自分のペースで —" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "— A little at a time, at your own pace —"
-          }
-        }
-      }
-    },
-    "最終更新日: 2026年2月2日" : {
-      "shouldTranslate" : false
-    },
-    "日本円 (¥)" : {
-      "shouldTranslate" : false
-    },
-    "日" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "D"
-          }
-        }
-      }
-    },
-    "週" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "W"
-          }
-        }
-      }
-    },
-    "月" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "M"
-          }
-        }
-      }
-    },
-    "年" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Y"
-          }
-        }
-      }
-    },
-    "最大" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Max"
-          }
-        }
-      }
-    },
-    "既存のデータは上書きされます。" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Existing data will be overwritten."
-          }
-        }
-      }
-    },
-    "既存のデータは上書きされます。\n\nバックアップ日時: %@\n記録数: %lld件\n銘柄数: %lld件" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Existing data will be overwritten.\n\nBackup time: %1$@\nRecords: %2$lld\nBrands: %3$lld"
-          }
-        }
-      }
-    },
-    "手動バックアップ" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Manual backup"
-          }
-        }
-      }
-    },
-    "要約の生成に失敗しました: %@" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to generate summary: %@"
-          }
-        }
-      }
-    },
-    "要約を生成できません" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cannot generate summary"
-          }
-        }
-      }
-    },
-    "要約を生成できませんでした" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Couldn't generate a summary"
-          }
-        }
-      }
-    },
-    "不明" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unknown"
-          }
-        }
-      }
+    "静かな時間を..." : {
+      "extractionState" : "manual"
     }
-  }
+  },
+  "version" : "1.0"
 }

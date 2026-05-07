@@ -1,7 +1,9 @@
 {
   "sourceLanguage" : "ja",
-  "version" : "1.0",
   "strings" : {
+    "%lld" : {
+
+    },
     "%lld本超過" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -57,28 +59,6 @@
         }
       }
     },
-    "目標: %lld本" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Limit: %lld"
-          }
-        }
-      }
-    },
-    "残り %lld本" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld to go"
-          }
-        }
-      }
-    },
     "本" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -101,6 +81,28 @@
         }
       }
     },
+    "残り %lld本" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld to go"
+          }
+        }
+      }
+    },
+    "目標: %lld本" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit: %lld"
+          }
+        }
+      }
+    },
     "記録" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -112,5 +114,6 @@
         }
       }
     }
-  }
+  },
+  "version" : "1.0"
 }

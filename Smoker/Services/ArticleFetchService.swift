@@ -22,13 +22,41 @@ class ArticleFetchService: ObservableObject {
     
     /// Google News RSSのベースURL
     private let googleNewsRSSBaseURL = "https://news.google.com/rss/search"
-    
-    /// 検索キーワード
-    private let searchKeywords = ["節煙", "禁煙", "ニコチンフリー", "加熱式タバコ", "喫煙", "IQOS", "PloomX", "タバコ 歴史", "タバコ 文化", "タバコ"]
-    
-    /// キャッシュ用のUserDefaultsキー
-    private let cacheKey = "cachedArticles"
-    private let cacheTimestampKey = "cachedArticlesTimestamp"
+
+    /// 現在のUI言語が英語かどうか
+    /// Bundle.main.preferredLocalizations は実際にアプリが採用している言語を返す
+    private var isEnglishUI: Bool {
+        let lang = Bundle.main.preferredLocalizations.first ?? "en"
+        return lang.hasPrefix("en")
+    }
+
+    /// UI言語に応じた検索キーワード
+    /// 英語圏向けには quit smoking / vaping 系の語彙を使う
+    private var searchKeywords: [String] {
+        if isEnglishUI {
+            return ["quit smoking", "stop smoking", "vaping", "nicotine free", "heated tobacco", "IQOS", "PloomX", "tobacco history", "tobacco culture", "smoking cessation"]
+        } else {
+            return ["節煙", "禁煙", "ニコチンフリー", "加熱式タバコ", "喫煙", "IQOS", "PloomX", "タバコ 歴史", "タバコ 文化", "タバコ"]
+        }
+    }
+
+    /// UI言語に応じた Google News RSS のクエリパラメータ
+    /// 形式: hl=言語, gl=国, ceid=国:言語
+    private var newsRegionParams: String {
+        if isEnglishUI {
+            return "hl=en-US&gl=US&ceid=US:en"
+        } else {
+            return "hl=ja&gl=JP&ceid=JP:ja"
+        }
+    }
+
+    /// キャッシュ用のUserDefaultsキー（言語別にキャッシュを分ける）
+    private var cacheKey: String {
+        isEnglishUI ? "cachedArticles_en" : "cachedArticles_ja"
+    }
+    private var cacheTimestampKey: String {
+        isEnglishUI ? "cachedArticlesTimestamp_en" : "cachedArticlesTimestamp_ja"
+    }
     
     /// キャッシュの有効期限（1時間）
     private let cacheExpiration: TimeInterval = 3600
@@ -75,8 +103,8 @@ class ArticleFetchService: ObservableObject {
     private func fetchFromRSS() async {
         let query = searchKeywords.joined(separator: "+OR+")
         guard let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "\(googleNewsRSSBaseURL)?q=\(encodedQuery)&hl=ja&gl=JP&ceid=JP:ja") else {
-            errorMessage = "URLの生成に失敗しました"
+              let url = URL(string: "\(googleNewsRSSBaseURL)?q=\(encodedQuery)&\(newsRegionParams)") else {
+            errorMessage = String(localized: "URLの生成に失敗しました")
             return
         }
         
@@ -85,7 +113,7 @@ class ArticleFetchService: ObservableObject {
             
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode == 200 else {
-                errorMessage = "サーバーからのレスポンスが不正です"
+                errorMessage = String(localized: "サーバーからのレスポンスが不正です")
                 return
             }
             
@@ -99,7 +127,7 @@ class ArticleFetchService: ObservableObject {
                 cacheArticles(limitedArticles)
             }
         } catch {
-            errorMessage = "記事の取得に失敗しました: \(error.localizedDescription)"
+            errorMessage = String(format: String(localized: "記事の取得に失敗しました: %@"), error.localizedDescription)
             print("RSS取得エラー: \(error)")
         }
     }
