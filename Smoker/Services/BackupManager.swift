@@ -139,15 +139,15 @@ class BackupManager {
         var errorDescription: String? {
             switch self {
             case .encodingFailed:
-                return "データのエンコードに失敗しました"
+                return String(localized: "データのエンコードに失敗しました")
             case .decodingFailed:
-                return "データのデコードに失敗しました"
+                return String(localized: "データのデコードに失敗しました")
             case .invalidVersion(let version):
-                return "サポートされていないバックアップバージョンです: \(version)"
+                return String(format: String(localized: "サポートされていないバックアップバージョンです: %@"), version)
             case .fileWriteFailed:
-                return "ファイルの書き込みに失敗しました"
+                return String(localized: "ファイルの書き込みに失敗しました")
             case .fileReadFailed:
-                return "ファイルの読み込みに失敗しました"
+                return String(localized: "ファイルの読み込みに失敗しました")
             }
         }
     }

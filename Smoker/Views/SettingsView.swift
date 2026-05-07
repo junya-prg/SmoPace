@@ -15,16 +15,25 @@ struct SettingsView: View {
     @Query private var brands: [CigaretteBrand]
     @Query private var settings: [AppSettings]
     @FocusState private var isGoalFieldFocused: Bool
-    
+
     @State private var showAddBrandSheet = false
     @State private var showPrivacyPolicy = false
     @State private var showTipJarSheet = false
     @State private var dailyGoal: String = ""
-    
+    @State private var showCurrencyChangedAlert = false
+    /// Pickerの選択状態（@QueryのcurrencyCodeとonChangeで双方向同期）
+    @State private var pickerCurrency: String = "JPY"
+
     private var currentSettings: AppSettings? {
         settings.first
     }
-    
+
+    /// 現在の通貨コード（DB由来、空文字列はJPYにフォールバック）
+    private var currentCurrencyCode: String {
+        let code = currentSettings?.currencyCode ?? "JPY"
+        return code.isEmpty ? "JPY" : code
+    }
+
     var body: some View {
         NavigationStack {
             Form {
@@ -41,7 +50,16 @@ struct SettingsView: View {
                         Text("本")
                     }
                 }
-                
+
+                // 通貨設定セクション（最小実装）
+                Section("通貨設定") {
+                    Picker("通貨", selection: $pickerCurrency) {
+                        Text("日本円 (¥)").tag("JPY")
+                        Text("US Dollar ($)").tag("USD")
+                    }
+                    .pickerStyle(.menu)
+                }
+
                 // 銘柄設定セクション
                 Section {
                     ForEach(brands) { brand in
@@ -49,12 +67,13 @@ struct SettingsView: View {
                             brand: brand,
                             isActive: currentSettings?.activeBrandId == brand.id,
                             isDefault: brand.isDefaultBrand,
+                            currencyCode: currentCurrencyCode,
                             onSelect: { selectBrand(brand) },
                             onSetDefault: { setDefaultBrand(brand) }
                         )
                     }
                     .onDelete(perform: deleteBrands)
-                    
+
                     Button(action: { showAddBrandSheet = true }) {
                         Label("銘柄を追加", systemImage: "plus")
                     }
@@ -63,7 +82,7 @@ struct SettingsView: View {
                 } footer: {
                     Text("★マークの銘柄がウィジェットからのカウントアップ時に使用されます")
                 }
-                
+
                 // データ管理セクション
                 Section("データ管理") {
                     NavigationLink {
@@ -72,10 +91,10 @@ struct SettingsView: View {
                         Label("データのバックアップと復元", systemImage: "icloud")
                     }
                 }
-                
+
                 // 開発者支援セクション
                 TipJarSection(showTipJarSheet: $showTipJarSheet)
-                
+
                 // アプリ情報セクション
                 Section("アプリ情報") {
                     HStack {
@@ -84,7 +103,7 @@ struct SettingsView: View {
                         Text("1.0.0")
                             .foregroundStyle(.secondary)
                     }
-                    
+
                     Button(action: { showPrivacyPolicy = true }) {
                         HStack {
                             Label("プライバシーポリシー", systemImage: "hand.raised")
@@ -108,7 +127,7 @@ struct SettingsView: View {
                 }
             }
             .sheet(isPresented: $showAddBrandSheet) {
-                AddBrandView()
+                AddBrandView(currencyCode: currentCurrencyCode)
             }
             .sheet(isPresented: $showPrivacyPolicy) {
                 PrivacyPolicyView()
@@ -116,44 +135,71 @@ struct SettingsView: View {
             .sheet(isPresented: $showTipJarSheet) {
                 TipJarSheetView()
             }
+            .alert("通貨を変更しました", isPresented: $showCurrencyChangedAlert) {
+                Button("OK") { }
+            } message: {
+                Text("登録済みの銘柄の価格は数値のまま維持されます。新しい通貨に合った金額で再入力することをおすすめします。")
+            }
             .onAppear {
                 loadSettings()
+                // Picker初期値をDBと同期
+                pickerCurrency = currentCurrencyCode
             }
             .onChange(of: dailyGoal) { _, newValue in
                 saveGoal(newValue)
             }
+            .onChange(of: pickerCurrency) { _, newValue in
+                // ユーザー操作で変更された場合のみDBへ保存
+                if newValue != currentCurrencyCode {
+                    applyCurrencyChange(to: newValue)
+                }
+            }
+            .onChange(of: currentCurrencyCode) { _, newValue in
+                // 外部要因でDB側が変わった場合はPickerも追随
+                if pickerCurrency != newValue {
+                    pickerCurrency = newValue
+                }
+            }
         }
     }
-    
+
     /// 設定を読み込む
     private func loadSettings() {
         if let settings = currentSettings {
             dailyGoal = settings.dailyGoal.map { String($0) } ?? ""
         } else {
-            // 設定が存在しない場合は作成
+            // 設定が存在しない場合は作成（新規ユーザー: ロケールから通貨決定）
             let newSettings = AppSettings()
             modelContext.insert(newSettings)
             saveContext()
         }
     }
-    
+
+    /// 通貨変更を適用
+    private func applyCurrencyChange(to newCode: String) {
+        guard let settings = currentSettings else { return }
+        settings.currencyCode = newCode
+        saveContext()
+        showCurrencyChangedAlert = true
+    }
+
     /// 目標を保存
     private func saveGoal(_ value: String) {
         guard let settings = currentSettings else { return }
         settings.dailyGoal = Int(value)
         saveContext()
-        
+
         // ウィジェット用の共有データも更新
         SharedDataManager.shared.dailyGoal = Int(value)
     }
-    
+
     /// 銘柄を選択
     private func selectBrand(_ brand: CigaretteBrand) {
         guard let settings = currentSettings else { return }
         settings.activeBrandId = brand.id
         saveContext()
     }
-    
+
     /// 銘柄を削除
     private func deleteBrands(offsets: IndexSet) {
         for index in offsets {
@@ -166,7 +212,7 @@ struct SettingsView: View {
         }
         saveContext()
     }
-    
+
     /// デフォルト銘柄を設定
     private func setDefaultBrand(_ brand: CigaretteBrand) {
         // 他の銘柄のデフォルトフラグをオフにする
@@ -175,7 +221,7 @@ struct SettingsView: View {
         }
         saveContext()
     }
-    
+
     /// コンテキストを保存（エラーハンドリング付き）
     private func saveContext() {
         do {
@@ -191,17 +237,14 @@ struct BrandRowView: View {
     let brand: CigaretteBrand
     let isActive: Bool
     let isDefault: Bool
+    let currencyCode: String
     let onSelect: () -> Void
     let onSetDefault: () -> Void
-    
+
     private var formattedPrice: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "JPY"
-        formatter.maximumFractionDigits = 0
-        return formatter.string(from: brand.pricePerPack as NSDecimalNumber) ?? "¥0"
+        CurrencyFormatter.format(brand.pricePerPack, currencyCode: currencyCode)
     }
-    
+
     var body: some View {
         HStack {
             Button(action: onSelect) {
@@ -225,16 +268,16 @@ struct BrandRowView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            
+
             Spacer()
-            
+
             // デフォルト設定ボタン
             Button(action: onSetDefault) {
                 Image(systemName: isDefault ? "star.fill" : "star")
                     .foregroundStyle(isDefault ? .orange : .gray)
             }
             .buttonStyle(.plain)
-            
+
             if isActive {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(.blue)
@@ -245,29 +288,43 @@ struct BrandRowView: View {
 
 /// 銘柄追加ビュー
 struct AddBrandView: View {
+    let currencyCode: String
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: AddBrandField?
-    
+
     @State private var name = ""
     @State private var countPerPack = "20"
     @State private var pricePerPack = ""
-    
+
     enum AddBrandField {
         case name, count, price
     }
-    
+
     private var isValid: Bool {
         !name.isEmpty && !pricePerPack.isEmpty && Int(countPerPack) != nil && Decimal(string: pricePerPack) != nil
     }
-    
+
+    private var currencySymbol: String {
+        CurrencyFormatter.symbol(for: currencyCode)
+    }
+
+    private var defaultPricePlaceholder: String {
+        CurrencyFormatter.defaultPriceForNewBrand(currencyCode: currencyCode)
+    }
+
+    private var priceKeyboardType: UIKeyboardType {
+        CurrencyFormatter.keyboardType(for: currencyCode)
+    }
+
     var body: some View {
         NavigationStack {
             Form {
                 Section("銘柄情報") {
                     TextField("銘柄名", text: $name)
                         .focused($focusedField, equals: .name)
-                    
+
                     HStack {
                         Text("1箱あたりの本数")
                         Spacer()
@@ -278,13 +335,13 @@ struct AddBrandView: View {
                             .focused($focusedField, equals: .count)
                         Text("本")
                     }
-                    
+
                     HStack {
                         Text("1箱あたりの価格")
                         Spacer()
-                        Text("¥")
-                        TextField("600", text: $pricePerPack)
-                            .keyboardType(.numberPad)
+                        Text(currencySymbol)
+                        TextField(defaultPricePlaceholder, text: $pricePerPack)
+                            .keyboardType(priceKeyboardType)
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)
                             .focused($focusedField, equals: .price)
@@ -314,20 +371,20 @@ struct AddBrandView: View {
             }
         }
     }
-    
+
     /// 銘柄を追加
     private func addBrand() {
         guard let count = Int(countPerPack),
               let price = Decimal(string: pricePerPack) else { return }
-        
+
         let brand = CigaretteBrand(
             name: name,
             countPerPack: count,
             pricePerPack: price
         )
-        
+
         modelContext.insert(brand)
-        
+
         do {
             try modelContext.save()
             dismiss()
@@ -343,7 +400,7 @@ struct DataManagementView: View {
     @Query private var records: [SmokingRecord]
     @Query private var brands: [CigaretteBrand]
     @Query private var settings: [AppSettings]
-    
+
     @State private var iCloudSyncEnabled = SharedModelContainer.isICloudSyncEnabled
     @State private var showRestartAlert = false
     @State private var showExportSheet = false
@@ -354,11 +411,11 @@ struct DataManagementView: View {
     @State private var importErrorMessage = ""
     @State private var pendingImportData: Data?
     @State private var exportFileURL: URL?
-    
+
     private var currentSettings: AppSettings? {
         settings.first
     }
-    
+
     var body: some View {
         Form {
             iCloudSyncSection
@@ -405,9 +462,9 @@ struct DataManagementView: View {
             handleImportResult(result)
         }
     }
-    
+
     // MARK: - View Components
-    
+
     /// iCloud同期セクション
     @ViewBuilder
     private var iCloudSyncSection: some View {
@@ -418,7 +475,7 @@ struct DataManagementView: View {
             .onChange(of: iCloudSyncEnabled) { _, newValue in
                 handleICloudSyncToggle(newValue)
             }
-            
+
             iCloudStatusRow
         } header: {
             Text("クラウド同期")
@@ -426,7 +483,7 @@ struct DataManagementView: View {
             Text("iCloud同期を有効にすると、同じApple IDでサインインしている他のデバイスとデータが自動的に同期されます。設定を変更した場合はアプリの再起動が必要です。")
         }
     }
-    
+
     /// iCloud同期状態の行
     @ViewBuilder
     private var iCloudStatusRow: some View {
@@ -446,7 +503,7 @@ struct DataManagementView: View {
             }
         }
     }
-    
+
     /// 手動バックアップセクション
     @ViewBuilder
     private var manualBackupSection: some View {
@@ -454,7 +511,7 @@ struct DataManagementView: View {
             Button(action: exportData) {
                 exportButtonContent
             }
-            
+
             Button(action: { showImportPicker = true }) {
                 Label("データをインポート", systemImage: "square.and.arrow.down")
             }
@@ -464,7 +521,7 @@ struct DataManagementView: View {
             Text("JSONファイル形式でデータをエクスポート・インポートできます。機種変更時やバックアップ用にご利用ください。")
         }
     }
-    
+
     /// エクスポートボタンの内容
     private var exportButtonContent: some View {
         HStack {
@@ -475,7 +532,7 @@ struct DataManagementView: View {
                 .font(.caption)
         }
     }
-    
+
     /// データ概要セクション
     @ViewBuilder
     private var dataOverviewSection: some View {
@@ -494,34 +551,35 @@ struct DataManagementView: View {
             }
         }
     }
-    
+
     /// インポート確認メッセージ
     private var importConfirmMessage: String {
         guard let data = pendingImportData,
               let summary = BackupManager.shared.getBackupSummary(from: data) else {
-            return "既存のデータは上書きされます。"
+            return String(localized: "既存のデータは上書きされます。")
         }
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         let dateString = formatter.string(from: summary.exportDate)
-        return "既存のデータは上書きされます。\n\nバックアップ日時: \(dateString)\n記録数: \(summary.recordCount)件\n銘柄数: \(summary.brandCount)件"
+        let format = String(localized: "既存のデータは上書きされます。\n\nバックアップ日時: %@\n記録数: %lld件\n銘柄数: %lld件")
+        return String(format: format, dateString, summary.recordCount, summary.brandCount)
     }
-    
+
     // MARK: - Actions
-    
+
     /// iCloud同期トグルの変更を処理
     private func handleICloudSyncToggle(_ enabled: Bool) {
         SharedModelContainer.isICloudSyncEnabled = enabled
-        
+
         if let settings = currentSettings {
             settings.iCloudSyncEnabled = enabled
             try? modelContext.save()
         }
-        
+
         showRestartAlert = true
     }
-    
+
     /// データをエクスポート
     private func exportData() {
         do {
@@ -530,52 +588,54 @@ struct DataManagementView: View {
                 brands: brands,
                 settings: currentSettings
             )
-            
+
             let fileName = BackupManager.shared.generateExportFileName()
             let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
             try data.write(to: tempURL)
-            
+
             exportFileURL = tempURL
             showExportSheet = true
         } catch {
             print("❌ エクスポートエラー: \(error)")
         }
     }
-    
+
     /// インポート結果を処理
     private func handleImportResult(_ result: Result<[URL], Error>) {
         switch result {
         case .success(let urls):
             guard let url = urls.first else { return }
-            
+
             guard url.startAccessingSecurityScopedResource() else {
-                importErrorMessage = "ファイルへのアクセス権限がありません。"
+                importErrorMessage = String(localized: "ファイルへのアクセス権限がありません。")
                 showImportErrorAlert = true
                 return
             }
-            
+
             defer { url.stopAccessingSecurityScopedResource() }
-            
+
             do {
                 let data = try Data(contentsOf: url)
                 _ = try BackupManager.shared.parseBackupData(from: data)
                 pendingImportData = data
                 showImportConfirmAlert = true
             } catch {
-                importErrorMessage = "ファイルの読み込みに失敗しました: \(error.localizedDescription)"
+                let format = String(localized: "ファイルの読み込みに失敗しました: %@")
+                importErrorMessage = String(format: format, error.localizedDescription)
                 showImportErrorAlert = true
             }
-            
+
         case .failure(let error):
-            importErrorMessage = "ファイルの選択に失敗しました: \(error.localizedDescription)"
+            let format = String(localized: "ファイルの選択に失敗しました: %@")
+            importErrorMessage = String(format: format, error.localizedDescription)
             showImportErrorAlert = true
         }
     }
-    
+
     /// インポートを実行
     private func performImport() {
         guard let data = pendingImportData else { return }
-        
+
         do {
             let backupData = try BackupManager.shared.parseBackupData(from: data)
             try BackupManager.shared.importData(backupData, to: modelContext, clearExisting: true)
@@ -583,10 +643,11 @@ struct DataManagementView: View {
             SharedDataManager.shared.refreshWidgetCacheFromSwiftData(modelContext: modelContext)
             showImportSuccessAlert = true
         } catch {
-            importErrorMessage = "インポートに失敗しました: \(error.localizedDescription)"
+            let format = String(localized: "インポートに失敗しました: %@")
+            importErrorMessage = String(format: format, error.localizedDescription)
             showImportErrorAlert = true
         }
-        
+
         pendingImportData = nil
     }
 }
@@ -594,11 +655,11 @@ struct DataManagementView: View {
 /// 共有シート（UIActivityViewController）
 struct ShareSheet: UIViewControllerRepresentable {
     let activityItems: [Any]
-    
+
     func makeUIViewController(context: Context) -> UIActivityViewController {
         UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
     }
-    
+
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 

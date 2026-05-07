@@ -38,15 +38,15 @@ enum FoundationModelsError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .modelNotAvailable:
-            return "Apple Intelligenceが利用できません。デバイスの設定を確認してください。"
+            return String(localized: "Apple Intelligenceが利用できません。デバイスの設定を確認してください。")
         case .sessionNotAvailable:
-            return "AIセッションが利用できません"
+            return String(localized: "AIセッションが利用できません")
         case .summarizationFailed(let error):
-            return "要約の生成に失敗しました: \(error.localizedDescription)"
+            return String(format: String(localized: "要約の生成に失敗しました: %@"), error.localizedDescription)
         case .categorizationFailed(let error):
-            return "カテゴリ分類に失敗しました: \(error.localizedDescription)"
+            return String(format: String(localized: "カテゴリ分類に失敗しました: %@"), error.localizedDescription)
         case .relevanceCalculationFailed(let error):
-            return "おすすめ度の計算に失敗しました: \(error.localizedDescription)"
+            return String(format: String(localized: "おすすめ度の計算に失敗しました: %@"), error.localizedDescription)
         }
     }
 }
@@ -59,12 +59,19 @@ enum FoundationModelsError: LocalizedError {
 class FoundationModelsService: ObservableObject {
     /// 処理中かどうか
     @Published private(set) var isProcessing = false
-    
+
     /// エラーメッセージ
     @Published var errorMessage: String?
-    
+
     /// isAvailableのキャッシュ（初回チェック後に保存）
     private var _isAvailableCache: Bool?
+
+    /// 現在のUI言語が英語かどうかを判定
+    /// Bundle.main.preferredLocalizationsで実際にアプリが使用している言語を取得
+    private var isEnglishUI: Bool {
+        let lang = Bundle.main.preferredLocalizations.first ?? "en"
+        return lang.hasPrefix("en")
+    }
     
     /// Foundation Modelsが利用可能かどうか（初期値、UIの初期表示用）
     var isAvailable: Bool {
@@ -97,31 +104,52 @@ class FoundationModelsService: ObservableObject {
     /// - Returns: 要約テキスト
     func summarize(article: Article) async -> String {
         guard _isAvailableCache == true else {
-            return article.description ?? "要約を生成できません"
+            return article.description ?? String(localized: "要約を生成できません")
         }
-        
+
         let content = article.description ?? article.title
-        
-        let session = LanguageModelSession(instructions: """
-            あなたはニュース記事の要約を作成するアシスタントです。
-            このアプリは節煙をサポートするアプリです。
-            以下のルールに従って要約してください：
-            - 日本語で2-3文で簡潔に要約
-            - 減らしたい人の観点から重要なポイントを強調
-            - 客観的な情報のみを含める
-            """)
-        
-        do {
-            let response = try await session.respond(to: """
+
+        let instructions: String
+        let prompt: String
+        if isEnglishUI {
+            instructions = """
+                You are an assistant that creates summaries of news articles.
+                This app supports people trying to reduce or quit smoking.
+                Follow these rules:
+                - Summarize in 2-3 concise sentences in English
+                - Highlight key points from the perspective of someone trying to cut down
+                - Include only objective information
+                """
+            prompt = """
+                Please summarize the following news article.
+
+                Title: \(article.title)
+                Content: \(content)
+                """
+        } else {
+            instructions = """
+                あなたはニュース記事の要約を作成するアシスタントです。
+                このアプリは節煙をサポートするアプリです。
+                以下のルールに従って要約してください：
+                - 日本語で2-3文で簡潔に要約
+                - 減らしたい人の観点から重要なポイントを強調
+                - 客観的な情報のみを含める
+                """
+            prompt = """
                 以下のニュース記事を要約してください。
-                
+
                 タイトル: \(article.title)
                 内容: \(content)
-                """)
+                """
+        }
+
+        do {
+            let session = LanguageModelSession(instructions: instructions)
+            let response = try await session.respond(to: prompt)
             return response.content.trimmingCharacters(in: .whitespacesAndNewlines)
         } catch {
             print("要約生成エラー: \(error)")
-            return article.description ?? "要約を生成できませんでした"
+            return article.description ?? String(localized: "要約を生成できませんでした")
         }
     }
     
@@ -134,31 +162,58 @@ class FoundationModelsService: ObservableObject {
         guard _isAvailableCache == true else {
             return fallbackCategorize(article: article)
         }
-        
+
         let content = article.description ?? article.title
-        
-        let session = LanguageModelSession(instructions: """
-            あなたはニュース記事をカテゴリ分類するアシスタントです。
-            以下のカテゴリのいずれかを選んで、カテゴリ名のみを回答してください：
-            - 新商品（新製品、新デバイス、発売に関する記事）
-            - 業界（税金、規制、市場、業界動向に関する記事）
-            - 豆知識（タバコの歴史、豆知識、文化、トリビア、うんちくに関する記事）
-            - 節煙（禁煙、減煙、節煙に関する記事）
-            - その他（上記に該当しない記事）
-            """)
-        
-        do {
-            let response = try await session.respond(to: """
+
+        // カテゴリは内部rawValueが日本語固定。AIにはrawValueをそのまま返してもらう。
+        // 英語UIでは英訳カッコ書きを併記して曖昧さを減らす。
+        let instructions: String
+        let prompt: String
+        if isEnglishUI {
+            instructions = """
+                You categorize news articles. Reply with exactly one of the following category names (Japanese keywords are the canonical IDs):
+                - 新商品 (New products, new devices, releases)
+                - 業界 (Industry: taxes, regulations, market, industry trends)
+                - 豆知識 (Trivia: tobacco history, culture, fun facts)
+                - 節煙 (Quitting / Cutting down)
+                - その他 (Other; anything not above)
+
+                Reply with the Japanese category keyword only, nothing else.
+                """
+            prompt = """
+                Classify the following article into the most appropriate category.
+
+                Title: \(article.title)
+                Content: \(content)
+
+                Reply with just the Japanese category keyword.
+                """
+        } else {
+            instructions = """
+                あなたはニュース記事をカテゴリ分類するアシスタントです。
+                以下のカテゴリのいずれかを選んで、カテゴリ名のみを回答してください：
+                - 新商品（新製品、新デバイス、発売に関する記事）
+                - 業界（税金、規制、市場、業界動向に関する記事）
+                - 豆知識（タバコの歴史、豆知識、文化、トリビア、うんちくに関する記事）
+                - 節煙（禁煙、減煙、節煙に関する記事）
+                - その他（上記に該当しない記事）
+                """
+            prompt = """
                 以下の記事を最も適切なカテゴリに分類してください。
-                
+
                 タイトル: \(article.title)
                 内容: \(content)
-                
+
                 カテゴリ名のみを回答してください。
-                """)
-            
+                """
+        }
+
+        do {
+            let session = LanguageModelSession(instructions: instructions)
+            let response = try await session.respond(to: prompt)
+
             let categoryText = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+
             // レスポンスからカテゴリを特定
             for category in ArticleCategory.allCases {
                 if categoryText.contains(category.rawValue) {
@@ -183,58 +238,104 @@ class FoundationModelsService: ObservableObject {
         guard _isAvailableCache == true, let userData = userData else {
             return fallbackCalculateRelevance(article: article, userData: userData)
         }
-        
+
         let content = article.description ?? article.title
-        let goalInfo = userData.dailyGoal.map { "目標本数: \($0)本/日" } ?? "目標未設定"
-        let trendInfo = userData.isDecreasing ? "減少傾向" : "変化なし"
-        
-        let session = LanguageModelSession(instructions: """
-            あなたは喫煙ペースをコントロールしたい人向けのニュースおすすめ度を評価するアシスタントです。
-            以下の基準でユーザーの状況を考慮して、記事の関連性を0から100の数値で評価してください。
-            
-            【高スコア（70〜100）にすべき記事】
-            - 節煙・ペースコントロールに役立つ情報
-            - ニコチンフリー製品・代替製品の情報
-            - 加熱式デバイスの新商品・レビュー
-            - 喫煙量の管理・コントロールに関する記事
-            - タバコの歴史・豆知識・トリビア
-            - 業界の最新動向
-            
-            【中スコア（30〜60）にすべき記事】
-            - タバコの税金・値上げ情報
-            - 喫煙規制の動向
-            - 一般的な統計情報
-            
-            【低スコア（0〜30）にすべき記事】
-            - 具体的な内容に乏しい記事
-            - ユーザーの自己管理に無関係な記事
-            
-            数値のみを回答してください。
-            """)
-        
-        do {
-            let response = try await session.respond(to: """
+
+        let instructions: String
+        let prompt: String
+        if isEnglishUI {
+            let goalInfo = userData.dailyGoal.map { "Daily cap: \($0) per day" } ?? "No cap set"
+            let trendInfo = userData.isDecreasing ? "decreasing" : "stable"
+            instructions = """
+                You rate how useful a news article is for someone managing their smoking pace.
+                Consider the user's situation and rate relevance on a 0-100 numeric scale.
+
+                [High score (70-100)]
+                - Tips for cutting down or controlling pace
+                - Nicotine-free or alternative products
+                - New heated-tobacco devices and reviews
+                - Articles about managing/controlling consumption
+                - Tobacco history, trivia, fun facts
+                - Latest industry trends
+
+                [Medium score (30-60)]
+                - Tobacco tax / price hikes
+                - Smoking regulation trends
+                - General statistics
+
+                [Low score (0-30)]
+                - Articles thin on substance
+                - Articles unrelated to the user's self-management
+
+                Reply with the number only.
+                """
+            prompt = """
+                Rate how relevant this article is to the following user.
+
+                [User]
+                - Average cigarettes today: \(userData.averageDailyCount)
+                - \(goalInfo)
+                - Trend: \(trendInfo)
+
+                [Article]
+                Title: \(article.title)
+                Content: \(content)
+
+                Reply with just a number from 0 to 100.
+                """
+        } else {
+            let goalInfo = userData.dailyGoal.map { "目標本数: \($0)本/日" } ?? "目標未設定"
+            let trendInfo = userData.isDecreasing ? "減少傾向" : "変化なし"
+            instructions = """
+                あなたは喫煙ペースをコントロールしたい人向けのニュースおすすめ度を評価するアシスタントです。
+                以下の基準でユーザーの状況を考慮して、記事の関連性を0から100の数値で評価してください。
+
+                【高スコア（70〜100）にすべき記事】
+                - 節煙・ペースコントロールに役立つ情報
+                - ニコチンフリー製品・代替製品の情報
+                - 加熱式デバイスの新商品・レビュー
+                - 喫煙量の管理・コントロールに関する記事
+                - タバコの歴史・豆知識・トリビア
+                - 業界の最新動向
+
+                【中スコア（30〜60）にすべき記事】
+                - タバコの税金・値上げ情報
+                - 喫煙規制の動向
+                - 一般的な統計情報
+
+                【低スコア（0〜30）にすべき記事】
+                - 具体的な内容に乏しい記事
+                - ユーザーの自己管理に無関係な記事
+
+                数値のみを回答してください。
+                """
+            prompt = """
                 以下のユーザーにとって、この記事がどれくらいおすすめか評価してください。
-                
+
                 【ユーザー情報】
                 - 1日の平均喫煙本数: \(userData.averageDailyCount)本
                 - \(goalInfo)
                 - 喫煙傾向: \(trendInfo)
-                
+
                 【記事情報】
                 タイトル: \(article.title)
                 内容: \(content)
-                
+
                 0から100の数値のみで回答してください。
-                """)
-            
+                """
+        }
+
+        do {
+            let session = LanguageModelSession(instructions: instructions)
+            let response = try await session.respond(to: prompt)
+
             let scoreText = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+
             // 数値を抽出
             let numbers = scoreText.components(separatedBy: CharacterSet.decimalDigits.inverted)
                 .compactMap { Int($0) }
                 .filter { $0 >= 0 && $0 <= 100 }
-            
+
             if let score = numbers.first {
                 return Double(score) / 100.0
             }
@@ -250,8 +351,8 @@ class FoundationModelsService: ObservableObject {
     /// リラックスモード用の癒しのメッセージを生成
     /// - Returns: 気の利いた癒しのメッセージ
     func generateRelaxMessage() async -> String {
-        // フォールバックメッセージ
-        let fallbackMessages = [
+        // フォールバックメッセージ（言語別）
+        let fallbackMessagesJa = [
             "ゆっくりと深呼吸...",
             "この瞬間を味わって",
             "心を落ち着けて...",
@@ -263,35 +364,67 @@ class FoundationModelsService: ObservableObject {
             "心を解き放って",
             "ゆったりと..."
         ]
-        
+        let fallbackMessagesEn = [
+            "Take a slow breath...",
+            "Savor this moment",
+            "Calm your mind...",
+            "Take a quiet pause",
+            "A moment of stillness...",
+            "Find your peace",
+            "Just relax...",
+            "Be present now",
+            "Let go gently",
+            "Slow it down..."
+        ]
+        let fallbackMessages = isEnglishUI ? fallbackMessagesEn : fallbackMessagesJa
+
         guard _isAvailableCache == true else {
-            return fallbackMessages.randomElement() ?? "ゆっくりと..."
+            return fallbackMessages.randomElement() ?? fallbackMessages[0]
         }
-        
-        let session = LanguageModelSession(instructions: """
-            あなたは吸いたい気持ちを落ち着かせるための癒しメッセージを作成するアシスタントです。
-            以下のルールに従ってください：
-            - 日本語で短い（10文字以内程度）癒しのフレーズを1つだけ生成
-            - 穏やかで詩的な表現
-            - 句読点は最小限に
-            - 余計な説明は不要
-            """)
-        
-        do {
-            let response = try await session.respond(to: """
+
+        let instructions: String
+        let prompt: String
+        if isEnglishUI {
+            instructions = """
+                You are an assistant that creates short, soothing messages to help calm the urge to smoke.
+                Follow these rules:
+                - Generate exactly one short calming phrase (around 5-8 words) in English
+                - Use gentle, poetic language
+                - Minimal punctuation
+                - No extra explanations
+                """
+            prompt = """
+                Generate a short calming phrase to display when someone wants to settle a craving.
+                Examples: "Take a deep breath...", "Let this wave pass".
+                """
+        } else {
+            instructions = """
+                あなたは吸いたい気持ちを落ち着かせるための癒しメッセージを作成するアシスタントです。
+                以下のルールに従ってください：
+                - 日本語で短い（10文字以内程度）癒しのフレーズを1つだけ生成
+                - 穏やかで詩的な表現
+                - 句読点は最小限に
+                - 余計な説明は不要
+                """
+            prompt = """
                 吸いたい気持ちを落ち着かせたいときに表示する、短い癒しのフレーズを1つ生成してください。
                 「深呼吸して...」「この波をやり過ごそう」のような感じで。
-                """)
+                """
+        }
+
+        do {
+            let session = LanguageModelSession(instructions: instructions)
+            let response = try await session.respond(to: prompt)
             let message = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
             print("🤖 生成されたリラックスメッセージ: \(message) (長さ: \(message.count))")
-            // 長すぎる場合はフォールバック（英語の接頭辞等も考慮して緩和）
-            if message.count <= 60 {
+            // 長すぎる場合はフォールバック
+            if message.count <= 80 {
                 return message
             }
-            return fallbackMessages.randomElement() ?? "ゆっくりと..."
+            return fallbackMessages.randomElement() ?? fallbackMessages[0]
         } catch {
             print("リラックスメッセージ生成エラー: \(error)")
-            return fallbackMessages.randomElement() ?? "ゆっくりと..."
+            return fallbackMessages.randomElement() ?? fallbackMessages[0]
         }
     }
     
@@ -301,7 +434,7 @@ class FoundationModelsService: ObservableObject {
     /// - Parameter userData: ユーザーの喫煙データ
     /// - Returns: ふわっと表示するコメント
     func generateRandomComment(userData: UserSmokingData?) async -> String {
-        let fallbackComments = [
+        let fallbackCommentsJa = [
             "今日はいい天気ですね",
             "マイペースでいきましょう",
             "あなたのペースで大丈夫です",
@@ -313,65 +446,122 @@ class FoundationModelsService: ObservableObject {
             "今日も一日お疲れ様です",
             "ひと休み、ひと休み"
         ]
-        
+        let fallbackCommentsEn = [
+            "Hope you're having a good day",
+            "Take it at your own pace",
+            "You're doing fine",
+            "Let your shoulders drop a little",
+            "Are you feeling relaxed?",
+            "A peaceful moment",
+            "No need to push yourself",
+            "Take it easy today",
+            "Thanks for showing up today",
+            "Time for a little break"
+        ]
+        let fallbackComments = isEnglishUI ? fallbackCommentsEn : fallbackCommentsJa
+
         guard _isAvailableCache == true else {
-            return fallbackComments.randomElement() ?? "マイペースでいきましょう"
+            return fallbackComments.randomElement() ?? fallbackComments[0]
         }
-        
+
         // ユーザーの状態に応じた少しのコンテキスト
-        var userContext = ""
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ja_JP")
-        formatter.dateFormat = "M月d日(E) H時m分"
+        formatter.locale = Locale.current
+        if isEnglishUI {
+            formatter.setLocalizedDateFormatFromTemplate("MMMd EEE HHmm")
+        } else {
+            formatter.dateFormat = "M月d日(E) H時m分"
+        }
         let nowString = formatter.string(from: Date())
-        userContext += "現在の日時: \(nowString)\n"
-        
-        if let data = userData {
-            userContext += "ユーザーは今日\(data.averageDailyCount)本吸っています。"
-            if let total = data.totalRecordsCount {
-                userContext += "これまでの総喫煙記録数は\(total)本です。"
-            }
-            if let goal = data.dailyGoal {
-                userContext += "ユーザーの1日の上限目標は\(goal)本です（目標値に達することが目的ではなく、それ以内に抑えるための上限値です）。"
-                if data.averageDailyCount < goal {
-                    let remaining = goal - data.averageDailyCount
-                    userContext += "上限まであと\(remaining)本の余裕があります。"
-                } else {
-                    userContext += "すでに上限の\(goal)本に達しているか、超えています。"
+
+        let userContext: String
+        let instructions: String
+        let prompt: String
+        if isEnglishUI {
+            var ctx = "Current time: \(nowString)\n"
+            if let data = userData {
+                ctx += "The user has smoked \(data.averageDailyCount) today. "
+                if let total = data.totalRecordsCount {
+                    ctx += "Their lifetime total recorded is \(total) cigarettes. "
+                }
+                if let goal = data.dailyGoal {
+                    ctx += "Their daily upper limit is \(goal) (this is a cap to stay under, not a target to reach). "
+                    if data.averageDailyCount < goal {
+                        let remaining = goal - data.averageDailyCount
+                        ctx += "They have \(remaining) more before reaching the cap. "
+                    } else {
+                        ctx += "They have already reached or exceeded the cap of \(goal). "
+                    }
                 }
             }
-        }
-        
-        let session = LanguageModelSession(instructions: """
-            あなたはユーザーに寄り添うAIアシスタントです。
-            以下のルールに従って、全体で10〜20文字程度の非常に短い独り言やコメントを1つだけ生成してください：
-            - 文字数はなるべく20文字以内に収めること（簡潔に）
-            - ポジティブな表現のみを使用する
-            - ユーザーに何かを催促したり、説教したりしない
-            - 「目標」は到達すべきノルマではなく、「これ以上は吸わない」という上限を意味します。「目標まであと〇本」という表現はノルマのように聞こえるため避け、「上限まであと〇本」や「良いペースですね」といった表現にしてください
-            - コンテキストに渡された「現在の日時」を正しく読み取り、朝・昼・夜や実際の曜日に合った挨拶をすること（過去の例文などをそのまま使わないでください）
-            - たまに短い俳句を生成しても良いですが、その場合も解説は不要です
-            - 喫煙総本数が50本、100本、500本などのキリの良い数字の時は、短くお祝いする
-            - 日本語で回答する
-            """)
-        
-        do {
-            let response = try await session.respond(to: """
+            userContext = ctx
+            instructions = """
+                You are a warm, supportive AI assistant.
+                Follow these rules to generate exactly one very short remark (about 5-12 words):
+                - Keep it concise — under about 12 words
+                - Use only positive, gentle language
+                - Never nag, lecture, or push the user
+                - The "goal" is a cap (do-not-exceed), not a target to reach. Avoid framings like "X to go to your goal" — prefer "X under your cap" or "Nice pace".
+                - Read the supplied current date/time and greet appropriately for morning/afternoon/evening and the actual weekday (do not reuse stale examples)
+                - Occasional short poetic lines are welcome — no commentary needed
+                - When the lifetime total reaches a round number (50, 100, 500), briefly acknowledge it
+                - Reply in English
+                """
+            prompt = """
+                Generate one casual, positive short message for the user.
+                \(userContext)
+                Lightly factor in the situation and offer warm words.
+                """
+        } else {
+            var ctx = "現在の日時: \(nowString)\n"
+            if let data = userData {
+                ctx += "ユーザーは今日\(data.averageDailyCount)本吸っています。"
+                if let total = data.totalRecordsCount {
+                    ctx += "これまでの総喫煙記録数は\(total)本です。"
+                }
+                if let goal = data.dailyGoal {
+                    ctx += "ユーザーの1日の上限目標は\(goal)本です（目標値に達することが目的ではなく、それ以内に抑えるための上限値です）。"
+                    if data.averageDailyCount < goal {
+                        let remaining = goal - data.averageDailyCount
+                        ctx += "上限まであと\(remaining)本の余裕があります。"
+                    } else {
+                        ctx += "すでに上限の\(goal)本に達しているか、超えています。"
+                    }
+                }
+            }
+            userContext = ctx
+            instructions = """
+                あなたはユーザーに寄り添うAIアシスタントです。
+                以下のルールに従って、全体で10〜20文字程度の非常に短い独り言やコメントを1つだけ生成してください：
+                - 文字数はなるべく20文字以内に収めること（簡潔に）
+                - ポジティブな表現のみを使用する
+                - ユーザーに何かを催促したり、説教したりしない
+                - 「目標」は到達すべきノルマではなく、「これ以上は吸わない」という上限を意味します。「目標まであと〇本」という表現はノルマのように聞こえるため避け、「上限まであと〇本」や「良いペースですね」といった表現にしてください
+                - コンテキストに渡された「現在の日時」を正しく読み取り、朝・昼・夜や実際の曜日に合った挨拶をすること（過去の例文などをそのまま使わないでください）
+                - たまに短い俳句を生成しても良いですが、その場合も解説は不要です
+                - 喫煙総本数が50本、100本、500本などのキリの良い数字の時は、短くお祝いする
+                - 日本語で回答する
+                """
+            prompt = """
                 ユーザー向けの何気ないポジティブな短いメッセージを1つ生成してください。
                 \(userContext)
                 状況を少しだけ加味しつつも、温かい言葉をかけてください。
-                """)
+                """
+        }
+
+        do {
+            let session = LanguageModelSession(instructions: instructions)
+            let response = try await session.respond(to: prompt)
             let message = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+
             print("🤖 生成されたランダムコメント: \(message) (長さ: \(message.count))")
-            // あまりに長い場合はフォールバック（俳句やポエム、英語の接頭辞等も考慮して大幅に緩和）
-            if message.count <= 120 {
+            if message.count <= 200 {
                 return message
             }
-            return fallbackComments.randomElement() ?? "マイペースでいきましょう"
+            return fallbackComments.randomElement() ?? fallbackComments[0]
         } catch {
             print("ランダムコメント生成エラー: \(error)")
-            return fallbackComments.randomElement() ?? "マイペースでいきましょう"
+            return fallbackComments.randomElement() ?? fallbackComments[0]
         }
     }
     

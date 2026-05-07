@@ -16,15 +16,21 @@ struct CalendarHeatmapView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = CalendarHeatmapViewModel()
     
-    // 表示用フォーマッタ
+    // 表示用フォーマッタ（Locale.currentで現在の言語に合わせる）
     private let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年 M月"
-        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.locale = Locale.current
+        formatter.setLocalizedDateFormatFromTemplate("yyyyMMM")
         return formatter
     }()
-    
-    private let weekdaySymbols = ["日", "月", "火", "水", "木", "金", "土"]
+
+    /// 曜日記号（端末ロケールから取得、日曜始まり）
+    private var weekdaySymbols: [String] {
+        let calendar = Calendar.current
+        var symbols = calendar.shortWeekdaySymbols
+        // shortWeekdaySymbolsはfirstWeekdayに関わらずSun始まり[0]、Sat[6]の順
+        return symbols
+    }
     
     var body: some View {
         ScrollView {
@@ -215,8 +221,8 @@ struct CalendarHeatmapView: View {
     // 日付フォーマッタ
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "M月d日(E)"
-        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.locale = Locale.current
+        formatter.setLocalizedDateFormatFromTemplate("MMMd EEE")
         return formatter
     }()
     

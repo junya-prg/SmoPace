@@ -16,8 +16,16 @@ enum StatisticsPeriod: String, CaseIterable {
     case week = "週"
     case month = "月"
     case year = "年"
-    
-    var displayName: String { rawValue }
+
+    /// ローカライズ済みの表示名
+    var displayName: String {
+        switch self {
+        case .day: return String(localized: "日")
+        case .week: return String(localized: "週")
+        case .month: return String(localized: "月")
+        case .year: return String(localized: "年")
+        }
+    }
 }
 
 /// 銘柄別のカウント情報（統計用）
@@ -45,6 +53,7 @@ struct StatisticsView: View {
     @State private var animateChart: Bool = false
     @State private var brandSummary: [BrandStatData] = []
     @State private var totalAmount: Decimal = 0
+    @State private var currencyCode: String = "JPY"
     
     var body: some View {
         NavigationStack {
@@ -53,7 +62,7 @@ struct StatisticsView: View {
                     // 期間選択セグメント
                     Picker("期間", selection: $selectedPeriod) {
                         ForEach(StatisticsPeriod.allCases, id: \.self) { period in
-                            Text(period.displayName).tag(period)
+                            Text(LocalizedStringKey(period.rawValue)).tag(period)
                         }
                     }
                     .pickerStyle(.segmented)
@@ -92,7 +101,8 @@ struct StatisticsView: View {
                         data: chartData,
                         brandSummary: brandSummary,
                         totalAmount: totalAmount,
-                        dailyGoal: dailyGoal
+                        dailyGoal: dailyGoal,
+                        currencyCode: currencyCode
                     )
                     .padding(.horizontal)
                     .animation(.easeInOut(duration: 0.3), value: chartData.map { $0.count })
@@ -143,8 +153,9 @@ struct StatisticsView: View {
         do {
             if let settings = try modelContext.fetch(settingsDescriptor).first {
                 dailyGoal = settings.dailyGoal
+                currencyCode = settings.currencyCode
             }
-            
+
             // 全銘柄を取得
             let brandsDescriptor = FetchDescriptor<CigaretteBrand>(
                 sortBy: [SortDescriptor(\.createdAt)]
@@ -196,7 +207,7 @@ struct StatisticsView: View {
             total += record.amount
             
             if let brandId = record.brandId {
-                let existing = brandDict[brandId] ?? (count: 0, amount: 0, name: record.brandName ?? "不明")
+                let existing = brandDict[brandId] ?? (count: 0, amount: 0, name: record.brandName ?? String(localized: "不明"))
                 brandDict[brandId] = (
                     count: existing.count + record.count,
                     amount: existing.amount + record.amount,
@@ -243,7 +254,7 @@ struct StatisticsView: View {
         if unclassifiedCount > 0 {
             summary.append(BrandStatData(
                 id: nil,
-                name: "未分類",
+                name: String(localized: "未分類"),
                 count: unclassifiedCount,
                 amount: unclassifiedAmount,
                 color: .gray.opacity(0.6)
@@ -388,7 +399,7 @@ struct StatisticsView: View {
                     date: monthStart,
                     count: count,
                     rawCount: count,
-                    label: "\(month)月",
+                    label: String(format: String(localized: "%lld月"), month),
                     brandSegments: aggregateBrandSegments(records: monthRecords)
                 ))
             }
@@ -404,7 +415,7 @@ struct StatisticsView: View {
         
         for record in records {
             if let brandId = record.brandId {
-                let existing = brandDict[brandId] ?? (count: 0, name: record.brandName ?? "不明")
+                let existing = brandDict[brandId] ?? (count: 0, name: record.brandName ?? String(localized: "不明"))
                 brandDict[brandId] = (
                     count: existing.count + record.count,
                     name: record.brandName ?? existing.name
@@ -444,7 +455,7 @@ struct StatisticsView: View {
         if unclassifiedCount > 0 {
             segments.append(BrandSegment(
                 id: nil,
-                name: "未分類",
+                name: String(localized: "未分類"),
                 count: unclassifiedCount,
                 color: .gray.opacity(0.6)
             ))
@@ -558,40 +569,40 @@ struct PeriodHeaderView: View {
         let calendar = Calendar.current
         let today = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        
+        dateFormatter.locale = Locale.current
+
         switch period {
         case .day:
             let targetDate = calendar.date(byAdding: .day, value: -pageIndex, to: today) ?? today
-            dateFormatter.dateFormat = "M月d日(E)"
+            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd EEE")
             return dateFormatter.string(from: targetDate)
-            
+
         case .week:
             let currentWeekday = calendar.component(.weekday, from: today)
             let daysToSunday = currentWeekday - 1
             let thisSunday = calendar.date(byAdding: .day, value: -daysToSunday, to: calendar.startOfDay(for: today)) ?? today
             let targetSunday = calendar.date(byAdding: .weekOfYear, value: -pageIndex, to: thisSunday) ?? thisSunday
             let targetSaturday = calendar.date(byAdding: .day, value: 6, to: targetSunday) ?? targetSunday
-            
-            dateFormatter.dateFormat = "M/d"
+
+            dateFormatter.setLocalizedDateFormatFromTemplate("Md")
             let startStr = dateFormatter.string(from: targetSunday)
             let endStr = dateFormatter.string(from: targetSaturday)
             return "\(startStr) - \(endStr)"
-            
+
         case .month:
             let components = calendar.dateComponents([.year, .month], from: today)
             let thisMonthStart = calendar.date(from: components) ?? today
             let targetMonth = calendar.date(byAdding: .month, value: -pageIndex, to: thisMonthStart) ?? thisMonthStart
-            
-            dateFormatter.dateFormat = "yyyy年M月"
+
+            dateFormatter.setLocalizedDateFormatFromTemplate("yyyyMMM")
             return dateFormatter.string(from: targetMonth)
-            
+
         case .year:
             let components = calendar.dateComponents([.year], from: today)
             let thisYearStart = calendar.date(from: components) ?? today
             let targetYear = calendar.date(byAdding: .year, value: -pageIndex, to: thisYearStart) ?? thisYearStart
-            
-            dateFormatter.dateFormat = "yyyy年"
+
+            dateFormatter.setLocalizedDateFormatFromTemplate("yyyy")
             return dateFormatter.string(from: targetYear)
         }
     }
@@ -637,8 +648,8 @@ struct GoalLineView: View {
     let effectiveMax: Int
     let chartHeight: CGFloat
     let chartWidth: CGFloat
-    var labelText: String = "目標"
-    
+    var labelText: String = String(localized: "目標")
+
     private var goalY: CGFloat {
         let goalRatio = CGFloat(goal) / CGFloat(effectiveMax)
         return chartHeight * (1 - goalRatio)
@@ -964,7 +975,7 @@ struct StackedBarChartView: View {
                             effectiveMax: effectiveMax,
                             chartHeight: chartHeight,
                             chartWidth: geometry.size.width,
-                            labelText: period == .year ? "目標/月" : "目標"
+                            labelText: period == .year ? String(localized: "目標/月") : String(localized: "目標")
                         )
                         .padding(.bottom, 24)
                     }
@@ -1190,7 +1201,7 @@ struct AnimatedBarChartView: View {
                             effectiveMax: effectiveMax,
                             chartHeight: chartHeight,
                             chartWidth: geometry.size.width,
-                            labelText: period == .year ? "目標/月" : "目標"
+                            labelText: period == .year ? String(localized: "目標/月") : String(localized: "目標")
                         )
                         .padding(.bottom, 24)
                     }
@@ -1312,29 +1323,31 @@ struct SelectedBarDetailView: View {
     
     private var detailText: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        
+        dateFormatter.locale = Locale.current
+
         switch period {
         case .day:
-            dateFormatter.dateFormat = "H時台"
+            // ja: "H時台" (5時台), en: "h a" (5 PM)
+            dateFormatter.dateFormat = String(localized: "H時台")
             return dateFormatter.string(from: dataPoint.date)
         case .week:
-            dateFormatter.dateFormat = "M月d日(E)"
+            // 曜日付き（ja: "M月d日(E)", en: "EEE, MMM d"）
+            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd EEE")
             return dateFormatter.string(from: dataPoint.date)
         case .month:
-            dateFormatter.dateFormat = "M月d日"
+            dateFormatter.setLocalizedDateFormatFromTemplate("MMMd")
             return dateFormatter.string(from: dataPoint.date)
         case .year:
-            dateFormatter.dateFormat = "yyyy年M月"
+            dateFormatter.setLocalizedDateFormatFromTemplate("yyyyMMM")
             return dateFormatter.string(from: dataPoint.date)
         }
     }
-    
+
     private var countText: String {
         if period == .day {
-            return "累計 \(dataPoint.count)本（この時間帯: \(dataPoint.rawCount)本）"
+            return String(format: String(localized: "累計 %lld本（この時間帯: %lld本）"), dataPoint.count, dataPoint.rawCount)
         } else {
-            return "\(dataPoint.count)本"
+            return String(format: String(localized: "%lld本"), dataPoint.count)
         }
     }
     
@@ -1370,72 +1383,69 @@ struct StatisticsSummaryView: View {
     let brandSummary: [BrandStatData]
     let totalAmount: Decimal
     let dailyGoal: Int?
-    
+    let currencyCode: String
+
     private var totalCount: Int {
         data.reduce(0) { $0 + $1.rawCount }
     }
-    
+
     private var averageCount: Double {
         let nonZeroDays = data.filter { $0.rawCount > 0 }.count
         guard nonZeroDays > 0 else { return 0 }
         return Double(totalCount) / Double(nonZeroDays)
     }
-    
+
     private var maxCount: Int {
         data.map { $0.rawCount }.max() ?? 0
     }
-    
+
     private var formattedAmount: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "JPY"
-        formatter.maximumFractionDigits = 0
-        return formatter.string(from: totalAmount as NSDecimalNumber) ?? "¥0"
+        CurrencyFormatter.format(totalAmount, currencyCode: currencyCode)
     }
-    
+
     /// 目標達成日数
     private var goalAchievedDays: Int {
         guard let goal = dailyGoal else { return 0 }
         return data.filter { $0.rawCount > 0 && $0.rawCount <= goal }.count
     }
-    
+
     var body: some View {
         VStack(spacing: 12) {
             HStack(spacing: 12) {
                 AnimatedStatisticCard(
-                    title: "合計",
-                    value: "\(totalCount)本",
+                    title: String(localized: "合計"),
+                    value: String(format: String(localized: "%lld本"), totalCount),
                     icon: "sum",
                     color: .blue
                 )
-                
+
                 AnimatedStatisticCard(
-                    title: "平均",
-                    value: String(format: "%.1f本", averageCount),
+                    title: String(localized: "平均"),
+                    value: String(format: String(localized: "%.1f本"), averageCount),
                     icon: "chart.line.uptrend.xyaxis",
                     color: .green
                 )
             }
-            
+
             HStack(spacing: 12) {
                 AnimatedStatisticCard(
-                    title: "最大",
-                    value: "\(maxCount)本",
+                    title: String(localized: "最大"),
+                    value: String(format: String(localized: "%lld本"), maxCount),
                     icon: "arrow.up.circle",
                     color: .orange
                 )
-                
+
                 AnimatedStatisticCard(
-                    title: "金額",
+                    title: String(localized: "金額"),
                     value: formattedAmount,
-                    icon: "yensign.circle",
+                    icon: CurrencyFormatter.iconName(for: currencyCode),
                     color: .purple
                 )
             }
-            
+
             // 銘柄別内訳（銘柄がある場合のみ表示）
             if !brandSummary.isEmpty {
-                BrandBreakdownView(brandSummary: brandSummary)
+                BrandBreakdownView(brandSummary: brandSummary, currencyCode: currencyCode)
             }
         }
     }
@@ -1444,34 +1454,35 @@ struct StatisticsSummaryView: View {
 /// 銘柄別内訳ビュー
 struct BrandBreakdownView: View {
     let brandSummary: [BrandStatData]
-    
+    let currencyCode: String
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("銘柄別内訳")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundStyle(.secondary)
-            
+
             VStack(spacing: 6) {
                 ForEach(brandSummary) { brand in
                     HStack {
                         Circle()
                             .fill(brand.color)
                             .frame(width: 10, height: 10)
-                        
+
                         Text(brand.name)
                             .font(.subheadline)
-                        
+
                         Spacer()
-                        
+
                         Text("\(brand.count)本")
                             .font(.subheadline)
                             .fontWeight(.medium)
-                        
+
                         Text(formatAmount(brand.amount))
                             .font(.caption)
                             .foregroundStyle(.secondary)
-                            .frame(width: 70, alignment: .trailing)
+                            .frame(width: 90, alignment: .trailing)
                     }
                 }
             }
@@ -1480,17 +1491,14 @@ struct BrandBreakdownView: View {
             .cornerRadius(12)
         }
     }
-    
+
     private func formatAmount(_ amount: Decimal) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "JPY"
-        formatter.maximumFractionDigits = 0
-        return formatter.string(from: amount as NSDecimalNumber) ?? "¥0"
+        CurrencyFormatter.format(amount, currencyCode: currencyCode)
     }
 }
 
 /// 値がアニメーションで変化する統計カード
+/// titleとvalueは事前にローカライズ済みの文字列として受け取る
 struct AnimatedStatisticCard: View {
     let title: String
     let value: String
@@ -1554,6 +1562,7 @@ struct BrandLegendView: View {
                     Text("未分類")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+
                 }
             }
             .padding(.horizontal)

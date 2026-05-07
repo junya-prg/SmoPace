@@ -119,7 +119,7 @@ struct CategoryFilterView: View {
             HStack(spacing: 8) {
                 // 全て表示ボタン
                 FilterChip(
-                    title: "すべて",
+                    title: String(localized: "すべて"),
                     isSelected: selectedCategory == nil,
                     color: .blue
                 ) {
@@ -129,7 +129,7 @@ struct CategoryFilterView: View {
                 // 各カテゴリボタン
                 ForEach(categories) { category in
                     FilterChip(
-                        title: category.rawValue,
+                        title: category.displayName,
                         icon: category.iconName,
                         isSelected: selectedCategory == category,
                         color: categoryColor(for: category)
@@ -331,7 +331,7 @@ struct ArticleCardView: View {
 /// カテゴリバッジ
 struct CategoryBadge: View {
     let category: ArticleCategory
-    
+
     private var color: Color {
         switch category {
         case .newProducts: return .blue
@@ -341,12 +341,12 @@ struct CategoryBadge: View {
         case .other: return .gray
         }
     }
-    
+
     var body: some View {
         HStack(spacing: 4) {
             Image(systemName: category.iconName)
                 .font(.caption2)
-            Text(category.rawValue)
+            Text(category.displayName)
                 .font(.caption)
         }
         .padding(.horizontal, 8)

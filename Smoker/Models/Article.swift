@@ -14,9 +14,20 @@ enum ArticleCategory: String, CaseIterable, Codable, Identifiable {
     case trivia = "豆知識"
     case quitting = "節煙"
     case other = "その他"
-    
+
     var id: String { rawValue }
-    
+
+    /// ローカライズ済みの表示名（rawValueは永続化用に固定、表示はローカライズ）
+    var displayName: String {
+        switch self {
+        case .newProducts: return String(localized: "新商品")
+        case .industry: return String(localized: "業界")
+        case .trivia: return String(localized: "豆知識")
+        case .quitting: return String(localized: "節煙")
+        case .other: return String(localized: "その他")
+        }
+    }
+
     /// カテゴリに対応するSF Symbolsアイコン名
     var iconName: String {
         switch self {
@@ -116,16 +127,16 @@ struct Article: Identifiable, Codable, Hashable {
     /// 公開日時のフォーマット済み文字列
     var formattedDate: String {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.locale = Locale.current
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return formatter.string(from: publishedAt)
     }
-    
-    /// 公開日時の相対表示（「3時間前」など）
+
+    /// 公開日時の相対表示（「3時間前」/ "3 hours ago"）
     var relativeDate: String {
         let formatter = RelativeDateTimeFormatter()
-        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.locale = Locale.current
         formatter.unitsStyle = .short
         return formatter.localizedString(for: publishedAt, relativeTo: Date())
     }

@@ -25,7 +25,7 @@ struct HomeView: View {
     @State private var showRelaxHint = false
     
     /// AIで生成した癒しメッセージ
-    @State private var relaxMessage = "ゆっくりと..."
+    @State private var relaxMessage: String = String(localized: "ゆっくりと...")
     
     /// ランダム位置に表示するAIの独り言
     @State private var floatingComment: String? = nil
@@ -87,7 +87,8 @@ struct HomeView: View {
                             // 金額表示（選択中の銘柄の金額）
                             if !viewModel.allBrands.isEmpty {
                                 AmountDisplayView(
-                                    amount: viewModel.selectedBrandId == nil ? viewModel.todayAmount : viewModel.selectedBrandAmount
+                                    amount: viewModel.selectedBrandId == nil ? viewModel.todayAmount : viewModel.selectedBrandAmount,
+                                    currencyCode: viewModel.currencyCode
                                 )
                             }
                             
@@ -318,7 +319,7 @@ struct BrandTabView: View {
             HStack(spacing: 8) {
                 // 全体タブ
                 BrandTabButton(
-                    name: "全体",
+                    name: String(localized: "全体"),
                     count: brandCounts.reduce(0) { $0 + $1.count },
                     isSelected: selectedBrandId == nil,
                     color: .blue
@@ -451,18 +452,15 @@ struct TimeSinceLastView: View {
 /// 金額表示
 struct AmountDisplayView: View {
     let amount: Decimal
-    
+    let currencyCode: String
+
     private var formattedAmount: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "JPY"
-        formatter.maximumFractionDigits = 0
-        return formatter.string(from: amount as NSDecimalNumber) ?? "¥0"
+        CurrencyFormatter.format(amount, currencyCode: currencyCode)
     }
-    
+
     var body: some View {
         HStack {
-            Image(systemName: "yensign.circle")
+            Image(systemName: CurrencyFormatter.iconName(for: currencyCode))
                 .foregroundStyle(.orange)
             Text("今日の金額: \(formattedAmount)")
                 .font(.subheadline)

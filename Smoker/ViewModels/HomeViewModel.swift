@@ -53,9 +53,12 @@ class HomeViewModel {
     
     /// 今日の消費金額（記録時の価格を使用）
     var todayAmount: Decimal = 0
-    
+
     /// 背景エフェクトの透明度
     var backgroundOpacity: Double = 0.4
+
+    /// 通貨コード（ISO 4217、例: "JPY", "USD"）
+    var currencyCode: String = "JPY"
     
     /// 選択中の銘柄のカウント
     var selectedBrandCount: Int {
@@ -103,16 +106,16 @@ class HomeViewModel {
     /// 前回の喫煙からの経過時間を文字列で取得
     var timeSinceLastSmokeText: String {
         guard let interval = timeSinceLastSmoke else {
-            return "記録なし"
+            return String(localized: "記録なし")
         }
-        
+
         let hours = Int(interval) / 3600
         let minutes = (Int(interval) % 3600) / 60
-        
+
         if hours > 0 {
-            return "\(hours)時間\(minutes)分"
+            return String(format: String(localized: "%lld時間%lld分"), hours, minutes)
         } else {
-            return "\(minutes)分"
+            return String(format: String(localized: "%lld分"), minutes)
         }
     }
     
@@ -161,7 +164,7 @@ class HomeViewModel {
             
             for record in records {
                 if let brandId = record.brandId {
-                    let existing = brandCountDict[brandId] ?? (count: 0, amount: 0, name: record.brandName ?? "不明")
+                    let existing = brandCountDict[brandId] ?? (count: 0, amount: 0, name: record.brandName ?? String(localized: "不明"))
                     brandCountDict[brandId] = (
                         count: existing.count + record.count,
                         amount: existing.amount + record.amount,
@@ -191,7 +194,7 @@ class HomeViewModel {
             if unclassifiedCount > 0 {
                 newBrandCounts.append(BrandCount(
                     id: nil,
-                    name: "未分類",
+                    name: String(localized: "未分類"),
                     count: unclassifiedCount,
                     amount: unclassifiedAmount
                 ))
@@ -225,7 +228,8 @@ class HomeViewModel {
             if let setting = settings.first {
                 dailyGoal = setting.dailyGoal
                 backgroundOpacity = setting.backgroundOpacity
-                
+                currencyCode = setting.currencyCode
+
                 // アクティブな銘柄を取得
                 if let brandId = setting.activeBrandId {
                     let brandPredicate = #Predicate<CigaretteBrand> { brand in

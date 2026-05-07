@@ -91,14 +91,14 @@ struct HistoryRowView: View {
     private var intervalText: String? {
         guard let previous = previousRecord else { return nil }
         let interval = record.timestamp.timeIntervalSince(previous.timestamp)
-        
+
         let hours = Int(interval) / 3600
         let minutes = (Int(interval) % 3600) / 60
-        
+
         if hours > 0 {
-            return "+\(hours)時間\(minutes)分"
+            return String(format: String(localized: "+%lld時間%lld分"), hours, minutes)
         } else {
-            return "+\(minutes)分"
+            return String(format: String(localized: "+%lld分"), minutes)
         }
     }
     
