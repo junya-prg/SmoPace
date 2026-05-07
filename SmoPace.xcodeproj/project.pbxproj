@@ -388,7 +388,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smoker/Smoker.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026042801;
+				CURRENT_PROJECT_VERSION = 2026050801;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -405,7 +405,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -427,7 +427,7 @@
 				CODE_SIGN_ENTITLEMENTS = Smoker/Smoker.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026042801;
+				CURRENT_PROJECT_VERSION = 2026050801;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -444,7 +444,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -466,7 +466,7 @@
 				CODE_SIGN_ENTITLEMENTS = SmokerWidget/SmokerWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026042801;
+				CURRENT_PROJECT_VERSION = 2026050801;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SmokerWidgetInfo.plist;
@@ -476,7 +476,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace.SmoPaceWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -498,7 +498,7 @@
 				CODE_SIGN_ENTITLEMENTS = SmokerWidget/SmokerWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2026042801;
+				CURRENT_PROJECT_VERSION = 2026050801;
 				DEVELOPMENT_TEAM = 2595AXVHS5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SmokerWidgetInfo.plist;
@@ -508,7 +508,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.junya.SmoPace.SmoPaceWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
