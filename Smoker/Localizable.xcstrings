@@ -280,6 +280,9 @@
         }
       }
     },
+    "AI豆知識" : {
+
+    },
     "Apple Intelligenceが利用できません。デバイスの設定を確認してください。" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -353,6 +356,12 @@
         }
       }
     },
+    "Lv.%lld" : {
+
+    },
+    "MAX レベル" : {
+
+    },
     "OK" : {
       "shouldTranslate" : false
     },
@@ -373,6 +382,17 @@
         }
       }
     },
+    "URLの生成に失敗しました" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to construct URL"
+          }
+        }
+      }
+    },
     "US Dollar ($)" : {
       "shouldTranslate" : false
     },
@@ -381,6 +401,9 @@
     },
     "あなたのペースで大丈夫です" : {
       "extractionState" : "manual"
+    },
+    "あなたの苗木が大きく成長しました！" : {
+
     },
     "アプリが気に入ったら、開発者を応援してください" : {
       "extractionState" : "manual",
@@ -547,6 +570,12 @@
         }
       }
     },
+    "クリーン・スプラウト" : {
+
+    },
+    "クリアマインドと究極の健康状態。きらめくオーラを放つ伝説の大樹。" : {
+
+    },
     "コーヒー1杯" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -612,6 +641,20 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Might be helpful"
+          }
+        }
+      }
+    },
+    "これからもクリアな呼吸を続ける" : {
+
+    },
+    "サーバーからのレスポンスが不正です" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid server response"
           }
         }
       }
@@ -870,6 +913,9 @@
         }
       }
     },
+    "ブリーズ・サプリング" : {
+
+    },
     "プルダウンで更新してください" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -880,6 +926,9 @@
           }
         }
       }
+    },
+    "ペースの種" : {
+
     },
     "ホーム" : {
       "extractionState" : "manual",
@@ -911,6 +960,12 @@
     },
     "ゆったり過ごしましょう" : {
       "extractionState" : "manual"
+    },
+    "ライフ・ツリー" : {
+
+    },
+    "ランクアップ！" : {
+
     },
     "リラックス..." : {
       "extractionState" : "manual"
@@ -1051,6 +1106,12 @@
     "余計な説明は不要" : {
       "extractionState" : "manual"
     },
+    "健康的な呼吸と澄み切ったマインドを極めました。周囲に清らかな空気を広げる大樹です。" : {
+
+    },
+    "健康的な呼吸と習慣への理解が深まっています。若々しい新芽の成長。" : {
+
+    },
     "元の記事を読む" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1152,6 +1213,12 @@
           }
         }
       }
+    },
+    "喫煙コントロールとリラックス方法を熟知しています。青々と茂る若木のように。" : {
+
+    },
+    "天空のペーストツリー" : {
+
     },
     "完了" : {
       "extractionState" : "manual",
@@ -1258,6 +1325,9 @@
           }
         }
       }
+    },
+    "既読数: %lld 記事" : {
+
     },
     "日" : {
       "extractionState" : "manual",
@@ -1371,6 +1441,9 @@
         }
       }
     },
+    "次のレベルまであと %lld 記事" : {
+
+    },
     "残り %lld本" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1395,6 +1468,9 @@
     },
     "求人や生活に関する記事は除外" : {
       "extractionState" : "manual"
+    },
+    "清らかな息吹への第一歩。節煙と健康の旅が始まりました。" : {
+
     },
     "無理せずいきましょう" : {
       "extractionState" : "manual"
@@ -1548,24 +1624,13 @@
         }
       }
     },
-    "URLの生成に失敗しました" : {
+    "記事がありません" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Failed to construct URL"
-          }
-        }
-      }
-    },
-    "サーバーからのレスポンスが不正です" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Invalid server response"
+            "value" : "No articles"
           }
         }
       }
@@ -1577,17 +1642,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Failed to fetch articles: %@"
-          }
-        }
-      }
-    },
-    "記事がありません" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No articles"
           }
         }
       }

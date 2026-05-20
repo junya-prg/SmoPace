@@ -101,34 +101,90 @@ class ArticleFetchService: ObservableObject {
     
     /// RSSから記事を取得
     private func fetchFromRSS() async {
-        let query = searchKeywords.joined(separator: "+OR+")
-        guard let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "\(googleNewsRSSBaseURL)?q=\(encodedQuery)&\(newsRegionParams)") else {
+        let googleQuery = searchKeywords.joined(separator: "+OR+")
+        guard let encodedGoogleQuery = googleQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let googleURL = URL(string: "\(googleNewsRSSBaseURL)?q=\(encodedGoogleQuery)&\(newsRegionParams)") else {
             errorMessage = String(localized: "URLの生成に失敗しました")
             return
         }
         
+        let hatenaQuery = isEnglishUI ? "quit smoking OR healthy habits" : "禁煙 OR 節煙 OR 呼吸法"
+        guard let encodedHatenaQuery = hatenaQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let hatenaURL = URL(string: "https://b.hatena.ne.jp/q/\(encodedHatenaQuery)?mode=rss&sort=recent") else {
+            return
+        }
+        
+        // async let を使って並列取得
+        async let googleData = fetchRawData(from: googleURL)
+        async let hatenaData = fetchRawData(from: hatenaURL)
+        
+        let (googleRaw, hatenaRaw) = await (googleData, hatenaData)
+        
+        var allFetchedArticles: [Article] = []
+        
+        if let gData = googleRaw {
+            let googleArticles = RSSParser().parse(data: gData)
+            allFetchedArticles.append(contentsOf: googleArticles)
+            print("📰 Google News RSSから \(googleArticles.count) 件取得")
+        }
+        
+        if let hData = hatenaRaw {
+            let hatenaArticles = RSSParser().parse(data: hData)
+            // Hatenaの記事は source を "はてなブックマーク" もしくはドメインにセットする
+            let customHatenaArticles = hatenaArticles.map { art in
+                var modified = art
+                if modified.source.isEmpty || modified.source.contains("b.hatena.ne.jp") {
+                    modified = Article(
+                        id: modified.id,
+                        title: modified.title,
+                        source: self.isEnglishUI ? "Hatena Bookmark" : "はてなブックマーク",
+                        publishedAt: modified.publishedAt,
+                        url: modified.url,
+                        description: modified.description,
+                        aiSummary: modified.aiSummary,
+                        category: modified.category,
+                        relevanceScore: modified.relevanceScore,
+                        isAIProcessed: modified.isAIProcessed,
+                        isAIGenerated: modified.isAIGenerated
+                    )
+                }
+                return modified
+            }
+            allFetchedArticles.append(contentsOf: customHatenaArticles)
+            print("📰 Hatena Bookmark RSSから \(customHatenaArticles.count) 件取得")
+        }
+        
+        // 決定論的IDで重複排除してマージ
+        var uniqueArticlesMap: [UUID: Article] = [:]
+        for article in allFetchedArticles {
+            if uniqueArticlesMap[article.id] == nil {
+                uniqueArticlesMap[article.id] = article
+            }
+        }
+        
+        // 公開日時の新しい順にソート
+        let sortedArticles = uniqueArticlesMap.values.sorted { $0.publishedAt > $1.publishedAt }
+        
+        if !sortedArticles.isEmpty {
+            // 最大件数に制限
+            let limitedArticles = Array(sortedArticles.prefix(maxArticleCount))
+            articles = limitedArticles
+            cacheArticles(limitedArticles)
+        }
+    }
+    
+    /// 指定されたURLからRawデータを非同期取得
+    private func fetchRawData(from url: URL) async -> Data? {
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
-            
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode == 200 else {
-                errorMessage = String(localized: "サーバーからのレスポンスが不正です")
-                return
+                return nil
             }
-            
-            let parser = RSSParser()
-            let parsedArticles = parser.parse(data: data)
-            
-            if !parsedArticles.isEmpty {
-                // 最大件数に制限
-                let limitedArticles = Array(parsedArticles.prefix(maxArticleCount))
-                articles = limitedArticles
-                cacheArticles(limitedArticles)
-            }
+            return data
         } catch {
-            errorMessage = String(format: String(localized: "記事の取得に失敗しました: %@"), error.localizedDescription)
-            print("RSS取得エラー: \(error)")
+            print("URL読み込みエラー (\(url)): \(error)")
+            return nil
         }
     }
     
@@ -226,7 +282,7 @@ private class RSSParser: NSObject, XMLParserDelegate {
             currentTitle += trimmed
         case "link":
             currentLink += trimmed
-        case "pubDate":
+        case "pubDate", "dc:date", "date":
             currentPubDate += trimmed
         case "source":
             if currentSource.isEmpty {
@@ -244,8 +300,9 @@ private class RSSParser: NSObject, XMLParserDelegate {
             isInItem = false
             
             // 記事を作成
-            if let url = URL(string: currentLink) {
-                let publishedDate = parseDate(currentPubDate) ?? Date()
+            let trimmedLink = currentLink.trimmingCharacters(in: .whitespacesAndNewlines)
+            if let url = URL(string: trimmedLink) {
+                let publishedDate = parseDate(currentPubDate.trimmingCharacters(in: .whitespacesAndNewlines)) ?? Date()
                 
                 // Google Newsの場合、タイトルから「- ソース名」を分離
                 let (cleanTitle, extractedSource) = extractSourceFromTitle(currentTitle)
@@ -277,6 +334,12 @@ private class RSSParser: NSObject, XMLParserDelegate {
                 f.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                 f.locale = Locale(identifier: "en_US_POSIX")
                 return f
+            }(),
+            {
+                let f = DateFormatter()
+                f.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                f.locale = Locale(identifier: "en_US_POSIX")
+                return f
             }()
         ]
         
@@ -285,6 +348,13 @@ private class RSSParser: NSObject, XMLParserDelegate {
                 return date
             }
         }
+        
+        // ISO8601フォールバック
+        let isoFormatter = ISO8601DateFormatter()
+        if let date = isoFormatter.date(from: dateString) {
+            return date
+        }
+        
         return nil
     }
     

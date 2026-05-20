@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmoPace - App Store Screenshot Generator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7ff',
+                            100: '#ebf0ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        },
+                        darkbg: '#0f172a',
+                        darkcard: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #0b0f19;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        /* Grid background for preview area */
+        .preview-grid {
+            background-size: 20px 20px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* Style range inputs */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: #334155;
+            height: 6px;
+            border-radius: 9999px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #60a5fa;
+        }
+        /* UI glassmorphism */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        /* Accordion transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+        }
+        .accordion-content.open {
+            max-height: 1000px;
+            transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="glass-card sticky top-0 z-50 px-6 py-4 flex items-center justify-between border-b border-slate-800">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <i class="fa-solid fa-smoking-ban text-white text-xl"></i>
+            </div>
+            <div>
+                <h1 class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
+                    SmoPace
+                </h1>
+                <p class="text-xs text-slate-400 font-medium">App Store Screenshot Generator</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 font-semibold flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Local Studio
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+        
+        <!-- Left: Live Preview Area -->
+        <div class="flex-1 p-6 flex items-center justify-center overflow-auto preview-grid bg-slate-950 relative min-h-[500px] lg:min-h-0">
+            <!-- Grid Background Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/80 pointer-events-none"></div>
+            
+            <!-- Scaling Container for 1290x2796 Canvas -->
+            <div id="preview-wrapper" class="relative shadow-2xl transition-all duration-300">
+                
+                <!-- THE ACTUAL CANVAS (1290 x 2796 px) -->
+                <div id="canvas-actual" class="relative overflow-hidden shrink-0 select-none shadow-2xl" style="width: 1290px; height: 2796px; background: linear-gradient(135deg, #0f172a, #1e1b4b, #311042); transform-origin: top left;">
+                    
+                    <!-- Background Blur Image (Trendy App Screenshot Glow) -->
+                    <div id="canvas-bg-blur" class="absolute inset-0 bg-cover bg-center filter blur-[80px] opacity-35 scale-150 transition-all duration-300 pointer-events-none"></div>
+                    
+                    <!-- Canvas Grid Lines (Subtle texture) -->
+                    <div class="absolute inset-0 bg-repeat opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+                    <!-- Ambient Glow Effects -->
+                    <div class="absolute -top-1/4 -left-1/4 w-full h-full bg-gradient-to-br from-blue-500/10 to-transparent rounded-full filter blur-[150px] pointer-events-none"></div>
+                    <div class="absolute -bottom-1/4 -right-1/4 w-full h-full bg-gradient-to-tl from-indigo-500/15 to-transparent rounded-full filter blur-[150px] pointer-events-none"></div>
+
+                    <!-- Canvas Content Wrapper (Flex layout for text and device) -->
+                    <div id="canvas-content" class="absolute inset-0 flex flex-col justify-between p-[100px] z-10">
+                        
+                        <!-- Text Copy Container (Top Position by default) -->
+                        <div id="canvas-text-container" class="flex flex-col gap-4 text-center mt-6 transition-all duration-300 order-1">
+                            <h2 id="canvas-title" class="font-black text-[96px] leading-[1.15] text-white tracking-tight drop-shadow-lg" style="font-family: 'Noto Sans JP', sans-serif;">
+                                今日の喫煙をスマートに管理
+                            </h2>
+                            <p id="canvas-subtitle" class="font-bold text-[48px] text-slate-300 leading-normal tracking-wide drop-shadow" style="font-family: 'Noto Sans JP', sans-serif;">
+                                カウンターと統計で、禁煙への第一歩を。
+                            </p>
+                        </div>
+
+                        <!-- Device Mockup Container -->
+                        <div id="canvas-device-container" class="flex-1 flex items-center justify-center transition-all duration-300 order-2 mt-12 mb-6" style="perspective: 3000px;">
+                            
+                            <!-- iPhone 15 Pro Body -->
+                            <div id="mockup-phone" class="relative bg-slate-900 border-[2px] border-slate-700/50 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.85),0_30px_60px_-30px_rgba(0,0,0,0.6)] transition-all duration-500" style="width: 820px; height: 1770px; border-radius: 120px; padding: 22px;">
+                                
+                                <!-- Sleek metallic inner bezel -->
+                                <div class="absolute inset-[3px] border-[4px] border-slate-800 rounded-[115px] pointer-events-none z-30"></div>
+                                <div class="absolute inset-[6px] border-[2px] border-slate-950 rounded-[112px] pointer-events-none z-30"></div>
+                                
+                                <!-- Screen Glass Overlay -->
+                                <div class="absolute inset-[22px] rounded-[94px] overflow-hidden z-25 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.3)]"></div>
+                                
+                                <!-- Speaker Ear Piece -->
+                                <div class="absolute top-[8px] left-1/2 -translate-x-1/2 w-[120px] h-[5px] bg-slate-800 rounded-full z-40"></div>
+
+                                <!-- Side Buttons (Visual thickness) -->
+                                <div class="absolute left-[-6px] top-[280px] w-[6px] h-[75px] bg-slate-700 rounded-l-md border-y border-l border-slate-600/30 z-10"></div>
+                                <div class="absolute left-[-6px] top-[390px] w-[6px] h-[120px] bg-slate-700 rounded-l-md border-y border-l border-slate-600/30 z-10"></div>
+                                <div class="absolute left-[-6px] top-[530px] w-[6px] h-[120px] bg-slate-700 rounded-l-md border-y border-l border-slate-600/30 z-10"></div>
+                                <div class="absolute right-[-6px] top-[380px] w-[6px] h-[160px] bg-slate-700 rounded-r-md border-y border-r border-slate-600/30 z-10"></div>
+
+                                <!-- Screen Container (Clips the app screenshot) -->
+                                <div class="w-full h-full rounded-[95px] overflow-hidden bg-slate-950 relative flex items-center justify-center">
+                                    
+                                    <!-- Dynamic Island -->
+                                    <div class="absolute top-[34px] left-1/2 -translate-x-1/2 w-[280px] h-[78px] bg-black rounded-[39px] z-40 shadow-inner flex items-center justify-between px-6 pointer-events-none">
+                                        <!-- Camera lens subtle reflection -->
+                                        <div class="w-6 h-6 rounded-full bg-slate-950 border border-slate-900 flex items-center justify-center ml-auto">
+                                            <div class="w-2.5 h-2.5 rounded-full bg-indigo-950/80 border border-blue-900/30"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Screen Reflection Shine -->
+                                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-white/[0.08] pointer-events-none z-30"></div>
+
+                                    <!-- APP SCREENSHOT IMAGE -->
+                                    <img id="mockup-img" src="" class="w-full h-full object-cover hidden" alt="App Screenshot">
+
+                                    <!-- DEFAULT DUMMY APP SCREEN (Shown if no screenshot uploaded) -->
+                                    <div id="mockup-dummy" class="w-full h-full bg-slate-900 flex flex-col justify-between p-12 text-slate-200" style="font-family: 'Noto Sans JP', sans-serif;">
+                                        <!-- iOS Status Bar -->
+                                        <div class="flex justify-between items-center text-xl font-bold tracking-tight text-white px-4 pt-1 z-20">
+                                            <span>9:41</span>
+                                            <div class="flex items-center gap-2">
+                                                <i class="fa-solid fa-signal text-sm"></i>
+                                                <i class="fa-solid fa-wifi text-sm"></i>
+                                                <i class="fa-solid fa-battery-full"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- App Header -->
+                                        <div class="mt-16 px-4">
+                                            <h3 class="text-4xl font-extrabold tracking-tight text-white mb-1">今日の喫煙</h3>
+                                            <p class="text-slate-400 text-lg">SmoPace でスマート管理</p>
+                                        </div>
+
+                                        <!-- Circular Progress/Counter -->
+                                        <div class="flex-1 flex flex-col items-center justify-center my-6">
+                                            <div class="relative w-[380px] h-[380px] rounded-full border-[18px] border-slate-800 flex flex-col items-center justify-center shadow-lg shadow-black/40">
+                                                <!-- Gradient Arc Stroke Simulation -->
+                                                <svg class="absolute inset-[-18px] w-[380px] h-[380px] -rotate-90 pointer-events-none" viewBox="0 0 100 100">
+                                                    <circle cx="50" cy="50" r="41" fill="none" stroke="url(#blue-grad)" stroke-width="9" stroke-dasharray="258" stroke-dashoffset="80" stroke-linecap="round"></circle>
+                                                    <defs>
+                                                        <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                            <stop offset="0%" stop-color="#3b82f6"></stop>
+                                                            <stop offset="100%" stop-color="#8b5cf6"></stop>
+                                                        </linearGradient>
+                                                    </defs>
+                                                </svg>
+                                                <span class="text-[120px] font-black text-white leading-none tracking-tighter">4</span>
+                                                <span class="text-2xl font-bold text-slate-400 mt-2">本</span>
+                                            </div>
+                                            <div class="mt-8 flex items-center gap-3 bg-slate-800/50 border border-slate-700/40 px-6 py-2.5 rounded-full text-base font-semibold text-slate-300">
+                                                <i class="fa-regular fa-clock text-blue-400"></i> 前回から: 2時間15分
+                                            </div>
+                                        </div>
+
+                                        <!-- Circular +/- buttons -->
+                                        <div class="flex justify-center gap-12 items-center mb-8">
+                                            <div class="w-20 h-20 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center text-red-400 text-3xl font-extrabold shadow-lg shadow-red-500/10">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </div>
+                                            <div class="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-extrabold shadow-xl shadow-blue-600/30">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Log history summary widget -->
+                                        <div class="bg-slate-850 border border-slate-800 rounded-3xl p-6 shadow-md mb-2">
+                                            <div class="flex justify-between items-center mb-4">
+                                                <span class="font-bold text-xl text-white flex items-center gap-2">
+                                                    <i class="fa-solid fa-list-ul text-blue-400 text-base"></i> 今日の履歴
+                                                </span>
+                                                <span class="text-slate-400 text-base font-medium">4件</span>
+                                            </div>
+                                            <div class="space-y-3.5">
+                                                <div class="flex justify-between text-base">
+                                                    <span class="text-slate-300 flex items-center gap-2">
+                                                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> 14:32
+                                                    </span>
+                                                    <span class="text-slate-400 bg-slate-800 px-3 py-0.5 rounded-full text-xs font-semibold">+4h 10m</span>
+                                                </div>
+                                                <div class="flex justify-between text-base">
+                                                    <span class="text-slate-300 flex items-center gap-2">
+                                                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> 10:22
+                                                    </span>
+                                                    <span class="text-slate-400 bg-slate-800 px-3 py-0.5 rounded-full text-xs font-semibold">+3h 05m</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Tab Bar -->
+                                        <div class="absolute bottom-0 inset-x-0 bg-slate-900/90 border-t border-slate-800/80 px-10 py-6 flex justify-between items-center z-10 rounded-b-[90px]">
+                                            <div class="flex flex-col items-center gap-1 text-blue-400">
+                                                <i class="fa-solid fa-house text-xl"></i>
+                                                <span class="text-xs font-bold">ホーム</span>
+                                            </div>
+                                            <div class="flex flex-col items-center gap-1 text-slate-500">
+                                                <i class="fa-solid fa-chart-simple text-xl"></i>
+                                                <span class="text-xs font-bold">統計</span>
+                                            </div>
+                                            <div class="flex flex-col items-center gap-1 text-slate-500">
+                                                <i class="fa-solid fa-newspaper text-xl"></i>
+                                                <span class="text-xs font-bold">AIニュース</span>
+                                            </div>
+                                            <div class="flex flex-col items-center gap-1 text-slate-500">
+                                                <i class="fa-solid fa-gear text-xl"></i>
+                                                <span class="text-xs font-bold">設定</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right: Studio Controls Panel (Dark and premium) -->
+        <div class="w-full lg:w-[480px] bg-slate-900 border-t lg:border-t-0 lg:border-l border-slate-850 p-6 flex flex-col gap-6 overflow-y-auto">
+            
+            <div class="flex flex-col gap-1">
+                <h3 class="font-extrabold text-xl text-white flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-blue-500 text-lg"></i> デザイン設定
+                </h3>
+                <p class="text-xs text-slate-400">各パラメーターを調整して理想のスクショを作りましょう</p>
+            </div>
+
+            <!-- Accordion sections -->
+            <div class="flex flex-col gap-4 flex-1">
+                
+                <!-- SECTION 1: Screenshots -->
+                <div class="rounded-2xl border border-slate-800 overflow-hidden bg-slate-950/40">
+                    <button class="accordion-btn w-full px-5 py-4 flex items-center justify-between font-bold text-slate-200 hover:bg-slate-850/50 transition-colors" onclick="toggleAccordion(0)">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-regular fa-image text-blue-500"></i> 1. 画像インポート
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-300 transform rotate-180" id="icon-0"></i>
+                    </button>
+                    <div class="accordion-content open px-5 pb-5 flex flex-col gap-4" id="content-0">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">スクリーンショットのロード</label>
+                            
+                            <!-- Drag & Drop Zone -->
+                            <div id="drop-zone" class="border-2 border-dashed border-slate-700 hover:border-blue-500/50 bg-slate-900/60 hover:bg-slate-850/30 rounded-xl p-6 text-center cursor-pointer transition-all duration-150 flex flex-col items-center gap-2">
+                                <i class="fa-solid fa-cloud-arrow-up text-blue-400 text-2xl animate-bounce"></i>
+                                <span class="text-sm font-semibold text-slate-300">画像をここにドラッグ＆ドロップ</span>
+                                <span class="text-xs text-slate-500">または クリックしてファイルを選択</span>
+                                <input type="file" id="file-input" class="hidden" accept="image/*">
+                            </div>
+                        </div>
+
+                        <!-- Local Screenshots Presets -->
+                        <div class="flex flex-col gap-2.5">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">プロジェクト内のスクショから読み込み</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-semibold text-slate-300 flex items-center gap-2 truncate transition-all active:scale-[0.98]" onclick="loadPresetImage('../../screenshots/screenshot_02_home_with_data.png')">
+                                    <i class="fa-solid fa-house-chimney text-blue-400"></i> ホーム画面(データ)
+                                </button>
+                                <button class="px-3 py-2 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-semibold text-slate-300 flex items-center gap-2 truncate transition-all active:scale-[0.98]" onclick="loadPresetImage('../../screenshots/screenshot_01_home_empty.png')">
+                                    <i class="fa-solid fa-battery-empty text-blue-400"></i> ホーム画面(新規)
+                                </button>
+                                <button class="px-3 py-2 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-semibold text-slate-300 flex items-center gap-2 truncate transition-all active:scale-[0.98]" onclick="loadPresetImage('../../screenshots/screenshot_03_statistics_weekly.png')">
+                                    <i class="fa-solid fa-chart-line text-blue-400"></i> 統計画面
+                                </button>
+                                <button class="px-3 py-2 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-semibold text-slate-300 flex items-center gap-2 truncate transition-all active:scale-[0.98]" onclick="loadPresetImage('../../screenshots/screenshot_05_settings.png')">
+                                    <i class="fa-solid fa-sliders text-blue-400"></i> 設定画面
+                                </button>
+                            </div>
+                            <span class="text-[10px] text-slate-500 leading-normal"><i class="fa-solid fa-info-circle"></i> ローカルHTML起動時はブラウザのセキュリティ制限(CORS)により、プリセット読み込み時に書き出しエラーが発生する場合があります。その際は上の<b>ドラッグ＆ドロップ</b>で画像をドロップしてください。100%安全かつ正確に出力されます。</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: Typography -->
+                <div class="rounded-2xl border border-slate-800 overflow-hidden bg-slate-950/40">
+                    <button class="accordion-btn w-full px-5 py-4 flex items-center justify-between font-bold text-slate-200 hover:bg-slate-850/50 transition-colors" onclick="toggleAccordion(1)">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-font text-blue-500"></i> 2. キャッチコピー
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-300" id="icon-1"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 flex flex-col gap-4" id="content-1">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-semibold text-slate-400">メインタイトル</label>
+                            <input type="text" id="input-title" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:border-blue-500 w-full" value="今日の喫煙をスマートに管理" oninput="updateTypography()">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-semibold text-slate-400">サブタイトル</label>
+                            <input type="text" id="input-subtitle" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:border-blue-500 w-full" value="カウンターと統計で、禁煙への第一歩を。" oninput="updateTypography()">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-semibold text-slate-400">フォントファミリー</label>
+                                <select id="select-font" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-blue-500" onchange="updateTypography()">
+                                    <option value="'Noto Sans JP', sans-serif">Noto Sans JP (極太・王道)</option>
+                                    <option value="'Outfit', sans-serif">Outfit (英字モダン)</option>
+                                    <option value="'Inter', sans-serif">Inter (フラット・シンプル)</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-semibold text-slate-400">テキスト位置</label>
+                                <select id="select-text-position" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-blue-500" onchange="updateTextPosition()">
+                                    <option value="top">上部配置 (推奨)</option>
+                                    <option value="bottom">下部配置</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-between text-xs font-semibold text-slate-400">
+                                <span>タイトル文字サイズ</span>
+                                <span id="title-size-val">96px</span>
+                            </div>
+                            <input type="range" id="slider-title-size" min="60" max="140" value="96" oninput="updateTypography()">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-between text-xs font-semibold text-slate-400">
+                                <span>サブタイトル文字サイズ</span>
+                                <span id="subtitle-size-val">48px</span>
+                            </div>
+                            <input type="range" id="slider-subtitle-size" min="30" max="80" value="48" oninput="updateTypography()">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-semibold text-slate-400">テキストのカラー</label>
+                            <div class="flex gap-2">
+                                <button class="flex-1 py-2 bg-slate-900 border-2 border-blue-500 rounded-lg text-xs font-bold text-white transition-all" id="btn-text-white" onclick="changeTextColor('#ffffff', '#cbd5e1')">白</button>
+                                <button class="flex-1 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-lg text-xs font-bold text-slate-400 transition-all" id="btn-text-dark" onclick="changeTextColor('#0f172a', '#475569')">ダーク</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: Background -->
+                <div class="rounded-2xl border border-slate-800 overflow-hidden bg-slate-950/40">
+                    <button class="accordion-btn w-full px-5 py-4 flex items-center justify-between font-bold text-slate-200 hover:bg-slate-850/50 transition-colors" onclick="toggleAccordion(2)">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-palette text-blue-500"></i> 3. 背景スタイル
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-300" id="icon-2"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 flex flex-col gap-4" id="content-2">
+                        
+                        <!-- Gradient Presets -->
+                        <div class="flex flex-col gap-2.5">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">グラデーション プリセット</span>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button class="h-10 rounded-lg border border-slate-800 hover:border-white transition-all relative overflow-hidden" 
+                                        style="background: linear-gradient(135deg, #0f172a, #1e1b4b, #311042);"
+                                        title="Midnight Indigo"
+                                        onclick="setBackgroundGradient('linear-gradient(135deg, #0f172a, #1e1b4b, #311042)')">
+                                    <span class="absolute bottom-1 right-1 text-[8px] font-bold text-white/50 px-1 bg-black/30 rounded">Default</span>
+                                </button>
+                                <button class="h-10 rounded-lg border border-slate-800 hover:border-white transition-all relative overflow-hidden" 
+                                        style="background: linear-gradient(135deg, #180828, #4c0519, #831843);"
+                                        title="Sunset Ember"
+                                        onclick="setBackgroundGradient('linear-gradient(135deg, #180828, #4c0519, #831843)')">
+                                </button>
+                                <button class="h-10 rounded-lg border border-slate-800 hover:border-white transition-all relative overflow-hidden" 
+                                        style="background: linear-gradient(135deg, #022c22, #064e3b, #0f766e);"
+                                        title="Aurora Mint"
+                                        onclick="setBackgroundGradient('linear-gradient(135deg, #022c22, #064e3b, #0f766e)')">
+                                </button>
+                                <button class="h-10 rounded-lg border border-slate-800 hover:border-white transition-all relative overflow-hidden" 
+                                        style="background: linear-gradient(135deg, #09090b, #18181b, #27272a);"
+                                        title="Carbon Dark"
+                                        onclick="setBackgroundGradient('linear-gradient(135deg, #09090b, #18181b, #27272a)')">
+                                </button>
+                                <button class="h-10 rounded-lg border border-slate-800 hover:border-white transition-all relative overflow-hidden" 
+                                        style="background: linear-gradient(135deg, #2d1b24, #1f1118, #11070c);"
+                                        title="Sleek Rose Gold"
+                                        onclick="setBackgroundGradient('linear-gradient(135deg, #2d1b24, #1f1118, #11070c)')">
+                                </button>
+                                <button class="h-10 rounded-lg border border-slate-800 hover:border-white transition-all relative overflow-hidden" 
+                                        style="background: linear-gradient(135deg, #1e3a8a, #0369a1, #0891b2);"
+                                        title="Ocean Depth"
+                                        onclick="setBackgroundGradient('linear-gradient(135deg, #1e3a8a, #0369a1, #0891b2)')">
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Glow / Texture controls -->
+                        <div class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-800">
+                            <div class="flex flex-col">
+                                <span class="text-xs font-bold text-slate-200">背景ブラー発光 (Blur Glow)</span>
+                                <span class="text-[10px] text-slate-500">スクショ画像を拡大・超ぼかしで背後に配置</span>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="toggle-blur-bg" class="sr-only peer" checked onchange="toggleBlurBg()">
+                                <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 4: Device & 3D -->
+                <div class="rounded-2xl border border-slate-800 overflow-hidden bg-slate-950/40">
+                    <button class="accordion-btn w-full px-5 py-4 flex items-center justify-between font-bold text-slate-200 hover:bg-slate-850/50 transition-colors" onclick="toggleAccordion(3)">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-mobile-screen-button text-blue-500"></i> 4. デバイス & 3D
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-300" id="icon-3"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 flex flex-col gap-4" id="content-3">
+                        
+                        <!-- 3D Presets -->
+                        <div class="flex flex-col gap-2">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">パース（立体傾き）プリセット</span>
+                            <div class="grid grid-cols-4 gap-1.5">
+                                <button class="py-2.5 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-bold text-slate-300 active:scale-[0.98] transition-all" onclick="applyPerspectivePreset('flat')">正面</button>
+                                <button class="py-2.5 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-bold text-slate-300 active:scale-[0.98] transition-all" onclick="applyPerspectivePreset('tilt-left')">立体(左)</button>
+                                <button class="py-2.5 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-bold text-slate-300 active:scale-[0.98] transition-all" onclick="applyPerspectivePreset('tilt-right')">立体(右)</button>
+                                <button class="py-2.5 bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg text-xs font-bold text-slate-300 active:scale-[0.98] transition-all" onclick="applyPerspectivePreset('float')">浮遊</button>
+                            </div>
+                        </div>
+
+                        <!-- Device Position Adjusters -->
+                        <div class="flex flex-col gap-3 mt-2 border-t border-slate-850 pt-3">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">デバイス位置・サイズ調整</span>
+                            
+                            <div class="flex flex-col gap-2">
+                                <div class="flex justify-between text-xs font-semibold text-slate-400">
+                                    <span>デバイスのスケール</span>
+                                    <span id="device-scale-val">1.0x</span>
+                                </div>
+                                <input type="range" id="slider-device-scale" min="70" max="130" value="100" oninput="updateDeviceTransform()">
+                            </div>
+                            
+                            <div class="flex flex-col gap-2">
+                                <div class="flex justify-between text-xs font-semibold text-slate-400">
+                                    <span>縦位置 (Y座標オフセット)</span>
+                                    <span id="device-y-val">0px</span>
+                                </div>
+                                <input type="range" id="slider-device-y" min="-150" max="150" value="0" oninput="updateDeviceTransform()">
+                            </div>
+                        </div>
+
+                        <!-- Custom Perspective Sliders -->
+                        <div class="flex flex-col gap-3 mt-2 border-t border-slate-850 pt-3">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">カスタム3Dパース調整 (微調整用)</span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between text-[10px] font-semibold text-slate-500">
+                                        <span>回転 (Rotate)</span>
+                                        <span id="custom-rotate-val">0deg</span>
+                                    </div>
+                                    <input type="range" id="slider-custom-rotate" min="-30" max="30" value="0" oninput="updateDeviceTransform()">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between text-[10px] font-semibold text-slate-500">
+                                        <span>傾斜 (Skew Y)</span>
+                                        <span id="custom-skew-val">0deg</span>
+                                    </div>
+                                    <input type="range" id="slider-custom-skew" min="-20" max="20" value="0" oninput="updateDeviceTransform()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPORT & DOWNLOAD PANEL -->
+                <div class="mt-auto pt-4 flex flex-col gap-3">
+                    <button id="btn-export" class="w-full py-4.5 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-base rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-blue-500/25 active:scale-[0.99] transition-all border border-blue-400/20" onclick="exportScreenshot()">
+                        <i class="fa-solid fa-arrow-down-to-line text-lg animate-pulse"></i> App Store 6.7" 高解像度書き出し
+                    </button>
+                    <p class="text-[10px] text-center text-slate-500 leading-normal">
+                        App Store 推奨の <b>1290 x 2796 ピクセル</b> 高解像度PNGをワンクリックで合成・保存します。
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Modal for export loading -->
+    <div id="export-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl flex flex-col items-center gap-4">
+            <div class="w-16 h-16 rounded-full border-4 border-t-blue-500 border-r-indigo-500 border-slate-800 animate-spin flex items-center justify-center">
+                <i class="fa-solid fa-smoking-ban text-blue-400 text-xl animate-ping"></i>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h4 class="font-extrabold text-lg text-white">スクリーンショット合成中...</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">高解像度（1290 x 2796 px）キャンバスをレンダリングし、PNGファイルを生成しています。しばらくお待ちください。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script controls logic -->
+    <script>
+        // DOM Elements
+        const canvasActual = document.getElementById('canvas-actual');
+        const canvasBgBlur = document.getElementById('canvas-bg-blur');
+        const canvasTitle = document.getElementById('canvas-title');
+        const canvasSubtitle = document.getElementById('canvas-subtitle');
+        const canvasTextContainer = document.getElementById('canvas-text-container');
+        const canvasDeviceContainer = document.getElementById('canvas-device-container');
+        const canvasContent = document.getElementById('canvas-content');
+        
+        const mockupPhone = document.getElementById('mockup-phone');
+        const mockupImg = document.getElementById('mockup-img');
+        const mockupDummy = document.getElementById('mockup-dummy');
+        
+        const inputTitle = document.getElementById('input-title');
+        const inputSubtitle = document.getElementById('input-subtitle');
+        const selectFont = document.getElementById('select-font');
+        const selectTextPosition = document.getElementById('select-text-position');
+        
+        const sliderTitleSize = document.getElementById('slider-title-size');
+        const sliderSubtitleSize = document.getElementById('slider-subtitle-size');
+        const titleSizeVal = document.getElementById('title-size-val');
+        const subtitleSizeVal = document.getElementById('subtitle-size-val');
+        
+        const sliderDeviceScale = document.getElementById('slider-device-scale');
+        const sliderDeviceY = document.getElementById('slider-device-y');
+        const deviceScaleVal = document.getElementById('device-scale-val');
+        const deviceYVal = document.getElementById('device-y-val');
+        
+        const sliderCustomRotate = document.getElementById('slider-custom-rotate');
+        const sliderCustomSkew = document.getElementById('slider-custom-skew');
+        const customRotateVal = document.getElementById('custom-rotate-val');
+        const customSkewVal = document.getElementById('custom-skew-val');
+        
+        const toggleBlurBgEl = document.getElementById('toggle-blur-bg');
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const exportModal = document.getElementById('export-modal');
+
+        // State Variables
+        let currentGradient = 'linear-gradient(135deg, #0f172a, #1e1b4b, #311042)';
+        let activePerspectivePreset = 'flat';
+        
+        // Auto scale the preview canvas to fit in workspace
+        function resizePreviewCanvas() {
+            const previewWrapper = document.getElementById('preview-wrapper');
+            const parent = previewWrapper.parentElement;
+            
+            // Available space padding
+            const padding = 48; 
+            const maxWidth = parent.clientWidth - padding;
+            const maxHeight = parent.clientHeight - padding;
+            
+            // Canvas aspects
+            const canvasW = 1290;
+            const canvasH = 2796;
+            
+            let scale = Math.min(maxWidth / canvasW, maxHeight / canvasH);
+            // Cap it at a maximum size that makes sense
+            scale = Math.min(scale, 0.35); 
+            
+            previewWrapper.style.width = `${canvasW * scale}px`;
+            previewWrapper.style.height = `${canvasH * scale}px`;
+            canvasActual.style.transform = `scale(${scale})`;
+        }
+        
+        window.addEventListener('resize', resizePreviewCanvas);
+        // Delay slightly for render layouts
+        setTimeout(resizePreviewCanvas, 100);
+
+        // Accordion functionality
+        function toggleAccordion(index) {
+            const contents = document.querySelectorAll('.accordion-content');
+            const icons = document.querySelectorAll('.accordion-btn i.fa-chevron-down');
+            
+            contents.forEach((content, i) => {
+                if (i === index) {
+                    content.classList.toggle('open');
+                    icons[i].classList.toggle('rotate-180');
+                } else {
+                    content.classList.remove('open');
+                    icons[i].classList.remove('rotate-180');
+                }
+            });
+        }
+
+        // 1. Screenshot Handlers
+        // Drag & Drop / File Pickers
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-500/5');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-blue-500', 'bg-blue-500/5');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-blue-500', 'bg-blue-500/5');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImageSource(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadPresetImage(path) {
+            // Attempt to load. Since CORS can block file:// references on canvas,
+            // we will fetch and turn to dataURL if possible, or directly set it.
+            // If direct setting is blocked by CORS in export, the alert advises users to D&D.
+            setImageSource(path);
+        }
+
+        function setImageSource(src) {
+            mockupImg.src = src;
+            mockupImg.classList.remove('hidden');
+            mockupDummy.classList.add('hidden');
+            
+            // Set BG Blur image
+            canvasBgBlur.style.backgroundImage = `url(${src})`;
+            if (toggleBlurBgEl.checked) {
+                canvasBgBlur.classList.remove('hidden');
+            }
+            
+            // Auto expand text accordion for text editing next
+            toggleAccordion(1);
+        }
+
+        // 2. Typography Handlers
+        function updateTypography() {
+            canvasTitle.innerText = inputTitle.value;
+            canvasSubtitle.innerText = inputSubtitle.value;
+            
+            canvasTitle.style.fontFamily = selectFont.value;
+            canvasSubtitle.style.fontFamily = selectFont.value;
+            
+            // Sizes
+            const titleSize = sliderTitleSize.value;
+            const subtitleSize = sliderSubtitleSize.value;
+            
+            canvasTitle.style.fontSize = `${titleSize}px`;
+            canvasSubtitle.style.fontSize = `${subtitleSize}px`;
+            
+            titleSizeVal.innerText = `${titleSize}px`;
+            subtitleSizeVal.innerText = `${subtitleSize}px`;
+        }
+
+        function updateTextPosition() {
+            const position = selectTextPosition.value;
+            
+            // Remove standard order classes
+            canvasTextContainer.classList.remove('order-1', 'order-2', 'mt-6', 'mb-6');
+            canvasDeviceContainer.classList.remove('order-1', 'order-2', 'mt-12', 'mb-12');
+            
+            if (position === 'top') {
+                canvasTextContainer.classList.add('order-1', 'mt-6');
+                canvasDeviceContainer.classList.add('order-2', 'mt-12', 'mb-6');
+                canvasContent.classList.remove('justify-between');
+                canvasContent.classList.add('justify-start');
+            } else {
+                canvasDeviceContainer.classList.add('order-1', 'mt-6', 'mb-12');
+                canvasTextContainer.classList.add('order-2', 'mb-6');
+                canvasContent.classList.remove('justify-start');
+                canvasContent.classList.add('justify-between');
+            }
+        }
+
+        function changeTextColor(titleCol, subCol) {
+            canvasTitle.style.color = titleCol;
+            canvasSubtitle.style.color = subCol;
+            
+            // Toggle active borders
+            const btnWhite = document.getElementById('btn-text-white');
+            const btnDark = document.getElementById('btn-text-dark');
+            
+            if (titleCol === '#ffffff') {
+                btnWhite.classList.add('border-blue-500');
+                btnWhite.classList.remove('border-slate-800');
+                btnDark.classList.remove('border-blue-500');
+                btnDark.classList.add('border-slate-800');
+            } else {
+                btnDark.classList.add('border-blue-500');
+                btnDark.classList.remove('border-slate-800');
+                btnWhite.classList.remove('border-blue-500');
+                btnWhite.classList.add('border-slate-800');
+            }
+        }
+
+        // 3. Background Handlers
+        function setBackgroundGradient(gradString) {
+            currentGradient = gradString;
+            canvasActual.style.background = gradString;
+        }
+
+        function toggleBlurBg() {
+            if (toggleBlurBgEl.checked && mockupImg.src && !mockupImg.classList.contains('hidden')) {
+                canvasBgBlur.classList.remove('hidden');
+            } else {
+                canvasBgBlur.classList.add('hidden');
+            }
+        }
+
+        // 4. Device & 3D Transform Handlers
+        function applyPerspectivePreset(presetName) {
+            activePerspectivePreset = presetName;
+            
+            // Reset custom sliders
+            sliderCustomRotate.value = 0;
+            sliderCustomSkew.value = 0;
+            customRotateVal.innerText = '0deg';
+            customSkewVal.innerText = '0deg';
+            
+            if (presetName === 'flat') {
+                sliderDeviceScale.value = 100;
+                sliderDeviceY.value = 0;
+            } else if (presetName === 'tilt-left') {
+                sliderDeviceScale.value = 95;
+                sliderDeviceY.value = 40;
+                sliderCustomRotate.value = -6;
+                sliderCustomSkew.value = 6;
+                customRotateVal.innerText = '-6deg';
+                customSkewVal.innerText = '6deg';
+            } else if (presetName === 'tilt-right') {
+                sliderDeviceScale.value = 95;
+                sliderDeviceY.value = 40;
+                sliderCustomRotate.value = 6;
+                sliderCustomSkew.value = -6;
+                customRotateVal.innerText = '6deg';
+                customSkewVal.innerText = '-6deg';
+            } else if (presetName === 'float') {
+                sliderDeviceScale.value = 98;
+                sliderDeviceY.value = -30;
+                sliderCustomRotate.value = 2;
+                customRotateVal.innerText = '2deg';
+            }
+            
+            updateDeviceTransform();
+        }
+
+        function updateDeviceTransform() {
+            const scale = sliderDeviceScale.value / 100;
+            const yOffset = sliderDeviceY.value;
+            const customRotate = sliderCustomRotate.value;
+            const customSkew = sliderCustomSkew.value;
+            
+            deviceScaleVal.innerText = `${scale.toFixed(1)}x`;
+            deviceYVal.innerText = `${yOffset}px`;
+            customRotateVal.innerText = `${customRotate}deg`;
+            customSkewVal.innerText = `${customSkew}deg`;
+            
+            // Apply 2D transform calculations (Super accurate and html2canvas safe)
+            let transformStr = `translateY(${yOffset}px) scale(${scale})`;
+            
+            if (customRotate != 0) {
+                transformStr += ` rotate(${customRotate}deg)`;
+            }
+            
+            if (customSkew != 0) {
+                transformStr += ` skewY(${customSkew}deg)`;
+            }
+            
+            // Also add perspective scale compression dynamically to simulate 3D skew
+            if (activePerspectivePreset === 'tilt-left' || activePerspectivePreset === 'tilt-right') {
+                transformStr += ` scaleX(0.9)`; 
+            }
+            
+            mockupPhone.style.transform = transformStr;
+        }
+
+        // 5. Export Handler
+        function exportScreenshot() {
+            // Show Loading modal
+            exportModal.classList.remove('hidden');
+            
+            // Force temporary full visible rendering of canvas (html2canvas requires target to be fully visible and rendered)
+            // Wait brief moment for DOM render loop to stabilize
+            setTimeout(() => {
+                // Trigger html2canvas
+                html2canvas(canvasActual, {
+                    width: 1290,
+                    height: 2796,
+                    scale: 1, // Capture perfectly at actual pixel width
+                    useCORS: true, // Handle external fonts/images if possible
+                    allowTaint: true,
+                    backgroundColor: null,
+                    scrollX: 0,
+                    scrollY: 0,
+                    logging: false
+                }).then(canvas => {
+                    // Create download link
+                    const link = document.createElement('a');
+                    const timestamp = new Date().toISOString().slice(0,10);
+                    
+                    // Naming format: Smopace-AppStore-Screenshot-[Title/Date].png
+                    const appTitle = inputTitle.value.trim().replace(/\s+/g, '-').slice(0, 15);
+                    link.download = `SmoPace-Screenshot-${appTitle}-${timestamp}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    
+                    // Trigger download
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Hide Modal
+                    exportModal.classList.add('hidden');
+                }).catch(err => {
+                    console.error('Export Error: ', err);
+                    exportModal.classList.add('hidden');
+                    alert('スクリーンショットの書き出し中にエラーが発生しました。\nローカルファイルのセキュリティ制約(CORS)が原因の可能性があります。画像をドラッグ＆ドロップでインポートしてお試しください。');
+                });
+            }, 500);
+        }
+
+        // Initialization
+        updateTypography();
+        updateDeviceTransform();
+    </script>
+</body>
+</html>

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CryptoKit
 
 /// 記事のカテゴリ
 enum ArticleCategory: String, CaseIterable, Codable, Identifiable {
@@ -93,6 +94,9 @@ struct Article: Identifiable, Codable, Hashable {
     /// AIによる処理が行われたかどうか（falseの場合はフォールバック処理）
     var isAIProcessed: Bool = false
     
+    /// AIが生成した「今日の豆知識」記事かどうか（trueの場合は外部ニュースではなく独自生成記事）
+    var isAIGenerated: Bool = false
+    
     /// 初期化
     /// - Parameters:
     ///   - title: 記事タイトル
@@ -101,7 +105,7 @@ struct Article: Identifiable, Codable, Hashable {
     ///   - url: 記事URL
     ///   - description: 記事の説明
     init(
-        id: UUID = UUID(),
+        id: UUID? = nil,
         title: String,
         source: String,
         publishedAt: Date,
@@ -110,9 +114,12 @@ struct Article: Identifiable, Codable, Hashable {
         aiSummary: String? = nil,
         category: ArticleCategory? = nil,
         relevanceScore: Double? = nil,
-        isAIProcessed: Bool = false
+        isAIProcessed: Bool = false,
+        isAIGenerated: Bool = false
     ) {
-        self.id = id
+        // 明示的に id が渡されない場合は URL から決定論的に UUID を生成し、
+        // RSS 再取得時にも同じ記事は同じ id になるようにする（お気に入りや既読の永続化のため）
+        self.id = id ?? Article.deterministicID(from: url)
         self.title = title
         self.source = source
         self.publishedAt = publishedAt
@@ -122,6 +129,28 @@ struct Article: Identifiable, Codable, Hashable {
         self.category = category
         self.relevanceScore = relevanceScore
         self.isAIProcessed = isAIProcessed
+        self.isAIGenerated = isAIGenerated
+    }
+    
+    /// URL 文字列から決定論的に UUID を生成
+    /// SHA256 ハッシュの先頭 16 バイトを UUID として利用
+    static func deterministicID(from url: URL) -> UUID {
+        let digest = SHA256.hash(data: Data(url.absoluteString.utf8))
+        var bytes = [UInt8]()
+        bytes.reserveCapacity(16)
+        for (index, byte) in digest.enumerated() {
+            guard index < 16 else { break }
+            bytes.append(byte)
+        }
+        // 念のため 16 バイトに揃える
+        while bytes.count < 16 { bytes.append(0) }
+        let uuidTuple: uuid_t = (
+            bytes[0], bytes[1], bytes[2], bytes[3],
+            bytes[4], bytes[5], bytes[6], bytes[7],
+            bytes[8], bytes[9], bytes[10], bytes[11],
+            bytes[12], bytes[13], bytes[14], bytes[15]
+        )
+        return UUID(uuid: uuidTuple)
     }
     
     /// 公開日時のフォーマット済み文字列

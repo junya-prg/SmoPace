@@ -29,35 +29,51 @@ struct AINewsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // カテゴリフィルター
-                CategoryFilterView(
-                    categories: viewModel.allCategories,
-                    selectedCategory: viewModel.selectedCategory,
-                    onSelect: { category in
-                        viewModel.selectCategory(category)
+            ZStack {
+                VStack(spacing: 0) {
+                    // グラスモルフィズム風のレベルメーターを上部に配置
+                    PaceLevelMeterView()
+                        .padding(.horizontal)
+                        .padding(.top, 12)
+                    
+                    // カテゴリフィルター
+                    CategoryFilterView(
+                        categories: viewModel.allCategories,
+                        selectedCategory: viewModel.selectedCategory,
+                        onSelect: { category in
+                            viewModel.selectCategory(category)
+                        }
+                    )
+                    .padding(.vertical, 8)
+                    
+                    // AI処理状況インジケーター
+                    if viewModel.isProcessingAI {
+                        AIProcessingIndicatorView()
                     }
-                )
-                .padding(.vertical, 8)
-                
-                // AI処理状況インジケーター
-                if viewModel.isProcessingAI {
-                    AIProcessingIndicatorView()
+                    
+                    // 記事一覧
+                    Group {
+                        if viewModel.isLoading && viewModel.articles.isEmpty {
+                            LoadingView()
+                        } else if viewModel.filteredArticles.isEmpty {
+                            EmptyArticlesView(hasFilter: viewModel.selectedCategory != nil)
+                        } else {
+                            ArticleListView(
+                                articles: viewModel.filteredArticles,
+                                onSelect: { article in
+                                    selectedArticle = article
+                                }
+                            )
+                        }
+                    }
                 }
                 
-                // 記事一覧
-                Group {
-                    if viewModel.isLoading && viewModel.articles.isEmpty {
-                        LoadingView()
-                    } else if viewModel.filteredArticles.isEmpty {
-                        EmptyArticlesView(hasFilter: viewModel.selectedCategory != nil)
-                    } else {
-                        ArticleListView(
-                            articles: viewModel.filteredArticles,
-                            onSelect: { article in
-                                selectedArticle = article
-                            }
-                        )
+                // レベルアップお祝い用ポップアップ
+                if let pendingLevel = PaceNewsTracker.shared.pendingLevelUp {
+                    LevelUpOverlayView(level: pendingLevel) {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
+                            PaceNewsTracker.shared.consumeLevelUp()
+                        }
                     }
                 }
             }
@@ -88,11 +104,14 @@ struct AINewsView: View {
             }
             .onAppear {
                 logger.notice("📱 AINewsView onAppear")
+                viewModel.resumeAIProcessingIfNeeded(modelContext: modelContext)
             }
             .task {
                 logger.notice("📱 AINewsView task開始")
                 if viewModel.articles.isEmpty {
                     await viewModel.loadArticles(modelContext: modelContext)
+                } else {
+                    viewModel.resumeAIProcessingIfNeeded(modelContext: modelContext)
                 }
                 logger.notice("📱 AINewsView task完了")
             }
@@ -263,7 +282,26 @@ struct ArticleCardView: View {
         VStack(alignment: .leading, spacing: 12) {
             // ヘッダー（カテゴリ・ソース・日時）
             HStack {
-                if let category = article.category {
+                // 既読トラッカーと連携して未読ならミント色のドットを表示
+                if !PaceNewsTracker.shared.isRead(article) {
+                    Circle()
+                        .fill(Color.mint)
+                        .frame(width: 8, height: 8)
+                }
+                
+                if article.isAIGenerated {
+                    HStack(spacing: 4) {
+                        Image(systemName: "sparkles")
+                        Text("AI豆知識")
+                    }
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.purple.opacity(0.15))
+                    .foregroundStyle(.purple)
+                    .clipShape(Capsule())
+                } else if let category = article.category {
                     CategoryBadge(category: category)
                 }
                 
@@ -290,9 +328,9 @@ struct ArticleCardView: View {
             let displaySummary = article.aiSummary ?? article.description
             if let summary = displaySummary {
                 HStack(alignment: .top, spacing: 8) {
-                    Image(systemName: article.isAIProcessed ? "brain" : "doc.text")
+                    Image(systemName: article.isAIGenerated ? "sparkles" : (article.isAIProcessed ? "brain" : "doc.text"))
                         .font(.caption)
-                        .foregroundStyle(article.isAIProcessed ? .purple : .blue)
+                        .foregroundStyle(article.isAIGenerated ? .purple : (article.isAIProcessed ? .purple : .blue))
                     
                     Text(summary)
                         .font(.subheadline)
@@ -300,7 +338,7 @@ struct ArticleCardView: View {
                         .lineLimit(3)
                 }
                 .padding(10)
-                .background((article.isAIProcessed ? Color.purple : Color.blue).opacity(0.1))
+                .background((article.isAIGenerated ? Color.purple : (article.isAIProcessed ? Color.purple : Color.blue)).opacity(0.08))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             
@@ -322,9 +360,223 @@ struct ArticleCardView: View {
             }
         }
         .padding()
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(article.isAIGenerated ? Color.purple.opacity(0.35) : Color.clear, lineWidth: 1.5)
+        )
+        .shadow(color: article.isAIGenerated ? Color.purple.opacity(0.06) : Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+    }
+}
+
+// MARK: - 新規UIコンポーネント（レベルメーター ＆ お祝いポップアップ）
+
+/// ペースの苗木レベルメーター（グラスモルフィズム風）
+struct PaceLevelMeterView: View {
+    @MainActor
+    private var tracker: PaceNewsTracker {
+        PaceNewsTracker.shared
+    }
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 16) {
+                // レベルアイコン（グラデーション背景つき）
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [tracker.currentLevel.color.opacity(0.2), tracker.currentLevel.color],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 50, height: 50)
+                        .shadow(color: tracker.currentLevel.color.opacity(0.3), radius: 5, x: 0, y: 3)
+                    
+                    Image(systemName: tracker.currentLevel.iconName)
+                        .font(.title3)
+                        .foregroundColor(.white)
+                }
+                
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack(alignment: .bottom, spacing: 6) {
+                        Text(tracker.currentLevel.title)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                        
+                        Text("Lv.\(tracker.currentLevel.displayLevel)")
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                    Text(tracker.currentLevel.levelDescription)
+                        .font(.system(size: 11))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(2)
+                }
+                
+                Spacer()
+            }
+            
+            // 進捗バー
+            VStack(spacing: 4) {
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        // 背景レール
+                        Capsule()
+                            .fill(Color.primary.opacity(0.06))
+                            .frame(height: 6)
+                        
+                        // ゲージ
+                        Capsule()
+                            .fill(
+                                LinearGradient(
+                                    colors: [Color.mint, Color.blue],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .frame(width: geometry.size.width * tracker.levelProgress, height: 6)
+                            .shadow(color: Color.mint.opacity(0.2), radius: 2, x: 0, y: 1)
+                    }
+                }
+                .frame(height: 6)
+                
+                HStack {
+                    Text("既読数: \(tracker.totalReadCount) 記事")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.secondary)
+                    
+                    Spacer()
+                    
+                    if let nextLevel = tracker.currentLevel.next {
+                        Text("次のレベルまであと \(tracker.articlesUntilNextLevel) 記事")
+                            .font(.system(size: 10))
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("MAX レベル")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+        }
+        .padding(14)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.white.opacity(0.15), lineWidth: 1.5)
+        )
+        .shadow(color: .black.opacity(0.04), radius: 8, x: 0, y: 4)
+    }
+}
+
+/// レベルアップお祝い用ポップアップ
+struct LevelUpOverlayView: View {
+    let level: PaceLevel
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        ZStack {
+            // 背景の暗転
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
+                .transition(.opacity)
+            
+            // お祝いカード
+            VStack(spacing: 24) {
+                // キラキラエフェクトとアイコン
+                ZStack {
+                    Circle()
+                        .fill(level.color.opacity(0.15))
+                        .frame(width: 120, height: 120)
+                        .scaleEffect(1.2)
+                    
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 80))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.yellow, .orange, .pink],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                    
+                    Image(systemName: level.iconName)
+                        .font(.system(size: 40))
+                        .foregroundColor(.white)
+                        .background(
+                            Circle()
+                                .fill(level.color)
+                                .frame(width: 70, height: 70)
+                                .shadow(color: level.color.opacity(0.6), radius: 10, x: 0, y: 5)
+                        )
+                }
+                
+                VStack(spacing: 8) {
+                    Text("ランクアップ！")
+                        .font(.title2)
+                        .fontWeight(.heavy)
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.mint, .blue, .purple],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                    
+                    Text(level.title)
+                        .font(.title)
+                        .fontWeight(.bold)
+                    
+                    Text("あなたの苗木が大きく成長しました！")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                
+                Text(level.levelDescription)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                    .padding(.vertical, 12)
+                    .background(Color.primary.opacity(0.04))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                Button(action: onDismiss) {
+                    Text("これからもクリアな呼吸を続ける")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            LinearGradient(
+                                colors: [.mint, .blue],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .clipShape(Capsule())
+                        .shadow(color: .mint.opacity(0.4), radius: 6, x: 0, y: 3)
+                }
+            }
+            .padding(30)
+            .background(Color(.systemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 24))
+            .overlay(
+                RoundedRectangle(cornerRadius: 24)
+                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
+            .padding(.horizontal, 32)
+            .transition(.scale.combined(with: .opacity))
+        }
     }
 }
 

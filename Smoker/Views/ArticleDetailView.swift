@@ -41,18 +41,25 @@ struct ArticleDetailView: View {
                 
                 Divider()
                 
-                // 元記事を開くボタン
-                OpenArticleButton(url: article.url) {
-                    openURL(article.url)
+                // 元記事を開くボタンと共有ボタン（AI豆知識記事の場合は非表示）
+                if !article.isAIGenerated {
+                    OpenArticleButton(url: article.url) {
+                        openURL(article.url)
+                    }
+                    
+                    // 共有ボタン
+                    ShareButton(article: article)
                 }
-                
-                // 共有ボタン
-                ShareButton(article: article)
             }
             .padding()
         }
         .navigationTitle("記事詳細")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if #available(iOS 26.0, *) {
+                PaceNewsTracker.shared.markAsRead(article)
+            }
+        }
     }
 }
 
