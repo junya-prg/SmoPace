@@ -62,6 +62,26 @@ enum ArticleCategory: String, CaseIterable, Codable, Identifiable {
     }
 }
 
+/// AI要約の構造化データ
+struct ArticleDigest: Codable, Hashable {
+    /// ひとことで言うと
+    var headline: String
+    /// 3つのポイント
+    var points: [DigestPoint]
+    /// 今日からできるアクション
+    var actionTip: String
+    /// 関連キーワード
+    var keywords: [String]
+}
+
+/// 要約の1ポイント
+struct DigestPoint: Codable, Hashable {
+    /// 短い見出し
+    var label: String
+    /// 見出しを説明する前向きな1文
+    var detail: String
+}
+
 /// ニュース記事を表すモデル
 struct Article: Identifiable, Codable, Hashable {
     /// 一意識別子
@@ -84,6 +104,9 @@ struct Article: Identifiable, Codable, Hashable {
     
     /// AI生成の要約
     var aiSummary: String?
+    
+    /// AI生成の構造化要約
+    var summaryDigest: ArticleDigest?
     
     /// AIが判定したカテゴリ
     var category: ArticleCategory?
@@ -112,6 +135,7 @@ struct Article: Identifiable, Codable, Hashable {
         url: URL,
         description: String? = nil,
         aiSummary: String? = nil,
+        summaryDigest: ArticleDigest? = nil,
         category: ArticleCategory? = nil,
         relevanceScore: Double? = nil,
         isAIProcessed: Bool = false,
@@ -126,6 +150,7 @@ struct Article: Identifiable, Codable, Hashable {
         self.url = url
         self.description = description
         self.aiSummary = aiSummary
+        self.summaryDigest = summaryDigest
         self.category = category
         self.relevanceScore = relevanceScore
         self.isAIProcessed = isAIProcessed

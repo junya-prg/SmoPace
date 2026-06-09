@@ -20,6 +20,9 @@ final class AdManager {
     /// シングルトンインスタンス
     static let shared = AdManager()
     
+    /// ホーム画面専用のキャッシュ広告ローダー（自動更新・状態保持機能付き）
+    let homeAdLoader = HomeNativeAdLoader()
+    
     /// 広告の初期化完了フラグ（MobileAds SDK の start() 完了）
     private(set) var isInitialized = false
 
@@ -60,6 +63,17 @@ final class AdManager {
         } else {
             // 本番用（SmoPace_Native）
             return "ca-app-pub-2534039379765102/3020835061"
+        }
+    }
+    
+    /// ホーム用ネイティブ広告ユニットID（動画なし設定）
+    var homeNativeAdUnitId: String {
+        if useTestAds {
+            // Googleの公式テスト広告ID
+            return "ca-app-pub-3940256099942544/3986624511"
+        } else {
+            // 本番用（SmoPace_Native_Home）
+            return "ca-app-pub-2534039379765102/9421968138"
         }
     }
     
@@ -109,6 +123,9 @@ struct AdConfiguration {
     /// AIニュース画面でネイティブ広告を表示するか
     static let showNativeInAINews = true
     
+    /// ホーム画面でネイティブ広告を表示するか
+    static let showNativeInHome = true
+    
     /// ネイティブ広告を表示する間隔（記事数）
-    static let nativeAdInterval = 5
+    static let nativeAdInterval = 4
 }

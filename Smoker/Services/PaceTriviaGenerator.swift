@@ -101,6 +101,12 @@ private final class PaceTriviaCache {
             return nil
         }
         guard stored.dateKey == Self.todayKey() else { return nil }
+        
+        // マイグレーション: 古いテキスト版のキャッシュ（summaryDigest が nil）は破棄して再生成を促す
+        if stored.articles.contains(where: { $0.summaryDigest == nil }) {
+            return nil
+        }
+        
         return stored.articles
     }
 
@@ -114,6 +120,17 @@ private final class PaceTriviaCache {
 }
 
 // MARK: - 生成サービス
+
+/// ペース豆知識記事を生成する構造化 DTO
+@available(iOS 26.0, macOS 26.0, *)
+@Generable
+struct GeneratedTrivia {
+    @Guide(description: "豆知識の魅力的なタイトル（日本語で22文字以内、英語なら40文字以内）")
+    var title: String
+
+    @Guide(description: "豆知識の要約（ひとこと、3つの要点、実践アクション、キーワード）")
+    var digest: GeneratedDigest
+}
 
 /// ペース豆知識記事を生成するサービス
 @available(iOS 26.0, macOS 26.0, *)
@@ -186,16 +203,14 @@ final class PaceTriviaGenerator {
         if isEnglishUI {
             instructions = """
                 You are a supportive, high-end lifestyle coach helper for "SmoPace", a smoking reduction app.
-                Write exactly one short and extremely engaging wellness tip for people pacing or reducing smoking.
+                Write a short and extremely engaging wellness tip for people pacing or reducing smoking.
                 Follow these rules:
                 - Output in English
-                - Keep the title within 40 characters
-                - Keep the body/summary within 2 to 3 sentences (100 to 180 characters)
-                - Be positive, encouraging, and science-oriented. Never nag or lecture.
-                - Follow this format exactly:
-                  Title: [Engaging Title]
-                  Body: [Body of the article]
-                - Do not output any preamble or conversational greetings.
+                - title should be an engaging title within 40 characters
+                - digest.headline should summarize the main point in 1 sentence
+                - digest.points should have 3 key takeaways with short labels and details
+                - digest.actionTip should be a practical lifestyle tip to do today
+                - digest.keywords should contain up to 4 tags
                 """
             prompt = """
                 Please write a short pacing smoking trivia article.
@@ -207,14 +222,12 @@ final class PaceTriviaGenerator {
                 あなたは節煙・健康管理アプリ「SmoPace」の心強いパーソナルコーチです。
                 喫煙ペースを上手くコントロールしたいと取り組んでいるユーザー向けに、モチベーションが上がって役に立つ豆知識を1つ書いてください。
                 以下のルールに厳密に従ってください：
-                - 日本語で書く
-                - タイトルは22文字以内
-                - 本文は120〜200文字（2〜3文）にまとめる
-                - 前向きで健康へのメリットを重視し、お説教や恐怖を煽る表現は絶対に避けること
-                - 出力フォーマットは以下を厳守する：
-                  タイトル: [魅力的なタイトル]
-                  本文: [豆知識の本文]
-                - フォーマット以外の前置きや挨拶は一切出力しない。
+                - すべて日本語で書く
+                - title は魅力的なタイトル（22文字以内）
+                - digest.headline は豆知識の最も大事なメッセージを簡潔に表す1文
+                - digest.points は豆知識の要点を3つ（見出しは5〜10文字、説明はやさしい1文）
+                - digest.actionTip は日常生活で今日からすぐに実践できる前向きなアクション1文
+                - digest.keywords は関連する短い語を最大4つ
                 """
             prompt = """
                 次のテーマと切り口で、節煙豆知識を1つ書いてください。
@@ -224,11 +237,14 @@ final class PaceTriviaGenerator {
         }
 
         let session = LanguageModelSession(instructions: instructions)
-        let response = try await session.respond(to: prompt)
-        let raw = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+        let generated = try await session.respond(
+            to: prompt,
+            generating: GeneratedTrivia.self
+        ).content
         
-        let fallbackTitle = isEnglishUI ? topic.en : topic.ja
-        let (title, body) = parseTitleAndBody(from: raw, fallbackTitle: fallbackTitle)
+        let title = generated.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let digest = Self.convert(generated.digest)
+        let body = digest?.headline ?? (isEnglishUI ? topic.en : topic.ja)
 
         let dateKey = PaceTriviaCache.todayKey()
         let urlString = "smopace://trivia/\(dateKey)/\(Double(seed))"
@@ -241,44 +257,12 @@ final class PaceTriviaGenerator {
             url: url,
             description: body,
             aiSummary: body,
+            summaryDigest: digest,
             category: .trivia,
             relevanceScore: 1.0,
             isAIProcessed: true,
             isAIGenerated: true
         )
-    }
-
-    /// AI出力の「タイトル: 」「本文: 」を安全にパース
-    private func parseTitleAndBody(from raw: String, fallbackTitle: String) -> (String, String) {
-        var title: String?
-        var body: String?
-
-        for line in raw.split(separator: "\n", omittingEmptySubsequences: true) {
-            let trimmed = line.trimmingCharacters(in: .whitespaces)
-            if trimmed.hasPrefix("Title:") {
-                title = String(trimmed.dropFirst("Title:".count)).trimmingCharacters(in: .whitespaces)
-            } else if trimmed.hasPrefix("title:") {
-                title = String(trimmed.dropFirst("title:".count)).trimmingCharacters(in: .whitespaces)
-            } else if trimmed.hasPrefix("タイトル:") {
-                title = String(trimmed.dropFirst("タイトル:".count)).trimmingCharacters(in: .whitespaces)
-            } else if trimmed.hasPrefix("タイトル：") {
-                title = String(trimmed.dropFirst("タイトル：".count)).trimmingCharacters(in: .whitespaces)
-            } else if trimmed.hasPrefix("Body:") {
-                body = String(trimmed.dropFirst("Body:".count)).trimmingCharacters(in: .whitespaces)
-            } else if trimmed.hasPrefix("body:") {
-                body = String(trimmed.dropFirst("body:".count)).trimmingCharacters(in: .whitespaces)
-            } else if trimmed.hasPrefix("本文:") {
-                body = String(trimmed.dropFirst("本文:".count)).trimmingCharacters(in: .whitespaces)
-            } else if trimmed.hasPrefix("本文：") {
-                body = String(trimmed.dropFirst("本文：".count)).trimmingCharacters(in: .whitespaces)
-            } else if body != nil {
-                body = (body ?? "") + " " + trimmed
-            }
-        }
-
-        let finalTitle = (title != nil && !title!.isEmpty) ? title! : fallbackTitle
-        let finalBody = (body != nil && !body!.isEmpty) ? body! : raw.replacingOccurrences(of: "\n", with: " ")
-        return (finalTitle, finalBody)
     }
 
     // MARK: - プリセット・フォールバック豆知識
@@ -305,12 +289,203 @@ final class PaceTriviaGenerator {
             url: url,
             description: body,
             aiSummary: body,
+            summaryDigest: fallbackDigest(forIndex: index, isEnglish: isEnglishUI),
             category: .trivia,
             relevanceScore: 1.0,
             isAIProcessed: true,
             isAIGenerated: true
         )
         return [article]
+    }
+
+    /// 生成専用 DTO を永続化・表示用の素の型へ変換
+    private static func convert(_ generated: GeneratedDigest) -> ArticleDigest? {
+        let headline = generated.headline.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !headline.isEmpty else { return nil }
+
+        let points: [DigestPoint] = generated.points.compactMap { point in
+            let label = point.label.trimmingCharacters(in: .whitespacesAndNewlines)
+            let detail = point.detail.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !label.isEmpty || !detail.isEmpty else { return nil }
+            return DigestPoint(label: label, detail: detail)
+        }
+        guard !points.isEmpty else { return nil }
+
+        let actionTip = generated.actionTip.trimmingCharacters(in: .whitespacesAndNewlines)
+        let keywords = generated.keywords
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+
+        return ArticleDigest(
+            headline: headline,
+            points: points,
+            actionTip: actionTip,
+            keywords: keywords
+        )
+    }
+
+    private func fallbackDigest(forIndex index: Int, isEnglish: Bool) -> ArticleDigest {
+        if isEnglish {
+            switch index {
+            case 0:
+                return ArticleDigest(
+                    headline: "Craving peaks last only 3-5 minutes. Ride them out with the 4-7-8 breathing method.",
+                    points: [
+                        DigestPoint(label: "Craving Peak", detail: "The intense urge to smoke usually subsides naturally within 3 to 5 minutes."),
+                        DigestPoint(label: "4-7-8 Method", detail: "Inhale for 4 seconds, hold for 7, and exhale for 8 to calm your nerves."),
+                        DigestPoint(label: "Mental Rest", detail: "Repeating this three times helps restore deep relaxation and focus.")
+                    ],
+                    actionTip: "Close your eyes and take three slow, deep breaths next time you feel a craving.",
+                    keywords: ["Breathing", "Craving Control", "Relaxation", "Mindfulness"]
+                )
+            case 1:
+                return ArticleDigest(
+                    headline: "Your body begins restoring and healing itself starting just 20 minutes after your last cigarette.",
+                    points: [
+                        DigestPoint(label: "20 Minutes", detail: "Your heart rate and blood pressure drop back to normal levels."),
+                        DigestPoint(label: "8 Hours", detail: "Carbon monoxide levels decrease by half, restoring oxygen levels."),
+                        DigestPoint(label: "Self-Healing", detail: "Your body starts cleansing itself immediately without you realizing it.")
+                    ],
+                    actionTip: "Reflect on how your body gets cleaner with every passing minute since your last smoke.",
+                    keywords: ["Recovery", "Blood Pressure", "Oxygen Levels", "Cleansing"]
+                )
+            case 2:
+                return ArticleDigest(
+                    headline: "Saving just 5 cigarettes a day accumulates to over $540 of savings in a single year.",
+                    points: [
+                        DigestPoint(label: "Daily Pacing", detail: "Reducing your daily count by just 5 is achievable and stress-free."),
+                        DigestPoint(label: "Annual Savings", detail: "You will save around $540 annually by cutting down just a bit."),
+                        DigestPoint(label: "Reward Yourself", detail: "Use the saved money on books, premium coffee, or a special dinner.")
+                    ],
+                    actionTip: "Write down one reward you want to buy with your saved tobacco money.",
+                    keywords: ["Savings", "Self-Investment", "Rewards", "Motivation"]
+                )
+            case 3:
+                return ArticleDigest(
+                    headline: "Quench sudden cravings by stimulating your throat with cold sparkling water.",
+                    points: [
+                        DigestPoint(label: "Cold Carbonation", detail: "Ice-cold carbonated water provides a sharp throat kick that replaces smoking sensory cues."),
+                        DigestPoint(label: "Oral Fixation", detail: "The fizzy sensation satisfies the mouth-feel urge directly."),
+                        DigestPoint(label: "Sensory Reset", detail: "The carbonated kick overrides and resets craving signals in the brain.")
+                    ],
+                    actionTip: "Keep a bottle of extra-fizzy carbonated water in your fridge or grab one nearby.",
+                    keywords: ["Sparkling Water", "Throat Kick", "Sensory Reset", "Fidgeting"]
+                )
+            case 4:
+                return ArticleDigest(
+                    headline: "Satisfy fidgeting hands by replacing the holding habit with a stress ball.",
+                    points: [
+                        DigestPoint(label: "Hand Memory", detail: "Cravings are often just physical habits of wanting to hold a cigarette."),
+                        DigestPoint(label: "Alternative Action", detail: "Try spinning a pen or squeezing a tactile stress ball instead."),
+                        DigestPoint(label: "Habit Rewriting", detail: "Engaging your hands in a different physical activity weakens the urge.")
+                    ],
+                    actionTip: "Put a stress ball or tactile toy in your bag so it is always within reach.",
+                    keywords: ["Hand Habit", "Stress Ball", "Habit Replacement", "Tactile"]
+                )
+            case 5:
+                return ArticleDigest(
+                    headline: "Reducing cigarettes for just 2-3 days regenerates taste buds and sharpens smell.",
+                    points: [
+                        DigestPoint(label: "Taste Regeneration", detail: "Your taste buds start rebuilding in just a couple of days."),
+                        DigestPoint(label: "Better Smell", detail: "Your sense of smell recovers, revealing subtle food aromas."),
+                        DigestPoint(label: "Delicious Meals", detail: "Enjoy the true sweetness of rice or the aroma of tea like never before.")
+                    ],
+                    actionTip: "Take a moment to slowly chew and consciously taste your next meal.",
+                    keywords: ["Taste Buds", "Better Smell", "Delicious Food", "Savoring"]
+                )
+            default:
+                return ArticleDigest(
+                    headline: "Tobacco was historically used as a sacred purifying herb, not a daily habit.",
+                    points: [
+                        DigestPoint(label: "Ancient Roots", detail: "Native Americans used tobacco in rare, sacred peace-making ceremonies."),
+                        DigestPoint(label: "Not a Daily Routine", detail: "It was never smoked constantly throughout the day in ancient times."),
+                        DigestPoint(label: "Sacred Breath", detail: "Respect your lungs and prioritize keeping your breathing clear and pure.")
+                    ],
+                    actionTip: "Think of tobacco's history and take a moment to keep your breathing clean and clear.",
+                    keywords: ["History", "Sacred Herb", "Pure Breathing", "Wellness"]
+                )
+            }
+        } else {
+            switch index {
+            case 0:
+                return ArticleDigest(
+                    headline: "吸いたい衝動のピークは3〜5分。4-7-8呼吸法で乗り越えましょう。",
+                    points: [
+                        DigestPoint(label: "衝動のピーク", detail: "吸いたい気持ちは通常3〜5分で自然と減衰します。"),
+                        DigestPoint(label: "4-7-8呼吸法", detail: "4秒吸い、7秒止め、8秒かけて吐く呼吸を行います。"),
+                        DigestPoint(label: "自律神経の安定", detail: "これを3回繰り返すことで自律神経が整い、落ち着きを取り戻せます。")
+                    ],
+                    actionTip: "吸いたくなったら、目を閉じてゆっくり深呼吸を3回繰り返しましょう。",
+                    keywords: ["深呼吸", "4-7-8呼吸法", "自律神経", "衝動コントロール"]
+                )
+            case 1:
+                return ArticleDigest(
+                    headline: "タバコを控えて20分後から、体は健やかな状態へと回復を始めます。",
+                    points: [
+                        DigestPoint(label: "20分後の変化", detail: "血圧や脈拍が正常値に戻り始めます。"),
+                        DigestPoint(label: "8時間後の変化", detail: "血液中の酸素濃度が回復し、一酸化炭素が減少します。"),
+                        DigestPoint(label: "自動的な回復", detail: "体が自動的に本来のクリアな状態へとリセットされ始めます。")
+                    ],
+                    actionTip: "最後の一本から数分経つたびに、体がきれいになっていることを実感しましょう。",
+                    keywords: ["体の回復", "時間経過", "酸素濃度", "脈拍正常化"]
+                )
+            case 2:
+                return ArticleDigest(
+                    headline: "1日5本セーブするだけで、年間で約54,000円の節約につながります。",
+                    points: [
+                        DigestPoint(label: "無理ない節約", detail: "毎日5本減らすだけでストレスなく続けられます。"),
+                        DigestPoint(label: "年間の節約額", detail: "年間で約54,000円が浮く計算になります。"),
+                        DigestPoint(label: "自分へのご褒美", detail: "浮いたお金で本や高級コーヒーなど、自分にご褒美をあげられます。")
+                    ],
+                    actionTip: "節約したタバコ代で手に入れたいご褒美を一つリストアップしてみましょう。",
+                    keywords: ["節約", "ご褒美", "自己投資", "モチベーション"]
+                )
+            case 3:
+                return ArticleDigest(
+                    headline: "吸いたくなったときは、強炭酸水で喉を刺激してリセットしましょう。",
+                    points: [
+                        DigestPoint(label: "喉へのキック感", detail: "冷たい強炭酸水が喉を通り、吸いたい感覚の代わりになります。"),
+                        DigestPoint(label: "口寂しさの解消", detail: "シュワシュワとした感触が口寂しさを満たします。"),
+                        DigestPoint(label: "脳のリセット", detail: "炭酸の刺激によって、吸いたい衝動を上書きリセットします。")
+                    ],
+                    actionTip: "冷蔵庫や近くのコンビニで強炭酸水を用意しておきましょう。",
+                    keywords: ["強炭酸水", "喉の刺激", "口寂しさ解消", "感覚上書き"]
+                )
+            case 4:
+                return ArticleDigest(
+                    headline: "手の寂しさを解消するために、ストレスボールなどの握力運動を取り入れましょう。",
+                    points: [
+                        DigestPoint(label: "手の記憶", detail: "吸いたい衝動は、手元にタバコを持つ習慣の記憶からも発生します。"),
+                        DigestPoint(label: "代替の動き", detail: "ペンを回したり、お気に入りの握力ボールを動かします。"),
+                        DigestPoint(label: "習慣の書き換え", detail: "手の寂しさを別の動作に置き換えることで衝動が和らぎます。")
+                    ],
+                    actionTip: "カバンの中にストレスボールやスクイーズを一つ入れておきましょう。",
+                    keywords: ["手の寂しさ", "ストレスボール", "手の運動", "習慣の書き換え"]
+                )
+            case 5:
+                return ArticleDigest(
+                    headline: "喫煙を控えて2〜3日で味蕾が再生し、食事が格段に美味しくなります。",
+                    points: [
+                        DigestPoint(label: "味蕾の再生", detail: "わずか数日で舌の味蕾が再生し始めます。"),
+                        DigestPoint(label: "嗅覚の改善", detail: "嗅覚も劇的に良くなり、食べ物の繊細な香りが分かります。"),
+                        DigestPoint(label: "食事の喜び", detail: "ご飯やお茶の甘み、繊細な出汁の香りが実感できるようになります。")
+                    ],
+                    actionTip: "今日の食事の香りと味を、一口一口ゆっくりと意識して味わってみましょう。",
+                    keywords: ["味覚改善", "味蕾", "食事の香り", "美味しさ実感"]
+                )
+            default:
+                return ArticleDigest(
+                    headline: "タバコは元々、ネイティブアメリカンが儀式で用いた神聖な薬草でした。",
+                    points: [
+                        DigestPoint(label: "神聖なルーツ", detail: "昔は場を清め平和を祈るために使われていました。"),
+                        DigestPoint(label: "儀式用のハーブ", detail: "現代のように1日に何十回も習慣的に吸うものではありませんでした。"),
+                        DigestPoint(label: "清らかな呼吸", detail: "自分の呼吸を清らかに保つ時間を大切にしましょう。")
+                    ],
+                    actionTip: "タバコのルーツに思いを馳せ、自分の呼吸をクリアに保つ時間を作りましょう。",
+                    keywords: ["タバコの歴史", "聖なる薬草", "ネイティブアメリカン", "清らかな呼吸"]
+                )
+            }
+        }
     }
 
     /// 日付シード

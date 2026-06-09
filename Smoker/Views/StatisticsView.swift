@@ -71,7 +71,7 @@ struct StatisticsView: View {
                     // 期間タイトル
                     PeriodHeaderView(
                         period: selectedPeriod,
-                        pageIndex: pageIndex
+                        pageIndex: $pageIndex
                     )
                     
                     // グラフ部分のみスワイプ可能
@@ -563,7 +563,7 @@ struct SwipeableChartContainer: View {
 /// 期間ヘッダービュー
 struct PeriodHeaderView: View {
     let period: StatisticsPeriod
-    let pageIndex: Int
+    @Binding var pageIndex: Int
     
     private var periodText: String {
         let calendar = Calendar.current
@@ -609,15 +609,21 @@ struct PeriodHeaderView: View {
     
     var body: some View {
         HStack {
-            if pageIndex < 51 {
+            Button {
+                withAnimation {
+                    pageIndex += 1
+                }
+            } label: {
                 Image(systemName: "chevron.left")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
-            } else {
-                Image(systemName: "chevron.left")
-                    .font(.caption)
-                    .foregroundStyle(.clear)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(pageIndex < 51 ? Color.secondary : Color.clear)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
+            .disabled(pageIndex >= 51)
             
             Spacer()
             
@@ -628,17 +634,23 @@ struct PeriodHeaderView: View {
             
             Spacer()
             
-            if pageIndex > 0 {
+            Button {
+                withAnimation {
+                    pageIndex -= 1
+                }
+            } label: {
                 Image(systemName: "chevron.right")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
-            } else {
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundStyle(.clear)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(pageIndex > 0 ? Color.secondary : Color.clear)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
+            .disabled(pageIndex <= 0)
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 8)
     }
 }
 

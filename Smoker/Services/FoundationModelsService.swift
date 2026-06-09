@@ -10,6 +10,34 @@ import Foundation
 import Combine
 import FoundationModels
 
+/// Foundation Models に型付きで生成させる構造化要約 DTO
+@available(iOS 26.0, macOS 26.0, *)
+@Generable
+struct GeneratedDigest {
+    @Guide(description: "記事のいちばん大事な学びや節煙・健康上のメリットを、生活に取り入れやすいやさしい1文に")
+    var headline: String
+
+    @Guide(description: "節煙・禁煙・健康管理・生活習慣の観点での要点", .count(3))
+    var points: [GeneratedPoint]
+
+    @Guide(description: "今日から実践できる、前向きで具体的な節煙・健康アクションプラン")
+    var actionTip: String
+
+    @Guide(description: "記事に関係する短いキーワード", .maximumCount(4))
+    var keywords: [String]
+}
+
+/// 構造化要約の1ポイント（生成専用）
+@available(iOS 26.0, macOS 26.0, *)
+@Generable
+struct GeneratedPoint {
+    @Guide(description: "5〜10文字程度の短い見出し（例: 吸いたい衝動、代替習慣、呼吸法など）")
+    var label: String
+
+    @Guide(description: "見出しを説明する、不安を煽らない具体的で前向きな1文")
+    var detail: String
+}
+
 /// ユーザーのデータ（おすすめ度計算用）
 struct UserSmokingData {
     /// 1日の平均本数
@@ -151,6 +179,78 @@ class FoundationModelsService: ObservableObject {
             print("要約生成エラー: \(error)")
             return article.description ?? String(localized: "要約を生成できませんでした")
         }
+    }
+    
+    // MARK: - 構造化要約生成
+
+    /// 記事を構造化要約（ひとこと要約＋3ポイント＋アクション＋キーワード）に変換
+    /// - Parameter article: 要約対象の記事
+    /// - Returns: 構造化要約。生成できない場合は nil。
+    func generateDigest(article: Article) async -> ArticleDigest? {
+        guard _isAvailableCache == true else {
+            return nil
+        }
+
+        let content = article.description ?? article.title
+
+        let instructions = """
+            あなたは喫煙ペースの管理や節煙に関するニュース記事の要約を作成するアシスタントです。
+            このアプリはユーザーの節煙や健康的な喫煙ペース管理をサポートすることを目的としています。
+            記事を、ユーザーが直感的に読めて実践しやすい「構造化された要約」に整理してください。
+            以下のルールに必ず従ってください：
+            - すべて日本語で書く
+            - 節煙のヒント、代替製品の情報、あるいは健康上のメリットや具体的な改善アクションを最優先で抽出
+            - ユーザーにとってポジティブで前向きな表現を使う（不安や恐怖を煽る表現は避ける）
+            - 客観的で信頼できる情報のみを含め、元記事に書かれていない事事実を付け足さない
+            - headline は記事の最も大事な学びや節煙に役立つポイントを簡潔に表す1文
+            - points は記事の要点を3つ。label は短い見出し（5〜10文字）、detail はやさしい説明1文
+            - actionTip は日常生活で今日からすぐに実践できる前向きなアクション1文
+            - keywords は記事に関係する短い語を最大4つ
+            """
+        let prompt = """
+            以下のニュース記事を、構造化要約に整理してください。
+
+            タイトル: \(article.title)
+            内容: \(content)
+            """
+
+        do {
+            let session = LanguageModelSession(instructions: instructions)
+            let generated = try await session.respond(
+                to: prompt,
+                generating: GeneratedDigest.self
+            ).content
+            return Self.convert(generated)
+        } catch {
+            print("🤖 構造化要約生成エラー: \(error)")
+            return nil
+        }
+    }
+
+    /// 生成専用 DTO を永続化・表示用の素の型へ変換
+    private static func convert(_ generated: GeneratedDigest) -> ArticleDigest? {
+        let headline = generated.headline.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !headline.isEmpty else { return nil }
+
+        let points: [DigestPoint] = generated.points.compactMap { point in
+            let label = point.label.trimmingCharacters(in: .whitespacesAndNewlines)
+            let detail = point.detail.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !label.isEmpty || !detail.isEmpty else { return nil }
+            return DigestPoint(label: label, detail: detail)
+        }
+        guard !points.isEmpty else { return nil }
+
+        let actionTip = generated.actionTip.trimmingCharacters(in: .whitespacesAndNewlines)
+        let keywords = generated.keywords
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+
+        return ArticleDigest(
+            headline: headline,
+            points: points,
+            actionTip: actionTip,
+            keywords: keywords
+        )
     }
     
     // MARK: - カテゴリ分類
@@ -596,8 +696,14 @@ class FoundationModelsService: ObservableObject {
             // カテゴリ分類
             processedArticle.category = await categorize(article: article)
             
-            // 要約生成
-            processedArticle.aiSummary = await summarize(article: article)
+            // 構造化要約を優先して生成する
+            if let digest = await generateDigest(article: article) {
+                processedArticle.summaryDigest = digest
+                processedArticle.aiSummary = digest.headline
+            } else {
+                // 失敗した場合は従来のプレーンテキスト要約にフォールバック
+                processedArticle.aiSummary = await summarize(article: article)
+            }
             
             // おすすめ度計算
             processedArticle.relevanceScore = await calculateRelevance(article: article, userData: userData)
@@ -628,8 +734,14 @@ class FoundationModelsService: ObservableObject {
         // カテゴリ分類
         processedArticle.category = await categorize(article: article)
         
-        // 要約生成
-        processedArticle.aiSummary = await summarize(article: article)
+        // 構造化要約を優先して生成する
+        if let digest = await generateDigest(article: article) {
+            processedArticle.summaryDigest = digest
+            processedArticle.aiSummary = digest.headline
+        } else {
+            // 失敗した場合は従来のプレーンテキスト要約にフォールバック
+            processedArticle.aiSummary = await summarize(article: article)
+        }
         
         // おすすめ度計算
         processedArticle.relevanceScore = await calculateRelevance(article: article, userData: userData)

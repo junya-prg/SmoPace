@@ -417,9 +417,11 @@ func insertAdsIntoArticles(_ articles: [Article], interval: Int = AdConfiguratio
     for (index, article) in articles.enumerated() {
         result.append(.article(article))
         
-        // 指定間隔ごとに広告を挿入
-        if (index + 1) % interval == 0 && index < articles.count - 1 {
-            result.append(.ad(id: "\(index)"))
+        // 1つ目の記事の直後（index == 0）に1個目を必ず表示（2個目に配置）
+        if index == 0 {
+            result.append(.ad(id: "first"))
+        } else if index % interval == 0 && index < articles.count - 1 {
+            result.append(.ad(id: "seq_\(index)"))
         }
     }
     

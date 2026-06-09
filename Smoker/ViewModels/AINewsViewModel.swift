@@ -278,11 +278,7 @@ class AINewsViewModel {
         isProcessingAI = true
         
         let userData = fetchUserSmokingData(modelContext: modelContext)
-        var updatedArticle = article
-        
-        updatedArticle.aiSummary = await aiService.summarize(article: article)
-        updatedArticle.category = await aiService.categorize(article: article)
-        updatedArticle.relevanceScore = await aiService.calculateRelevance(article: article, userData: userData)
+        let updatedArticle = await aiService.processOneArticle(article, userData: userData)
         
         articles[index] = updatedArticle
         

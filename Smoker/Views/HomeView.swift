@@ -54,72 +54,79 @@ struct HomeView: View {
             // UI部分（リラックスモード時は非表示）
             if !isRelaxMode {
                 NavigationStack {
-                    ScrollView {
-                        VStack(spacing: 24) {
-                            // 銘柄タブ（銘柄が登録されている場合のみ表示）
-                            if !viewModel.allBrands.isEmpty {
-                                BrandTabView(
-                                    brands: viewModel.allBrands,
-                                    brandCounts: viewModel.brandCounts,
-                                    selectedBrandId: $viewModel.selectedBrandId
+                    VStack(spacing: 0) {
+                        ScrollView {
+                            VStack(spacing: 24) {
+                                // 銘柄タブ（銘柄が登録されている場合のみ表示）
+                                if !viewModel.allBrands.isEmpty {
+                                    BrandTabView(
+                                        brands: viewModel.allBrands,
+                                        brandCounts: viewModel.brandCounts,
+                                        selectedBrandId: $viewModel.selectedBrandId
+                                    )
+                                }
+                                
+                                // 目標達成状況
+                                if let goal = viewModel.dailyGoal {
+                                    GoalProgressView(
+                                        current: viewModel.todayCount,
+                                        goal: goal,
+                                        isOverGoal: viewModel.isOverGoal
+                                    )
+                                }
+                                
+                                // メインカウント表示（選択中の銘柄のカウント）
+                                CountDisplayView(
+                                    count: viewModel.selectedBrandId == nil ? viewModel.todayCount : viewModel.selectedBrandCount,
+                                    isOverGoal: viewModel.isOverGoal && viewModel.selectedBrandId == nil
                                 )
-                            }
-                            
-                            // 目標達成状況
-                            if let goal = viewModel.dailyGoal {
-                                GoalProgressView(
-                                    current: viewModel.todayCount,
-                                    goal: goal,
-                                    isOverGoal: viewModel.isOverGoal
+                                .padding(.vertical, 16)
+                                
+                                // 前回からの経過時間
+                                TimeSinceLastView(timeText: viewModel.timeSinceLastSmokeText)
+                                
+                                // 金額表示（選択中の銘柄の金額）
+                                if !viewModel.allBrands.isEmpty {
+                                    AmountDisplayView(
+                                        amount: viewModel.selectedBrandId == nil ? viewModel.todayAmount : viewModel.selectedBrandAmount,
+                                        currencyCode: viewModel.currencyCode
+                                    )
+                                }
+                                
+                                // カウント操作ボタン
+                                CountButtonsView(
+                                    onIncrement: {
+                                        // 選択中の銘柄でカウントアップ
+                                        let brand = viewModel.selectedBrandId != nil
+                                            ? viewModel.allBrands.first { $0.id == viewModel.selectedBrandId }
+                                            : viewModel.currentBrand
+                                        viewModel.addSmokingRecord(modelContext: modelContext, brand: brand)
+                                    },
+                                    onDecrement: {
+                                        viewModel.removeLastRecord(modelContext: modelContext, brandId: viewModel.selectedBrandId)
+                                    },
+                                    canDecrement: viewModel.selectedBrandId == nil ? viewModel.todayCount > 0 : viewModel.selectedBrandCount > 0,
+                                    selectedBrandName: viewModel.selectedBrandId == nil
+                                        ? nil
+                                        : viewModel.allBrands.first { $0.id == viewModel.selectedBrandId }?.name
                                 )
+                                .padding(.vertical, 16)
+                                
+                                // 今日の履歴（コンパクト表示）
+                                CompactHistoryView()
                             }
-                            
-                            // メインカウント表示（選択中の銘柄のカウント）
-                            CountDisplayView(
-                                count: viewModel.selectedBrandId == nil ? viewModel.todayCount : viewModel.selectedBrandCount,
-                                isOverGoal: viewModel.isOverGoal && viewModel.selectedBrandId == nil
-                            )
-                            .padding(.vertical, 16)
-                            
-                            // 前回からの経過時間
-                            TimeSinceLastView(timeText: viewModel.timeSinceLastSmokeText)
-                            
-                            // 金額表示（選択中の銘柄の金額）
-                            if !viewModel.allBrands.isEmpty {
-                                AmountDisplayView(
-                                    amount: viewModel.selectedBrandId == nil ? viewModel.todayAmount : viewModel.selectedBrandAmount,
-                                    currencyCode: viewModel.currencyCode
-                                )
-                            }
-                            
-                            // カウント操作ボタン
-                            CountButtonsView(
-                                onIncrement: {
-                                    // 選択中の銘柄でカウントアップ
-                                    let brand = viewModel.selectedBrandId != nil
-                                        ? viewModel.allBrands.first { $0.id == viewModel.selectedBrandId }
-                                        : viewModel.currentBrand
-                                    viewModel.addSmokingRecord(modelContext: modelContext, brand: brand)
-                                },
-                                onDecrement: {
-                                    viewModel.removeLastRecord(modelContext: modelContext, brandId: viewModel.selectedBrandId)
-                                },
-                                canDecrement: viewModel.selectedBrandId == nil ? viewModel.todayCount > 0 : viewModel.selectedBrandCount > 0,
-                                selectedBrandName: viewModel.selectedBrandId == nil
-                                    ? nil
-                                    : viewModel.allBrands.first { $0.id == viewModel.selectedBrandId }?.name
-                            )
-                            .padding(.vertical, 16)
-                            
-                            // 今日の履歴（コンパクト表示）
-                            CompactHistoryView()
+                            .padding()
+                            .frame(maxWidth: .infinity)
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        enterRelaxMode()
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            enterRelaxMode()
+                        }
+                        
+                        // ホーム画面用コンパクトネイティブ広告
+                        if AdConfiguration.showNativeInHome {
+                            HomeNativeAdView()
+                        }
                     }
                     .navigationTitle("今日の記録")
                     .toolbar {

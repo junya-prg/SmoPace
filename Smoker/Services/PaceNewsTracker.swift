@@ -100,6 +100,19 @@ enum PaceLevel: Int, CaseIterable, Comparable {
     }
 }
 
+// MARK: - 移植された大樹のモデル
+
+/// 移植された大樹を表す構造体
+struct TransplantedTree: Codable, Identifiable, Hashable {
+    var id = UUID()
+    let title: String
+    let iconName: String
+    let colorsHex: [String]
+    let transplantedAt: Date
+    let cycleIndex: Int
+    let dominantCategory: String?
+}
+
 // MARK: - ペースニュース・トラッカー
 
 /// 既読・お気に入り・ペースレベルを管理する
@@ -110,14 +123,23 @@ final class PaceNewsTracker {
     /// 共有インスタンス
     static let shared = PaceNewsTracker()
     
-    /// 既読記事の id 集合
+    /// 既読記事の id 集合（ライフタイム）
     private(set) var readArticleIDs: Set<UUID> = []
 
     /// お気に入り記事の id 集合
     private(set) var bookmarkedArticleIDs: Set<UUID> = []
 
-    /// 読んだ記事のカテゴリ集合（網羅率の表示用）
+    /// 読んだ記事のカテゴリ集合（ライフタイム・網羅率の表示用）
     private(set) var readCategories: Set<ArticleCategory> = []
+
+    /// 移植した樹木のリスト
+    private(set) var transplantedTrees: [TransplantedTree] = []
+
+    /// 現在のサイクルで読んだ記事の id 集合
+    private(set) var currentCycleArticleIDs: Set<UUID> = []
+
+    /// 現在のサイクルでのカテゴリ別読了数
+    private(set) var currentCycleCategoryCounts: [String: Int] = [:]
 
     /// 直近のレベルアップで上がった「新しいレベル」。
     /// UI 側で監視し、nil でなければアラートを出して直後に nil にリセットする。
@@ -128,6 +150,9 @@ final class PaceNewsTracker {
     private let readArticleIDsKey = "paceNews.readArticleIDs"
     private let bookmarkedArticleIDsKey = "paceNews.bookmarkedArticleIDs"
     private let readCategoriesKey = "paceNews.readCategories"
+    private let transplantedTreesKey = "paceNews.transplantedTrees"
+    private let currentCycleArticleIDsKey = "paceNews.currentCycleArticleIDs"
+    private let currentCycleCategoryCountsKey = "paceNews.currentCycleCategoryCounts"
 
     // MARK: - 初期化
 
@@ -137,9 +162,14 @@ final class PaceNewsTracker {
 
     // MARK: - 集計値
 
-    /// 既読記事数
+    /// ライフタイムの既読記事数
     var totalReadCount: Int {
         readArticleIDs.count
+    }
+
+    /// 現在のサイクルでの既読記事数
+    var currentCycleReadCount: Int {
+        currentCycleArticleIDs.count
     }
 
     /// お気に入り数
@@ -147,15 +177,15 @@ final class PaceNewsTracker {
         bookmarkedArticleIDs.count
     }
 
-    /// 現在のペースレベル
+    /// 現在のペースレベル（現在のサイクルの読了数に基づく）
     var currentLevel: PaceLevel {
-        PaceLevel.level(for: totalReadCount)
+        PaceLevel.level(for: currentCycleReadCount)
     }
 
     /// 次のレベルまでに必要な残り記事数（最大レベル時は 0）
     var articlesUntilNextLevel: Int {
         guard let next = currentLevel.next else { return 0 }
-        return max(0, next.requiredReadCount - totalReadCount)
+        return max(0, next.requiredReadCount - currentCycleReadCount)
     }
 
     /// 現在のレベル内での進捗率（0.0〜1.0）。最大レベルでは 1.0 を返す。
@@ -163,7 +193,7 @@ final class PaceNewsTracker {
         guard let next = currentLevel.next else { return 1.0 }
         let lower = Double(currentLevel.requiredReadCount)
         let upper = Double(next.requiredReadCount)
-        let value = Double(totalReadCount)
+        let value = Double(currentCycleReadCount)
         let range = upper - lower
         guard range > 0 else { return 1.0 }
         return min(1.0, max(0.0, (value - lower) / range))
@@ -174,6 +204,16 @@ final class PaceNewsTracker {
         let total = Double(ArticleCategory.allCases.count)
         guard total > 0 else { return 0 }
         return Double(readCategories.count) / total
+    }
+
+    /// 現在のサイクルでの主要カテゴリ
+    var dominantCategory: ArticleCategory? {
+        guard !currentCycleCategoryCounts.isEmpty else { return nil }
+        guard let maxEntry = currentCycleCategoryCounts.max(by: { $0.value < $1.value }),
+              let category = ArticleCategory(rawValue: maxEntry.key) else {
+            return nil
+        }
+        return category
     }
 
     // MARK: - 既読操作
@@ -198,12 +238,23 @@ final class PaceNewsTracker {
         }
 
         let previousLevel = currentLevel
+        
         readArticleIDs.insert(article.id)
         persistReadArticleIDs()
 
-        if let category = article.category, !readCategories.contains(category) {
-            readCategories.insert(category)
-            persistReadCategories()
+        // 現在のサイクルにも記録
+        currentCycleArticleIDs.insert(article.id)
+        persistCurrentCycleArticleIDs()
+
+        if let category = article.category {
+            if !readCategories.contains(category) {
+                readCategories.insert(category)
+                persistReadCategories()
+            }
+            
+            // 現在のサイクルのカテゴリ別カウントをインクリメント
+            currentCycleCategoryCounts[category.rawValue] = (currentCycleCategoryCounts[category.rawValue] ?? 0) + 1
+            persistCurrentCycleCategoryCounts()
         }
 
         let newLevel = currentLevel
@@ -230,6 +281,83 @@ final class PaceNewsTracker {
         persistBookmarkedArticleIDs()
     }
 
+    // MARK: - 移植（トランスプラント）
+
+    /// 現在の苗木を「マイフォレスト」へ植樹し、サイクルをリセットする
+    @discardableResult
+    func transplantCurrentTree() -> TransplantedTree? {
+        guard currentLevel == .legend else { return nil }
+
+        let cycleIndex = transplantedTrees.count + 1
+        let domCat = dominantCategory
+        let info = determineTreeInfo(for: domCat)
+
+        let newTree = TransplantedTree(
+            title: info.title,
+            iconName: info.iconName,
+            colorsHex: info.colorsHex,
+            transplantedAt: Date(),
+            cycleIndex: cycleIndex,
+            dominantCategory: domCat?.rawValue
+        )
+
+        transplantedTrees.append(newTree)
+        persistTransplantedTrees()
+
+        // サイクルデータのリセット
+        currentCycleArticleIDs.removeAll()
+        currentCycleCategoryCounts.removeAll()
+        persistCurrentCycleArticleIDs()
+        persistCurrentCycleCategoryCounts()
+
+        logger.notice("🌲 植樹完了: \(newTree.title) (第\(cycleIndex)代)")
+        return newTree
+    }
+
+    /// カテゴリに基づく樹木の特徴（名前、アイコン、色）を決定する
+    private func determineTreeInfo(for category: ArticleCategory?) -> (title: String, iconName: String, colorsHex: [String]) {
+        guard let category = category else {
+            return (
+                String(localized: "天空のペーストツリー"),
+                "bubbles.and.sparkles.fill",
+                ["#A7F3D0", "#C084FC"] // ミント 〜 パープル
+            )
+        }
+
+        switch category {
+        case .quitting:
+            return (
+                String(localized: "黄金のライフツリー"),
+                "heart.fill", // 節煙による健康・命の回復を表すハート
+                ["#FDE047", "#F97316"] // イエロー 〜 オレンジ
+            )
+        case .trivia:
+            return (
+                String(localized: "叡智のサクラ"),
+                "flower.leaf.fill", // 知恵の開花を表す桜の葉/花
+                ["#FBCFE8", "#EC4899"] // ピンク 〜 ローズピンク
+            )
+        case .newProducts:
+            return (
+                String(localized: "潮流のヤシの木"),
+                "palm.tree.fill", // ヤシの木そのもの
+                ["#22D3EE", "#2563EB"] // シアン 〜 ブルー
+            )
+        case .industry:
+            return (
+                String(localized: "伝統のクスノキ"),
+                "tree.fill", // 伝統的な大樹にふさわしい頑丈な木
+                ["#4ADE80", "#059669"] // グリーン 〜 ミント
+            )
+        case .other:
+            return (
+                String(localized: "天空のペーストツリー"),
+                "bubbles.and.sparkles.fill", // 天空に浮かぶ魔法の木
+                ["#A7F3D0", "#C084FC"] // ミント 〜 パープル
+            )
+        }
+    }
+
     // MARK: - レベルアップ消費
 
     /// レベルアップアラートを表示した後に呼び、状態をクリアする
@@ -243,7 +371,22 @@ final class PaceNewsTracker {
         readArticleIDs = loadUUIDSet(forKey: readArticleIDsKey)
         bookmarkedArticleIDs = loadUUIDSet(forKey: bookmarkedArticleIDsKey)
         readCategories = loadCategorySet(forKey: readCategoriesKey)
-        logger.notice("📊 PaceNewsTracker 復元: 既読\(self.readArticleIDs.count)件 / お気に入り\(self.bookmarkedArticleIDs.count)件 / 網羅\(self.readCategories.count)カテゴリ")
+        transplantedTrees = loadTransplantedTrees()
+        currentCycleArticleIDs = loadUUIDSet(forKey: currentCycleArticleIDsKey)
+        currentCycleCategoryCounts = loadCategoryCounts()
+
+        // 既存ユーザー向けのデータ移行：現在のサイクルが空かつ既読が存在する場合
+        if currentCycleArticleIDs.isEmpty && !readArticleIDs.isEmpty {
+            currentCycleArticleIDs = readArticleIDs
+            for category in readCategories {
+                currentCycleCategoryCounts[category.rawValue] = 1
+            }
+            persistCurrentCycleArticleIDs()
+            persistCurrentCycleCategoryCounts()
+            logger.notice("🔄 PaceNewsTracker: 既存ユーザーのデータを最初の育成サイクルに移行しました")
+        }
+
+        logger.notice("📊 PaceNewsTracker 復元: 既読\(self.readArticleIDs.count)件 / お気に入り\(self.bookmarkedArticleIDs.count)件 / 移植数\(self.transplantedTrees.count)本")
     }
 
     private func loadUUIDSet(forKey key: String) -> Set<UUID> {
@@ -260,6 +403,22 @@ final class PaceNewsTracker {
             return []
         }
         return Set(array)
+    }
+
+    private func loadTransplantedTrees() -> [TransplantedTree] {
+        guard let data = UserDefaults.standard.data(forKey: transplantedTreesKey),
+              let array = try? JSONDecoder().decode([TransplantedTree].self, from: data) else {
+            return []
+        }
+        return array
+    }
+
+    private func loadCategoryCounts() -> [String: Int] {
+        guard let data = UserDefaults.standard.data(forKey: currentCycleCategoryCountsKey),
+              let dict = try? JSONDecoder().decode([String: Int].self, from: data) else {
+            return [:]
+        }
+        return dict
     }
 
     // MARK: - 永続化（保存）
@@ -282,6 +441,25 @@ final class PaceNewsTracker {
         let array = Array(readCategories)
         if let data = try? JSONEncoder().encode(array) {
             UserDefaults.standard.set(data, forKey: readCategoriesKey)
+        }
+    }
+
+    private func persistTransplantedTrees() {
+        if let data = try? JSONEncoder().encode(transplantedTrees) {
+            UserDefaults.standard.set(data, forKey: transplantedTreesKey)
+        }
+    }
+
+    private func persistCurrentCycleArticleIDs() {
+        let array = Array(currentCycleArticleIDs)
+        if let data = try? JSONEncoder().encode(array) {
+            UserDefaults.standard.set(data, forKey: currentCycleArticleIDsKey)
+        }
+    }
+
+    private func persistCurrentCycleCategoryCounts() {
+        if let data = try? JSONEncoder().encode(currentCycleCategoryCounts) {
+            UserDefaults.standard.set(data, forKey: currentCycleCategoryCountsKey)
         }
     }
 }

@@ -17,6 +17,7 @@ struct AINewsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel = AINewsViewModel()
     @State private var selectedArticle: Article?
+    @State private var transplantedTree: TransplantedTree?
     
     /// AIステータスに応じた色
     private var aiStatusColor: Color {
@@ -32,7 +33,11 @@ struct AINewsView: View {
             ZStack {
                 VStack(spacing: 0) {
                     // グラスモルフィズム風のレベルメーターを上部に配置
-                    PaceLevelMeterView()
+                    PaceLevelMeterView(onTransplant: { tree in
+                        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                            transplantedTree = tree
+                        }
+                    })
                         .padding(.horizontal)
                         .padding(.top, 12)
                     
@@ -73,6 +78,15 @@ struct AINewsView: View {
                     LevelUpOverlayView(level: pendingLevel) {
                         withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                             PaceNewsTracker.shared.consumeLevelUp()
+                        }
+                    }
+                }
+                
+                // 植樹完了お祝い用ポップアップ
+                if let tree = transplantedTree {
+                    TransplantCelebrationView(tree: tree) {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
+                            transplantedTree = nil
                         }
                     }
                 }
@@ -376,10 +390,15 @@ struct ArticleCardView: View {
 
 /// ペースの苗木レベルメーター（グラスモルフィズム風）
 struct PaceLevelMeterView: View {
+    let onTransplant: (TransplantedTree) -> Void
+    
     @MainActor
     private var tracker: PaceNewsTracker {
         PaceNewsTracker.shared
     }
+    
+    @State private var showForest = false
+    @State private var isPulsing = false
     
     var body: some View {
         VStack(spacing: 12) {
@@ -421,6 +440,23 @@ struct PaceLevelMeterView: View {
                 }
                 
                 Spacer()
+                
+                // マイフォレスト（森）ボタン
+                Button(action: {
+                    showForest = true
+                }) {
+                    VStack(spacing: 2) {
+                        Image(systemName: "tree.fill")
+                            .font(.system(size: 18))
+                        Text("森")
+                            .font(.system(size: 9, weight: .bold))
+                    }
+                    .foregroundColor(.primary.opacity(0.7))
+                    .padding(8)
+                    .background(Color.primary.opacity(0.06))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                .buttonStyle(.plain)
             }
             
             // 進捗バー
@@ -448,7 +484,7 @@ struct PaceLevelMeterView: View {
                 .frame(height: 6)
                 
                 HStack {
-                    Text("既読数: \(tracker.totalReadCount) 記事")
+                    Text("現在の木: \(tracker.currentCycleReadCount) 記事 (累計: \(tracker.totalReadCount))")
                         .font(.system(size: 10))
                         .foregroundStyle(.secondary)
                     
@@ -459,9 +495,38 @@ struct PaceLevelMeterView: View {
                             .font(.system(size: 10))
                             .foregroundStyle(.secondary)
                     } else {
-                        Text("MAX レベル")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundStyle(.secondary)
+                        // 植樹するボタン（パルスアニメーション付き）
+                        Button(action: {
+                            if let tree = tracker.transplantCurrentTree() {
+                                onTransplant(tree)
+                            }
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "sparkles")
+                                    .font(.system(size: 10))
+                                Text("森に植樹する 🌲")
+                                    .font(.system(size: 10, weight: .bold))
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .background(
+                                LinearGradient(
+                                    colors: [.mint, .green],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .clipShape(Capsule())
+                            .shadow(color: .mint.opacity(0.4), radius: 4, x: 0, y: 2)
+                        }
+                        .buttonStyle(.plain)
+                        .scaleEffect(isPulsing ? 1.06 : 1.0)
+                        .onAppear {
+                            withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                                isPulsing = true
+                            }
+                        }
                     }
                 }
             }
@@ -474,6 +539,9 @@ struct PaceLevelMeterView: View {
                 .stroke(Color.white.opacity(0.15), lineWidth: 1.5)
         )
         .shadow(color: .black.opacity(0.04), radius: 8, x: 0, y: 4)
+        .sheet(isPresented: $showForest) {
+            MyForestView()
+        }
     }
 }
 
@@ -606,6 +674,116 @@ struct CategoryBadge: View {
         .background(color.opacity(0.2))
         .foregroundStyle(color)
         .clipShape(Capsule())
+    }
+}
+
+// MARK: - 植樹成功お祝い用ポップアップ
+
+@available(iOS 26.0, macOS 26.0, *)
+struct TransplantCelebrationView: View {
+    let tree: TransplantedTree
+    let onDismiss: () -> Void
+    
+    private var gradientColors: [Color] {
+        tree.colorsHex.map { Color(hex: $0) }
+    }
+    
+    var body: some View {
+        ZStack {
+            // 背景の暗転
+            Color.black.opacity(0.45)
+                .ignoresSafeArea()
+                .transition(.opacity)
+            
+            // お祝いカード
+            VStack(spacing: 28) {
+                // キラキラエフェクトとツリーアイコン
+                ZStack {
+                    Circle()
+                        .fill(gradientColors.first?.opacity(0.2) ?? .clear)
+                        .frame(width: 140, height: 140)
+                        .scaleEffect(1.2)
+                    
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: gradientColors,
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 100, height: 100)
+                        .shadow(color: gradientColors.first?.opacity(0.5) ?? .clear, radius: 12, x: 0, y: 6)
+                    
+                    Image(systemName: tree.iconName)
+                        .font(.system(size: 44))
+                        .foregroundColor(.white)
+                }
+                
+                VStack(spacing: 12) {
+                    Text("祝・植樹完了！")
+                        .font(.title2)
+                        .fontWeight(.heavy)
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.mint, .blue, .purple],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                    
+                    Text("第\(tree.cycleIndex)代目の大樹")
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+                    
+                    Text(tree.title)
+                        .font(.title)
+                        .fontWeight(.bold)
+                }
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("苗木が最高レベルまで成長し、無事に「マイフォレスト」へ移植されました！")
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
+                        .multilineTextAlignment(.center)
+                    
+                    Text("これでマイフォレストに新たな息吹が加わりました。新しい種を植えて、さらにクリアな呼吸と健康の旅を続けましょう。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .padding()
+                .background(Color.primary.opacity(0.03))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                
+                Button(action: onDismiss) {
+                    Text("新しい種を植える 🌱")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            LinearGradient(
+                                colors: [.mint, .blue],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .clipShape(Capsule())
+                        .shadow(color: .mint.opacity(0.4), radius: 6, x: 0, y: 3)
+                }
+            }
+            .padding(32)
+            .background(Color(.systemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 24))
+            .overlay(
+                RoundedRectangle(cornerRadius: 24)
+                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.25), radius: 25, x: 0, y: 12)
+            .padding(.horizontal, 30)
+            .transition(.scale.combined(with: .opacity))
+        }
     }
 }
 

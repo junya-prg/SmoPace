@@ -142,6 +142,7 @@ class ArticleFetchService: ObservableObject {
                         url: modified.url,
                         description: modified.description,
                         aiSummary: modified.aiSummary,
+                        summaryDigest: modified.summaryDigest,
                         category: modified.category,
                         relevanceScore: modified.relevanceScore,
                         isAIProcessed: modified.isAIProcessed,
