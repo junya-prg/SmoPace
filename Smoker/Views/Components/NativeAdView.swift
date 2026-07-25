@@ -385,12 +385,53 @@ class NativeAdLoader: NSObject, ObservableObject, AdLoaderDelegate, NativeAdLoad
     }
 }
 
-// MARK: - 記事リストに広告を挿入するヘルパー
+/// インフィードカードのテーマ・キーワード種別
+enum DealCategoryType: String, CaseIterable, Identifiable {
+    case general = "general"        // 周辺機器・便利グッズ
+    case deodorant = "deodorant"      // 消臭・エチケットケア
+    case ashtrayCase = "ashtrayCase"  // 携帯灰皿・タバコケース
+    
+    var id: String { rawValue }
+    
+    var title: String {
+        switch self {
+        case .general:
+            return "周辺機器・便利グッズ"
+        case .deodorant:
+            return "消臭・エチケットケア"
+        case .ashtrayCase:
+            return "携帯灰皿・タバコケース"
+        }
+    }
+    
+    var iconName: String {
+        switch self {
+        case .general:
+            return "cart.fill"
+        case .deodorant:
+            return "sparkles"
+        case .ashtrayCase:
+            return "shippingbox.fill"
+        }
+    }
+    
+    var keyword: String {
+        switch self {
+        case .general:
+            return "タバコ 周辺機器 タイムセール"
+        case .deodorant:
+            return "喫煙者 口臭ケア 消臭スプレー 衣類 タイムセール"
+        case .ashtrayCase:
+            return "タバコ 携帯灰皿 密閉 ケース タイムセール"
+        }
+    }
+}
 
-/// 記事と広告を混在させたリストアイテム
+/// 記事、広告、周辺機器タイムセールカードを混在させたリストアイテム
 enum ArticleListItem: Identifiable {
     case article(Article)
     case ad(id: String)
+    case gadgetDealsCard(id: String, category: DealCategoryType)
     
     var id: String {
         switch self {
@@ -398,30 +439,55 @@ enum ArticleListItem: Identifiable {
             return article.id.uuidString
         case .ad(let id):
             return "ad_\(id)"
+        case .gadgetDealsCard(let id, _):
+            return "deals_\(id)"
         }
     }
 }
 
-/// 記事リストに広告を挿入する
+/// 記事リストに広告と周辺機器タイムセールカードを挿入（十分な間隔を空けて配置）
 /// - Parameters:
 ///   - articles: 元の記事リスト
 ///   - interval: 広告を挿入する間隔（記事数）
-/// - Returns: 広告が挿入されたリストアイテム
+/// - Returns: 広告および特集カードが挿入されたリストアイテム
 func insertAdsIntoArticles(_ articles: [Article], interval: Int = AdConfiguration.nativeAdInterval) -> [ArticleListItem] {
-    guard AdConfiguration.showNativeInAINews else {
-        return articles.map { .article($0) }
-    }
-    
     var result: [ArticleListItem] = []
+    let showAd = AdConfiguration.showNativeInAINews
+    let totalCount = articles.count
+    
+    // 十分な記事間隔（7〜8記事離す）を設定
+    // 1つ目: 4番目の記事の後 (index 3)
+    // 2つ目: 11番目の記事の後 (index 10) ※ 記事が11件以上ある場合
+    // 3つ目: 18番目の記事の後 (index 17) ※ 記事が18件以上ある場合
+    let firstCardIndex = 3
+    let secondCardIndex = 10
+    let thirdCardIndex = 17
     
     for (index, article) in articles.enumerated() {
         result.append(.article(article))
         
-        // 1つ目の記事の直後（index == 0）に1個目を必ず表示（2個目に配置）
-        if index == 0 {
-            result.append(.ad(id: "first"))
-        } else if index % interval == 0 && index < articles.count - 1 {
-            result.append(.ad(id: "seq_\(index)"))
+        // 1つ目のインフィードカード: 「周辺機器・便利グッズ」
+        if index == firstCardIndex {
+            result.append(.gadgetDealsCard(id: "deals_1", category: .general))
+        }
+        
+        // 2つ目のインフィードカード: 「消臭・エチケットケア」（1つ目から7記事以上あける）
+        if index == secondCardIndex && totalCount > secondCardIndex {
+            result.append(.gadgetDealsCard(id: "deals_2", category: .deodorant))
+        }
+        
+        // 3つ目のインフィードカード: 「携帯灰皿・タバコケース」（2つ目から7記事以上あける）
+        if index == thirdCardIndex && totalCount > thirdCardIndex {
+            result.append(.gadgetDealsCard(id: "deals_3", category: .ashtrayCase))
+        }
+        
+        // AdMob広告の挿入（ポリシー通り）
+        if showAd {
+            if index == 0 {
+                result.append(.ad(id: "first"))
+            } else if index > 1 && index % interval == 0 && index < articles.count - 1 {
+                result.append(.ad(id: "seq_\(index)"))
+            }
         }
     }
     

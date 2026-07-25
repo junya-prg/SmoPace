@@ -7,9 +7,15 @@
 
 import SwiftUI
 import SwiftData
+import Combine
 import os
 
 private let logger = Logger(subsystem: "SmokeCounter", category: "AINewsView")
+
+struct IdentifiableURL: Identifiable {
+    let id = UUID()
+    let url: URL
+}
 
 /// AIニュース画面
 @available(iOS 26.0, macOS 26.0, *)
@@ -18,6 +24,32 @@ struct AINewsView: View {
     @State private var viewModel = AINewsViewModel()
     @State private var selectedArticle: Article?
     @State private var transplantedTree: TransplantedTree?
+    @State private var selectedSafariURL: IdentifiableURL?
+    
+    /// AmazonアソシエイトURL（カテゴリに応じた個別の動的検索URLを生成）
+    private func dealsAmazonURL(for category: DealCategoryType? = nil) -> URL {
+        let associateTag = "smopace-22"
+        let keyword: String
+        if let category = category {
+            keyword = category.keyword
+        } else {
+            let queries = [
+                "タバコ 携帯灰皿 密閉 おしゃれ タイムセール",
+                "喫煙者 口臭ケア 消臭スプレー 衣類 タイムセール",
+                "タバコ ケース ライター 節煙グッズ タイムセール",
+                "タバコ ヤニ取り 歯磨き粉 タイムセール",
+                "加熱式タバコ 紙巻きタバコ 周辺機器 タイムセール"
+            ]
+            let day = Calendar.current.component(.day, from: Date())
+            let hour = Calendar.current.component(.hour, from: Date())
+            let index = (day + hour) % queries.count
+            keyword = queries[index]
+        }
+        
+        let encoded = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let urlString = "https://www.amazon.co.jp/s?k=\(encoded)&pct-off=10-&tag=\(associateTag)"
+        return URL(string: urlString) ?? URL(string: "https://www.amazon.co.jp")!
+    }
     
     /// AIステータスに応じた色
     private var aiStatusColor: Color {
@@ -32,21 +64,26 @@ struct AINewsView: View {
         NavigationStack {
             ZStack {
                 VStack(spacing: 0) {
-                    // グラスモルフィズム風のレベルメーターを上部に配置
-                    PaceLevelMeterView(onTransplant: { tree in
-                        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-                            transplantedTree = tree
+                    // 数秒おきに自動切替されるヘッダーバナー（苗木メーター / 節煙成果 / ガジェットタイムセール）
+                    PaceCarouselHeaderBannerView(
+                        onTransplant: { tree in
+                            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                                transplantedTree = tree
+                            }
+                        },
+                        onOpenDeals: {
+                            selectedSafariURL = IdentifiableURL(url: dealsAmazonURL())
                         }
-                    })
-                        .padding(.horizontal)
-                        .padding(.top, 12)
+                    )
+                    .padding(.horizontal)
+                    .padding(.top, 8)
                     
                     // カテゴリフィルター
                     CategoryFilterView(
                         categories: viewModel.allCategories,
                         selectedCategory: viewModel.selectedCategory,
                         onSelect: { category in
-                            viewModel.selectCategory(category)
+                            viewModel.selectedCategory = category
                         }
                     )
                     .padding(.vertical, 8)
@@ -56,20 +93,19 @@ struct AINewsView: View {
                         AIProcessingIndicatorView()
                     }
                     
-                    // 記事一覧
-                    Group {
-                        if viewModel.isLoading && viewModel.articles.isEmpty {
-                            LoadingView()
-                        } else if viewModel.filteredArticles.isEmpty {
-                            EmptyArticlesView(hasFilter: viewModel.selectedCategory != nil)
-                        } else {
-                            ArticleListView(
-                                articles: viewModel.filteredArticles,
-                                onSelect: { article in
-                                    selectedArticle = article
-                                }
-                            )
-                        }
+                    // 記事リスト（広告＆周辺機器タイムセールカードを挿入）
+                    if viewModel.filteredArticles.isEmpty && !viewModel.isLoading {
+                        EmptyArticlesView(hasFilter: viewModel.selectedCategory != nil)
+                    } else {
+                        ArticleListView(
+                            articles: viewModel.filteredArticles,
+                            onSelect: { article in
+                                selectedArticle = article
+                            },
+                            onSelectDealsCategory: { category in
+                                selectedSafariURL = IdentifiableURL(url: dealsAmazonURL(for: category))
+                            }
+                        )
                     }
                 }
                 
@@ -116,6 +152,10 @@ struct AINewsView: View {
                     .foregroundStyle(aiStatusColor)
                 }
             }
+            .sheet(item: $selectedSafariURL) { item in
+                SafariView(url: item.url)
+                    .ignoresSafeArea()
+            }
             .onAppear {
                 logger.notice("📱 AINewsView onAppear")
                 viewModel.resumeAIProcessingIfNeeded(modelContext: modelContext)
@@ -150,38 +190,23 @@ struct CategoryFilterView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                // 全て表示ボタン
+                // すべて
                 FilterChip(
-                    title: String(localized: "すべて"),
+                    title: "すべて",
                     isSelected: selectedCategory == nil,
-                    color: .blue
-                ) {
-                    onSelect(nil)
-                }
+                    action: { onSelect(nil) }
+                )
                 
-                // 各カテゴリボタン
-                ForEach(categories) { category in
+                // 各カテゴリ
+                ForEach(categories, id: \.self) { category in
                     FilterChip(
                         title: category.displayName,
-                        icon: category.iconName,
                         isSelected: selectedCategory == category,
-                        color: categoryColor(for: category)
-                    ) {
-                        onSelect(category)
-                    }
+                        action: { onSelect(category) }
+                    )
                 }
             }
             .padding(.horizontal)
-        }
-    }
-    
-    private func categoryColor(for category: ArticleCategory) -> Color {
-        switch category {
-        case .newProducts: return .blue
-        case .industry: return .orange
-        case .trivia: return .purple
-        case .quitting: return .green
-        case .other: return .gray
         }
     }
 }
@@ -189,28 +214,20 @@ struct CategoryFilterView: View {
 /// フィルターチップ
 struct FilterChip: View {
     let title: String
-    var icon: String? = nil
     let isSelected: Bool
-    let color: Color
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 4) {
-                if let icon = icon {
-                    Image(systemName: icon)
-                        .font(.caption)
-                }
-                Text(title)
-                    .font(.subheadline)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(isSelected ? color : Color(.systemGray6))
-            .foregroundStyle(isSelected ? .white : .primary)
-            .clipShape(Capsule())
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(isSelected ? .bold : .regular)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(isSelected ? Color.blue : Color(.systemGray6))
+                .foregroundColor(isSelected ? .white : .primary)
+                .clipShape(Capsule())
         }
-        .buttonStyle(.plain)
     }
 }
 
@@ -256,12 +273,13 @@ struct EmptyArticlesView: View {
     }
 }
 
-/// 記事一覧ビュー
+/// 記事リストビュー
 struct ArticleListView: View {
     let articles: [Article]
     let onSelect: (Article) -> Void
+    let onSelectDealsCategory: (DealCategoryType) -> Void
     
-    /// 広告が挿入されたリストアイテム
+    /// 広告および周辺機器カードが挿入されたリストアイテム
     private var listItems: [ArticleListItem] {
         insertAdsIntoArticles(articles)
     }
@@ -282,9 +300,90 @@ struct ArticleListView: View {
                 NativeAdView()
                     .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                     .listRowSeparator(.hidden)
+                    
+            case .gadgetDealsCard(_, let category):
+                GadgetDealsInfeedCardView(category: category, onTap: {
+                    onSelectDealsCategory(category)
+                })
+                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                .listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)
+    }
+}
+
+/// タバコ周辺機器・便利グッズのインフィードカード（ネイビー系・枠線なし・極小コンパクト帯デザイン）
+struct GadgetDealsInfeedCardView: View {
+    @Environment(\.colorScheme) private var colorScheme
+    let category: DealCategoryType
+    let onTap: () -> Void
+    
+    private var navyGradientColors: [Color] {
+        if colorScheme == .dark {
+            // ダークモード用: 前回の深みのあるシックなネイビー
+            return [
+                Color(red: 0.08, green: 0.12, blue: 0.24),
+                Color(red: 0.14, green: 0.20, blue: 0.35)
+            ]
+        } else {
+            // ライトモード用: 重くならない爽やかで洗練されたネイビー
+            return [
+                Color(red: 0.12, green: 0.22, blue: 0.42),
+                Color(red: 0.18, green: 0.30, blue: 0.52)
+            ]
+        }
+    }
+    
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 12) {
+                // アイコン
+                ZStack {
+                    Circle()
+                        .fill(Color.white.opacity(0.12))
+                        .frame(width: 36, height: 36)
+                    
+                    Image(systemName: category.iconName)
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.orange)
+                }
+                
+                // メインタイトル
+                Text(category.title)
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                // Amazon 表示
+                HStack(spacing: 4) {
+                    Text("Amazon")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.85))
+                    
+                    Image(systemName: "arrow.up.right.square.fill")
+                        .font(.system(size: 12))
+                        .foregroundColor(.orange)
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(Color.white.opacity(0.12))
+                .clipShape(Capsule())
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .background(
+                LinearGradient(
+                    colors: navyGradientColors,
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .shadow(color: Color.black.opacity(colorScheme == .dark ? 0.25 : 0.08), radius: 4, x: 0, y: 2)
+        }
+        .buttonStyle(.plain)
     }
 }
 
@@ -338,7 +437,7 @@ struct ArticleCardView: View {
                 .font(.headline)
                 .lineLimit(2)
             
-            // 要約（AI処理済みの場合はAI要約、そうでない場合は記事概要）
+            //要約（AI処理済みの場合はAI要約、そうでない場合は記事概要）
             let displaySummary = article.aiSummary ?? article.description
             if let summary = displaySummary {
                 HStack(alignment: .top, spacing: 8) {
@@ -386,9 +485,134 @@ struct ArticleCardView: View {
     }
 }
 
-// MARK: - 新規UIコンポーネント（レベルメーター ＆ お祝いポップアップ）
+// MARK: - 新規UIコンポーネント（レベルメーター・カルーセルバナー ＆ お祝いポップアップ）
 
-/// ペースの苗木レベルメーター（グラスモルフィズム風）
+/// 数秒おきに自動切替されるヘッダーバナー（Slide 0: 苗木メーター / Slide 1: 周辺機器タイムセール）
+struct PaceCarouselHeaderBannerView: View {
+    let onTransplant: (TransplantedTree) -> Void
+    let onOpenDeals: () -> Void
+    
+    @State private var currentPage = 0
+    private let timer = Timer.publish(every: 4.5, on: .main, in: .common).autoconnect()
+    
+    var body: some View {
+        VStack(spacing: 6) {
+            TabView(selection: $currentPage) {
+                // Slide 0: 苗木レベルメーター
+                PaceLevelMeterView(onTransplant: onTransplant)
+                    .tag(0)
+                
+                // Slide 1: タバコ周辺機器・便利グッズタイムセール
+                GadgetDealsHeaderCard(onTap: onOpenDeals)
+                    .tag(1)
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(height: 94)
+            
+            // ドットインジケーター（2枚構成）
+            HStack(spacing: 5) {
+                ForEach(0..<2) { index in
+                    Capsule()
+                        .fill(currentPage == index ? Color.mint : Color.gray.opacity(0.3))
+                        .frame(width: currentPage == index ? 14 : 5, height: 5)
+                        .animation(.spring(response: 0.3), value: currentPage)
+                }
+            }
+        }
+        .onReceive(timer) { _ in
+            withAnimation(.easeInOut(duration: 0.5)) {
+                currentPage = (currentPage + 1) % 2
+            }
+        }
+    }
+}
+
+
+
+/// ガジェット＆周辺機器タイムセールヘッダーカード（インフィードカードとトーン統一したネイビーデザイン・94ptスリム版）
+struct GadgetDealsHeaderCard: View {
+    @Environment(\.colorScheme) private var colorScheme
+    let onTap: () -> Void
+    
+    private var navyGradientColors: [Color] {
+        if colorScheme == .dark {
+            // ダークモード用: 前回の深みのあるシックなネイビー
+            return [
+                Color(red: 0.08, green: 0.12, blue: 0.24),
+                Color(red: 0.14, green: 0.20, blue: 0.35)
+            ]
+        } else {
+            // ライトモード用: 重くならない爽やかで洗練されたネイビー
+            return [
+                Color(red: 0.12, green: 0.22, blue: 0.42),
+                Color(red: 0.18, green: 0.30, blue: 0.52)
+            ]
+        }
+    }
+    
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 12) {
+                ZStack {
+                    Circle()
+                        .fill(Color.white.opacity(0.15))
+                        .frame(width: 40, height: 40)
+                    
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 18))
+                        .foregroundColor(.orange)
+                }
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 6) {
+                        Text("周辺機器・便利グッズ")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        
+                        Text("タイムセール")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.orange.opacity(0.25))
+                            .foregroundColor(.orange)
+                            .clipShape(Capsule())
+                    }
+                    
+                    Text("携帯灰皿・ケース・消臭スプレー・ヤニ取り")
+                        .font(.system(size: 10))
+                        .foregroundColor(.white.opacity(0.8))
+                    
+                    HStack(spacing: 3) {
+                        Text("Amazonでお得なセール品をチェック")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.orange)
+                        Image(systemName: "arrow.up.right.square.fill")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(.orange)
+                    }
+                }
+                
+                Spacer(minLength: 0)
+            }
+            .padding(10)
+            .frame(height: 94)
+            .background(
+                LinearGradient(
+                    colors: navyGradientColors,
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .shadow(color: .black.opacity(colorScheme == .dark ? 0.3 : 0.08), radius: 6, x: 0, y: 3)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+/// ペースの苗木レベルメーター（全体タップで「森」へ遷移・94ptスリム版）
 struct PaceLevelMeterView: View {
     let onTransplant: (TransplantedTree) -> Void
     
@@ -401,27 +625,27 @@ struct PaceLevelMeterView: View {
     @State private var isPulsing = false
     
     var body: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 16) {
+        VStack(spacing: 6) {
+            HStack(spacing: 10) {
                 // レベルアイコン（グラデーション背景つき）
                 ZStack {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [tracker.currentLevel.color.opacity(0.2), tracker.currentLevel.color],
+                                colors: [tracker.currentLevel.color.opacity(0.25), tracker.currentLevel.color],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
-                        .frame(width: 50, height: 50)
-                        .shadow(color: tracker.currentLevel.color.opacity(0.3), radius: 5, x: 0, y: 3)
+                        .frame(width: 40, height: 40)
+                        .shadow(color: tracker.currentLevel.color.opacity(0.25), radius: 4, x: 0, y: 2)
                     
                     Image(systemName: tracker.currentLevel.iconName)
-                        .font(.title3)
+                        .font(.system(size: 18))
                         .foregroundColor(.white)
                 }
                 
-                VStack(alignment: .leading, spacing: 3) {
+                VStack(alignment: .leading, spacing: 1) {
                     HStack(alignment: .bottom, spacing: 6) {
                         Text(tracker.currentLevel.title)
                             .font(.headline)
@@ -434,41 +658,36 @@ struct PaceLevelMeterView: View {
                     }
                     
                     Text(tracker.currentLevel.levelDescription)
-                        .font(.system(size: 11))
+                        .font(.system(size: 10))
                         .foregroundStyle(.secondary)
-                        .lineLimit(2)
+                        .lineLimit(1)
                 }
                 
-                Spacer()
+                Spacer(minLength: 0)
                 
-                // マイフォレスト（森）ボタン
-                Button(action: {
-                    showForest = true
-                }) {
-                    VStack(spacing: 2) {
-                        Image(systemName: "tree.fill")
-                            .font(.system(size: 18))
-                        Text("森")
-                            .font(.system(size: 9, weight: .bold))
-                    }
-                    .foregroundColor(.primary.opacity(0.7))
-                    .padding(8)
-                    .background(Color.primary.opacity(0.06))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                // マイフォレスト（森）表示
+                HStack(spacing: 3) {
+                    Image(systemName: "tree.fill")
+                        .font(.system(size: 11))
+                    Text("森")
+                        .font(.system(size: 11, weight: .bold))
                 }
-                .buttonStyle(.plain)
+                .foregroundColor(.mint)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(Color.mint.opacity(0.12))
+                .clipShape(Capsule())
             }
             
-            // 進捗バー
-            VStack(spacing: 4) {
+            // コンパクト進捗バーと情報 / 植樹ボタン
+            HStack(spacing: 8) {
+                // ゲージバー
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
-                        // 背景レール
                         Capsule()
-                            .fill(Color.primary.opacity(0.06))
+                            .fill(Color.primary.opacity(0.08))
                             .frame(height: 6)
                         
-                        // ゲージ
                         Capsule()
                             .fill(
                                 LinearGradient(
@@ -478,60 +697,45 @@ struct PaceLevelMeterView: View {
                                 )
                             )
                             .frame(width: geometry.size.width * tracker.levelProgress, height: 6)
-                            .shadow(color: Color.mint.opacity(0.2), radius: 2, x: 0, y: 1)
                     }
                 }
                 .frame(height: 6)
                 
-                HStack {
-                    Text("現在の木: \(tracker.currentCycleReadCount) 記事 (累計: \(tracker.totalReadCount))")
-                        .font(.system(size: 10))
+                if tracker.currentLevel.next != nil {
+                    Text("次のレベルまであと\(tracker.articlesUntilNextLevel)記事")
+                        .font(.system(size: 9, weight: .medium))
                         .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    if let nextLevel = tracker.currentLevel.next {
-                        Text("次のレベルまであと \(tracker.articlesUntilNextLevel) 記事")
-                            .font(.system(size: 10))
-                            .foregroundStyle(.secondary)
-                    } else {
-                        // 植樹するボタン（パルスアニメーション付き）
-                        Button(action: {
-                            if let tree = tracker.transplantCurrentTree() {
-                                onTransplant(tree)
-                            }
-                        }) {
-                            HStack(spacing: 4) {
-                                Image(systemName: "sparkles")
-                                    .font(.system(size: 10))
-                                Text("森に植樹する 🌲")
-                                    .font(.system(size: 10, weight: .bold))
-                            }
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .background(
-                                LinearGradient(
-                                    colors: [.mint, .green],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .clipShape(Capsule())
-                            .shadow(color: .mint.opacity(0.4), radius: 4, x: 0, y: 2)
+                } else {
+                    // 植樹可能時ボタン
+                    Button(action: {
+                        if let tree = tracker.transplantCurrentTree() {
+                            onTransplant(tree)
                         }
-                        .buttonStyle(.plain)
-                        .scaleEffect(isPulsing ? 1.06 : 1.0)
-                        .onAppear {
-                            withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
-                                isPulsing = true
-                            }
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "sparkles")
+                                .font(.system(size: 9))
+                            Text("植樹する 🌲")
+                                .font(.system(size: 9, weight: .bold))
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.mint)
+                        .clipShape(Capsule())
+                    }
+                    .buttonStyle(.plain)
+                    .scaleEffect(isPulsing ? 1.05 : 1.0)
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                            isPulsing = true
                         }
                     }
                 }
             }
         }
-        .padding(14)
+        .padding(10)
+        .frame(height: 94)
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
@@ -539,6 +743,10 @@ struct PaceLevelMeterView: View {
                 .stroke(Color.white.opacity(0.15), lineWidth: 1.5)
         )
         .shadow(color: .black.opacity(0.04), radius: 8, x: 0, y: 4)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            showForest = true
+        }
         .sheet(isPresented: $showForest) {
             MyForestView()
         }

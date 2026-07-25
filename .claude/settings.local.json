@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(xcodebuild -project SmoPace.xcodeproj -scheme Smoker -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -configuration Debug build)",
-      "WebFetch(domain:junya-prg.github.io)"
+      "WebFetch(domain:junya-prg.github.io)",
+      "WebSearch",
+      "Bash(open \"/Users/hondajunya/.claude/projects/-Users-hondajunya-00-work-94----SmoPace/memory/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://junya-prg.github.io/SmoPace/goods.json\" --max-time 10)",
+      "Bash(git -C /Users/hondajunya/00_work/94_自作/SmoPace remote -v)",
+      "Bash(curl -s -o /dev/null -w \"privacy-policy: %{http_code}\\\\n\" \"https://junya-prg.github.io/SmoPace/privacy-policy.html\" --max-time 10)",
+      "Bash(curl -s -o /dev/null -w \"pages root: %{http_code}\\\\n\" \"https://junya-prg.github.io/SmoPace/\" --max-time 10)",
+      "Bash(python3 -c ' *)",
+      "Bash(xcodebuild -project SmoPace.xcodeproj -list)",
+      "Bash(xcodebuild -project SmoPace.xcodeproj -scheme Smoker -destination 'generic/platform=iOS Simulator' -configuration Debug build -quiet)"
     ]
   }
 }

@@ -67,8 +67,8 @@ struct PrivacyPolicyView: View {
                         Text("記録データは、ユーザーのデバイス上のローカルストレージおよびiCloud（有効な場合）に保存されます。ユーザーはいつでもアプリを削除することでローカルデータを削除できます。iCloudに保存されたデータは、iCloudの設定から削除できます。")
                     }
                     
-                    // 広告について
-                    PolicySection(title: "広告について") {
+                    // 広告・アフィリエイトについて
+                    PolicySection(title: "広告・アフィリエイトについて") {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("本アプリはGoogle AdMobを使用して広告を表示します。")
                             
@@ -78,6 +78,15 @@ struct PrivacyPolicyView: View {
                             
                             Link("Google プライバシーポリシー", destination: URL(string: "https://policies.google.com/privacy")!)
                                 .font(.subheadline)
+                            
+                            Divider()
+                                .padding(.vertical, 4)
+                            
+                            Text("Amazonアソシエイト・プログラムについて")
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                            
+                            Text("SmoPaceは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。")
                         }
                     }
                     
