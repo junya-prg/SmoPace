@@ -18,7 +18,7 @@ struct HomeView: View {
     /// 全画面リラックスモード
     @State private var isRelaxMode = false
     
-    /// 実際に表示する背景タイプ（起動時にランダムで決定）
+    /// 実際に表示する背景タイプ（表示時に設定から決定。初期値はランダム）
     @State private var actualBackgroundType: RelaxingBackgroundType = RelaxingBackgroundType.effectTypes.randomElement() ?? .campfire
     
     /// リラックスモードの案内表示
@@ -199,8 +199,8 @@ struct HomeView: View {
         .onAppear {
             viewModel.loadSettings(modelContext: modelContext)
             viewModel.loadTodayRecords(modelContext: modelContext)
-            // 表示時にランダムで背景を変更
-            actualBackgroundType = RelaxingBackgroundType.effectTypes.randomElement() ?? .campfire
+            // 設定に従って背景を決定（ランダム設定のときは表示ごとに抽選）
+            actualBackgroundType = resolveBackgroundType()
         }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             // アプリがアクティブになった時にデータを再読み込み
@@ -209,9 +209,24 @@ struct HomeView: View {
                 modelContext.processPendingChanges()
                 viewModel.loadSettings(modelContext: modelContext)
                 viewModel.loadTodayRecords(modelContext: modelContext)
-                // アクティブになるたびにランダムで背景を変更
-                actualBackgroundType = RelaxingBackgroundType.effectTypes.randomElement() ?? .campfire
+                // アクティブになるたびに設定に従って背景を決め直す
+                actualBackgroundType = resolveBackgroundType()
             }
+        }
+    }
+    
+    /// 設定値から実際に表示する背景を決める
+    /// - ランダム: エフェクト（マイ背景があればそれも候補）から抽選
+    /// - マイ背景: 画像が無ければ焚き火にフォールバック
+    private func resolveBackgroundType() -> RelaxingBackgroundType {
+        let hasCustom = CustomBackgroundStore.shared.exists
+        switch viewModel.backgroundType {
+        case .random:
+            return RelaxingBackgroundType.randomPool(hasCustom: hasCustom).randomElement() ?? .campfire
+        case .custom:
+            return hasCustom ? .custom : .campfire
+        case .none, .smoke, .fire, .campfire:
+            return viewModel.backgroundType
         }
     }
     

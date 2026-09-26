@@ -57,6 +57,9 @@ class HomeViewModel {
     /// 背景エフェクトの透明度
     var backgroundOpacity: Double = 0.4
 
+    /// 背景エフェクトの種類（設定値。ランダムは表示側で解決する）
+    var backgroundType: RelaxingBackgroundType = .random
+
     /// 通貨コード（ISO 4217、例: "JPY", "USD"）
     var currencyCode: String = "JPY"
     
@@ -228,6 +231,7 @@ class HomeViewModel {
             if let setting = settings.first {
                 dailyGoal = setting.dailyGoal
                 backgroundOpacity = setting.backgroundOpacity
+                backgroundType = setting.backgroundType
                 currencyCode = setting.currencyCode
 
                 // アクティブな銘柄を取得

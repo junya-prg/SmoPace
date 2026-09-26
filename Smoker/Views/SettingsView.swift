@@ -60,6 +60,15 @@ struct SettingsView: View {
                     .pickerStyle(.menu)
                 }
 
+                // リラックス背景セクション
+                Section("リラックス背景") {
+                    NavigationLink {
+                        RelaxBackgroundSettingsView()
+                    } label: {
+                        Label("背景とマイ背景の設定", systemImage: "photo.on.rectangle.angled")
+                    }
+                }
+
                 // 銘柄設定セクション
                 Section {
                     ForEach(brands) { brand in

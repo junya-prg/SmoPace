@@ -2074,6 +2074,358 @@
     },
     "黄金のライフツリー" : {
 
+    },
+    "AIで背景を作る" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create with AI"
+          }
+        }
+      }
+    },
+    "Image Playground はこの端末では利用できません" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image Playground is not available on this device"
+          }
+        }
+      }
+    },
+    "あなたが作った背景" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A background you created"
+          }
+        }
+      }
+    },
+    "なし" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "ゆらめく煙" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drifting smoke"
+          }
+        }
+      }
+    },
+    "エラー" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "キャンプの焚き火" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A campfire under the stars"
+          }
+        }
+      }
+    },
+    "テーマ" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme"
+          }
+        }
+      }
+    },
+    "マイ背景" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Background"
+          }
+        }
+      }
+    },
+    "ランダム" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random"
+          }
+        }
+      }
+    },
+    "リラックス背景" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relax Background"
+          }
+        }
+      }
+    },
+    "作った画像や選んだ写真の上に、陽炎と火の粉の演出が重なります。画像はこの端末にだけ保存されます。" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heat haze and embers are layered over your image. The image is stored only on this device."
+          }
+        }
+      }
+    },
+    "写真から選ぶ" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose from Photos"
+          }
+        }
+      }
+    },
+    "夜のキャンプ場で静かに燃える焚き火。暖かいオレンジの光、星空、穏やかで癒される雰囲気、写実的な写真" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A campfire burning quietly at a campsite at night. Warm orange glow, starry sky, calm and soothing mood, photorealistic photo"
+          }
+        }
+      }
+    },
+    "夜の海辺" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seaside at Night"
+          }
+        }
+      }
+    },
+    "夜の焚き火" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campfire at Night"
+          }
+        }
+      }
+    },
+    "暖炉" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fireplace"
+          }
+        }
+      }
+    },
+    "月明かりに照らされた静かな夜の海辺。穏やかな波、深い青の空、癒される雰囲気、写実的な写真" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A quiet seaside at night lit by moonlight. Gentle waves, deep blue sky, soothing mood, photorealistic photo"
+          }
+        }
+      }
+    },
+    "朝の森" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morning Forest"
+          }
+        }
+      }
+    },
+    "朝霧に包まれた静かな森。木漏れ日、緑の葉、深呼吸したくなる清々しい雰囲気、写実的な写真" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A quiet forest wrapped in morning mist. Sunlight through the trees, green leaves, fresh air you want to breathe in, photorealistic photo"
+          }
+        }
+      }
+    },
+    "温かな炎" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warm flames"
+          }
+        }
+      }
+    },
+    "炎" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fire"
+          }
+        }
+      }
+    },
+    "焚き火" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campfire"
+          }
+        }
+      }
+    },
+    "煙" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smoke"
+          }
+        }
+      }
+    },
+    "画像を保存できませんでした" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not save the image"
+          }
+        }
+      }
+    },
+    "画像を読み込めませんでした" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not load the image"
+          }
+        }
+      }
+    },
+    "背景とマイ背景の設定" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background & My Background"
+          }
+        }
+      }
+    },
+    "背景なし" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No background"
+          }
+        }
+      }
+    },
+    "背景の種類" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background"
+          }
+        }
+      }
+    },
+    "背景を削除" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Background"
+          }
+        }
+      }
+    },
+    "薪が燃える暖炉のある落ち着いたリビング。柔らかい光、木のぬくもり、リラックスした雰囲気、写実的な写真" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cozy living room with a wood-burning fireplace. Soft light, warm wood tones, relaxed mood, photorealistic photo"
+          }
+        }
+      }
+    },
+    "起動時にランダム" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random on launch"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
